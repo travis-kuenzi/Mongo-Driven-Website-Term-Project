@@ -7,6 +7,38 @@ WK2 Update(Apr10 after class)
 William, Nina, Travis will meet tmr Thursday 1230
 Next WK3 wendsday, we would give Andrew our sample complex data type as he requires.
 Please see around.
+April 11 update:
+class MusicPage {
+private:
+    Picture pictures;
+    Composer composer;
+    Song song;
+    string comments;
+
+public:
+    // Public methods and members
+};
+
+class Song {
+private:
+    Composer composer;
+    Genre genre;
+    // Other members and methods
+};
+
+class Genre {
+private:
+    string genre;
+    // Other members and methods
+};
+
+class Composer {
+private:
+    string description;
+    string lyrics;
+    // Other members and methods
+};
+
 
 (william) Yifei Zhao
 yzhao7@my.chemeketa.edu
