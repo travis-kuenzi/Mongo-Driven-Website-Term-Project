@@ -12,7 +12,7 @@ Please see around.
 yzhao7@my.chemeketa.edu
 Nina
 nturney@chemeketa.edu
-Sophia
+Sophia Liu
 sophiayfliu@gmail.com
 Travis
 tkuenz20@my.chemeketa.edu
