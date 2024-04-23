@@ -13,13 +13,19 @@ try create some conflics and practice mergins
 (Apr15 Monday) William, Nina, Travis, and Sophia decided on topic, data types, and whose responsibility for owning each data type. 
 (Apr17 Wednesday) Sophia sent Andrew an email with a list of team 2 data types.
 
-Topic: Music
-Instrument (by Travis)
-    genres
-    musicians
-    image
-    soundclip
-    history
+Travis's Class Chart:
+
+```mermaid
+classDiagram
+class Instrument {
+    +name:
+    +Image
+    +History
+    +Genres
+    +Musicians
+    +Sound Clip
+}
+
 Genre (by Nina)
     description 
     artists
