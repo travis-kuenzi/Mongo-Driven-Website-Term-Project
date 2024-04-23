@@ -3,6 +3,9 @@ This is CS290 Group 2's main repo 😸
 It will contain our basic information and code
 We have another google doc📄 for discussing and Github project page💻 for project tracking
 
+Wk4 Update: Made an temporary gitignore
+    Will be working on our Mermaid Diagram
+
 WK3 Update:
 Set up a /gitignore
 Make a mermaid diagram for datatypes
