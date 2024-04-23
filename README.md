@@ -13,7 +13,7 @@ try create some conflics and practice mergins
 (Apr15 Monday) William, Nina, Travis, and Sophia decided on topic, data types, and whose responsibility for owning each data type. 
 (Apr17 Wednesday) Sophia sent Andrew an email with a list of team 2 data types.
 
-Travis's Class Chart:
+Data Type Structured Diagrams Below:
 
 ```mermaid
 classDiagram
