@@ -3,43 +3,44 @@ This is CS290 Group 2's main repo 😸
 It will contain our basic information and code
 We have another google doc📄 for discussing and Github project page💻 for project tracking
 
+WK3 Update:
+Set up a /gitignore
+Make a mermaid diagram for datatypes
+try create some conflics and practice mergins
+(Apr15 Monday) William, Nina, Travis, and Sophia decided on topic, data types, and whose responsibility for owning each data type. 
+(Apr17 Wednesday) Sophia sent Andrew an email with a list of team 2 data types.
+
+Topic: Music
+Instrument (by Travis)
+    genres
+    musicians
+    image
+    soundclip
+    history
+Genre (by Nina)
+    description 
+    artists
+    songs
+    history
+Song (by Yifei(William))
+    sound clip
+    artist/composer
+    genre
+    instrument
+    video
+Musician (by Sophia)
+    pictures
+    anecdotes
+    songs
+    process
+
 WK2 Update(Apr10 after class)
 William, Nina, Travis will meet tmr Thursday 1230
 Next WK3 wendsday, we would give Andrew our sample complex data type as he requires.
 Please see around.
-April 11 update:
-class MusicPage {
-private:
-    Picture pictures;
-    Composer composer;
-    Song song;
-    string comments;
-
-public:
-    // Public methods and members
-};
-
-class Song {
-private:
-    Composer composer;
-    Genre genre;
-    // Other members and methods
-};
-
-class Genre {
-private:
-    string genre;
-    // Other members and methods
-};
-
-class Composer {
-private:
-    string description;
-    string lyrics;
-    // Other members and methods
-};
 
 
+Teammates Contact
 (william) Yifei Zhao
 yzhao7@my.chemeketa.edu
 Nina
@@ -53,3 +54,5 @@ google doc link:
 https://docs.google.com/document/d/1HSGYUsgJcubvtRpu8RelQNlYKIowSoGIGLC2T2jS1LA/edit?pli=1
 Github project track link (also can be seen top bar as 'projects')
 https://github.com/orgs/ChemeketaCS/projects/22/views/1
+Sophia's Final project ideas page:
+https://docs.google.com/document/d/1RaGtYDZ_dPJ0JbQ883z3_zTJDKY0bGpSdCKCP5NRS_A/edit
