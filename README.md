@@ -25,6 +25,7 @@ class Instrument {
     +Musicians
     +Sound Clip
 }
+```
 
 Genre (by Nina)
     description 
