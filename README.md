@@ -6,6 +6,59 @@ We have another google doc📄 for discussing and Github project page💻 for pr
 Wk4 Update: Made an temporary gitignore
     Will be working on our Mermaid Diagram
 
+# Project Documentation
+Here are our proposed data types:
+```mermaid
+classDiagram
+    class Topic {
+      Music
+    }
+
+    class Data_types {
+      + Instrument
+      + Genre
+      + Song
+      + Musician
+    }
+    
+    class Genre {
+      + Description
+      + Musicians
+      + Songs
+      + History
+    }
+
+    class Musician {
+      + Picture
+      + Anecdote
+      + Songs
+      + Process
+    }
+
+    class Song {
+      + Sound clip
+      + Musicians
+      + Genre
+      + Instrument
+      + Video
+    }
+
+    class Instrument {
+      + Genres
+      + Musicians
+      + Image
+      + Sound clip
+      + History
+    }
+
+    %%Links between entities - don't worry too much about details
+    Topic --o Data_types
+    Data_types --o Genre
+    Data_types --o Musician
+    Data_types --o Song
+    Data_types --o Instrument
+```
+
 WK3 Update:
 Set up a /gitignore
 Make a mermaid diagram for datatypes
