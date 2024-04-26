@@ -9,18 +9,7 @@ Wk4 Update: Made an temporary gitignore
 # Project Documentation
 Here are our proposed data types:
 ```mermaid
-classDiagram
-    class Topic {
-      Music
-    }
-
-    class Data_types {
-      + Instrument
-      + Genre
-      + Song
-      + Musician
-    }
-    
+classDiagram 
     class Genre {
       + Description
       + Musicians
@@ -52,11 +41,7 @@ classDiagram
     }
 
     %%Links between entities - don't worry too much about details
-    Topic --o Data_types
-    Data_types --o Genre
-    Data_types --o Musician
-    Data_types --o Song
-    Data_types --o Instrument
+    Musician --o Song
 ```
 
 WK3 Update:
@@ -66,6 +51,36 @@ try create some conflics and practice mergins
 (Apr15 Monday) William, Nina, Travis, and Sophia decided on topic, data types, and whose responsibility for owning each data type. 
 (Apr17 Wednesday) Sophia sent Andrew an email with a list of team 2 data types.
 
+Data Type Structured Diagrams Below:
+
+```mermaid
+classDiagram
+class Instrument {
+    +name:
+    +Image
+    +History
+    +Genres
+    +Musicians
+    +Sound Clip
+}
+```
+
+Genre (by Nina)
+    description 
+    artists
+    songs
+    history
+Song (by Yifei(William))
+    sound clip
+    artist/composer
+    genre
+    instrument
+    video
+Musician (by Sophia)
+    pictures
+    anecdotes
+    songs
+    process
 
 WK2 Update(Apr10 after class)
 William, Nina, Travis will meet tmr Thursday 1230
