@@ -11,6 +11,7 @@ Here are our proposed data types:
 ```mermaid
 classDiagram 
     class Genre {
+      + Name
       + Description
       + Musicians
       + Songs
@@ -18,6 +19,7 @@ classDiagram
     }
 
     class Musician {
+      + Name
       + Picture
       + Anecdote
       + Songs
@@ -25,6 +27,7 @@ classDiagram
     }
 
     class Song {
+      + Name
       + Sound clip
       + Musicians
       + Genre
@@ -33,8 +36,9 @@ classDiagram
     }
 
     class Instrument {
-      + Genres
-      + Musicians
+      + Name
+      + Genre
+      + Musician
       + Image
       + Sound clip
       + History
@@ -42,6 +46,8 @@ classDiagram
 
     %%Links between entities - don't worry too much about details
     Musician --o Song
+    Instrument --o Genre
+    Instrument --o Musician
 ```
 
 WK3 Update:
