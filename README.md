@@ -65,37 +65,6 @@ try create some conflics and practice mergins
 (Apr15 Monday) William, Nina, Travis, and Sophia decided on topic, data types, and whose responsibility for owning each data type. 
 (Apr17 Wednesday) Sophia sent Andrew an email with a list of team 2 data types.
 
-Data Type Structured Diagrams Below:
-
-```mermaid
-classDiagram
-class Instrument {
-    +name:
-    +Image
-    +History
-    +Genres
-    +Musicians
-    +Sound Clip
-}
-```
-
-Genre (by Nina)
-    description 
-    artists
-    songs
-    history
-Song (by Yifei(William))
-    sound clip
-    artist/composer
-    genre
-    instrument
-    video
-Musician (by Sophia)
-    pictures
-    anecdotes
-    songs
-    process
-
 WK2 Update(Apr10 after class)
 William, Nina, Travis will meet tmr Thursday 1230
 Next WK3 wendsday, we would give Andrew our sample complex data type as he requires.
