@@ -41,6 +41,7 @@ classDiagram
       + Image
       + Sound clip
       + History
+      + Instruments
     }
 
     %%Links between entities - don't worry too much about details
