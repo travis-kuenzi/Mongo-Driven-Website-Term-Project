@@ -37,10 +37,12 @@ classDiagram
 
     class Instrument {
       + Name
+      + History
+      + Category
       + Genre
       + Image
       + Sound clip
-      + History
+      
       + Instruments
     }
 
@@ -55,6 +57,7 @@ classDiagram
     Song --o Instrument
 
     Instrument --o Genre
+    Instrument --o Instrument
 ```
 
 WK3 Update:
