@@ -23,6 +23,15 @@ p{
     text-align: left;
 }
 
+a {
+  color: #333;
+}
+
+a:hover {
+  background-color: #ddd; /* Background color on hover */
+  color: black; /* Text color on hover */
+}
+
 .navbar {
     list-style-type: none; /* Remove default list styling */
     padding: 0; /* Remove default padding */
@@ -45,8 +54,3 @@ p{
     text-decoration: none; /* Remove underline */
   }
   
-  /* Change color on hover */
-  .navbar a:hover {
-    background-color: #ddd; /* Background color on hover */
-    color: black; /* Text color on hover */
-  }
