@@ -22,3 +22,35 @@ p{
     font-size: 1rem;
     text-align: left;
 }
+
+a {
+  color: #333;
+}
+
+a:hover {
+  background-color: #ddd; /* Background color on hover */
+  color: black; /* Text color on hover */
+}
+
+.navbar {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    background-color: #333; /* Background color */
+    overflow: hidden; /* Clear floats */
+  }
+  
+  /* Navbar list items */
+  .navbar li {
+    float: left; /* Float the list items to the left */
+  }
+  
+  /* Navbar links */
+  .navbar a {
+    display: block; /* Make the links block elements */
+    color: white; /* Text color */
+    text-align: center; /* Center-align the text */
+    padding: 14px 20px; /* Padding around the text */
+    text-decoration: none; /* Remove underline */
+  }
+  
