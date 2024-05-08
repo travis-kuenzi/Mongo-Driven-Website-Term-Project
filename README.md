@@ -47,17 +47,16 @@ classDiagram
     }
 
     %%Links between entities - don't worry too much about details
-    Musician "1" -- "1..*" Song 
+    Musician "1..*" -- "1..*" Song 
 
-    Genre "1" --o "*" Musician
-    Genre "1" --o "*" Song
+    Genre "1" -- "*" Musician
+    Genre "1..*" -- "*" Song
 
-    Song "1" --o "1..*" Musician
-    Song "1" --o "1..*" Genre
-    Song "1" --o "*" Instrument
+    Song "1" -- "1..*" Musician
+    Song "1" -- "*" Instrument
 
-    Instrument "1" --o "*" Genre
-    Instrument "1" --o "*" Instrument
+    Instrument "1" -- "*" Genre
+    Instrument "*" -- "*" Instrument
 ```
 
 WK3 Update:
