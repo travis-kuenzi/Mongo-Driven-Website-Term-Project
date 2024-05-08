@@ -26,15 +26,6 @@ classDiagram
       + Process
     }
 
-    class Song {
-      + Name
-      + Sound clip
-      + Musicians
-      + Genre
-      + Instrument
-      + Video
-    }
-
     class Instrument {
       + Name
       + History
@@ -44,6 +35,16 @@ classDiagram
       + Sound clip
       + Related Instruments
     }
+
+    class Song {
+      + Name
+      + Sound clip
+      + Musicians
+      + Genre
+      + Instrument
+      + Video
+    }
+
 
     %%Links between entities - don't worry too much about details
     Musician "1..*" -- "1..*" Song 
