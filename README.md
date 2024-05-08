@@ -60,24 +60,13 @@ classDiagram
 ```
 
 Relationships Descriptions:
+
 Instrument Relationship:
 * Each instrument has many genres (aggregation)
 * Each instrument is related to many other instruments (aggregation)
 
-WK3 Update:
-Set up a /gitignore
-Make a mermaid diagram for datatypes
-try create some conflics and practice mergins
-(Apr15 Monday) William, Nina, Travis, and Sophia decided on topic, data types, and whose responsibility for owning each data type. 
-(Apr17 Wednesday) Sophia sent Andrew an email with a list of team 2 data types.
 
-WK2 Update(Apr10 after class)
-William, Nina, Travis will meet tmr Thursday 1230
-Next WK3 wendsday, we would give Andrew our sample complex data type as he requires.
-Please see around.
-
-
-Teammates Contact
+Teammates Contact:
 (william) Yifei Zhao
 yzhao7@my.chemeketa.edu
 Nina
@@ -87,7 +76,7 @@ sophiayfliu@gmail.com
 Travis
 tkuenz20@my.chemeketa.edu
 
-google doc link:
+Google doc link:
 https://docs.google.com/document/d/1HSGYUsgJcubvtRpu8RelQNlYKIowSoGIGLC2T2jS1LA/edit?pli=1
 Github project track link (also can be seen top bar as 'projects')
 https://github.com/orgs/ChemeketaCS/projects/22/views/1
