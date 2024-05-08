@@ -38,12 +38,11 @@ classDiagram
     class Instrument {
       + Name
       + History
-      + Category
+      + Category/Family
       + Genre
       + Image
       + Sound clip
-      
-      + Instruments
+      + Related Instruments
     }
 
     %%Links between entities - don't worry too much about details
@@ -58,6 +57,11 @@ classDiagram
     Instrument "1" -- "*" Genre
     Instrument "*" -- "*" Instrument
 ```
+
+Relationships Descriptions:
+Instrument Relationship:
+* Each instrument has many genres (aggregation)
+* Each instrument is related to many other instruments (aggregation)
 
 WK3 Update:
 Set up a /gitignore
