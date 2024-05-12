@@ -51,6 +51,7 @@ classDiagram
 
     Genre "1" -- "*" Musician
     Genre "1..*" -- "*" Song
+    Genre "1..*" -- "*" Instrument
 
     Song "1" -- "1..*" Musician
     Song "1" -- "*" Instrument
