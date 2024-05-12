@@ -66,6 +66,11 @@ Instrument Relationship:
 * Each instrument has many genres (aggregation)
 * Each instrument is related to many other instruments (aggregation)
 
+Genre Relationship:
+* Each genre has one to many musicians
+* Each genre has many to many songs
+* Each genre has many to many instruments
+
 
 Teammates Contact:
 (william) Yifei Zhao
