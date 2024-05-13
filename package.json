@@ -1,18 +1,20 @@
 {
-  "name": "package.json",
+  "name": "myserver",
   "version": "1.0.0",
   "main": "app.mjs",
   "scripts": {
     "start": "node app.mjs",
     "dev": "nodemon app.mjs"
   },
-  "author": "Nina, Sophia, Travis, William",
+  "author": "",
   "license": "ISC",
-  "description": "json package for music server.",
+  "description": "",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
     "http-errors": "^2.0.0",
+    "mongoose": "^8.3.4",
     "node-fetch": "^3.3.2",
     "path": "^0.12.7"
   }
