@@ -1,14 +1,14 @@
 {
-  "name": "myserver",
+  "name": "musicserver",
   "version": "1.0.0",
   "main": "app.mjs",
   "scripts": {
     "start": "node app.mjs",
     "dev": "nodemon app.mjs"
   },
-  "author": "",
+  "author": "Nina, Sophia, Travis, William ",
   "license": "ISC",
-  "description": "",
+  "description": "Server for music project",
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^4.19.2",
