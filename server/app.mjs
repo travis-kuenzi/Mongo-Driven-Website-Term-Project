@@ -1,7 +1,12 @@
-
 import { default as express } from 'express';
 import { default as path } from 'path';
-import { default as createError } from 'http-errors'
+import { default as createError } from 'http-errors';
+
+// Import the route files
+import genreRoutes from './routes/genre.js';
+import musicianRoutes from './routes/musician.js';
+import instrumentRoutes from './routes/instrument.js';
+import songRoutes from './routes/song.js';
 
 // Create an express app
 const app = express();
@@ -13,7 +18,11 @@ const __dirname = import.meta.dirname;
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-
+// Integrate the routes
+app.use('/api/genres', genreRoutes);
+app.use('/api/musicians', musicianRoutes);
+app.use('/api/instruments', instrumentRoutes);
+app.use('/api/songs', songRoutes);
 
 //---------------------------------------------------
 // If no other route works, try looking for the file in the
