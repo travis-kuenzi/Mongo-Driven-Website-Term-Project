@@ -72,7 +72,7 @@ Genre Relationship:
 * Each genre has many to many instruments
 
 Musician Relationship:
-* 1 or many musicians has 1 or many other songs
+* 1 or many musicians has 1 or many songs
 
 Teammates Contact:
 (william) Yifei Zhao
