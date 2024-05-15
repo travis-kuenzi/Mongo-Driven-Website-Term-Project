@@ -78,14 +78,14 @@ Musician:
 
 Song:
 * Each song has one musician
-	* Relationship is stored on the Song side
-    	* When a song is deleted, update Musician with Nothing
+    * Relationship is stored on the Song side
+    * When a song is deleted, update Musician with Nothing
 * Each song has a few genres
-    	* Relationship stored on Song side
-	* When a song is deleted, update Genre with Nothing
+    * Relationship stored on Song side
+    * When a song is deleted, update Genre with Nothing
 * Each song has a few instruments
-	* Relationship stored on Song side
-    	* When a song is deleted, update Instrument with Nothing
+    * Relationship stored on Song side
+    * When a song is deleted, update Instrument with Nothing
 
 Teammates Contact:
 (william) Yifei Zhao
