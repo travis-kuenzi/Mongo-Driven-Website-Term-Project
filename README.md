@@ -27,13 +27,12 @@ classDiagram
     }
 
     class Instrument {
-      + Name
-      + History
-      + Category/Family
-      + Genre
-      + Image
-      + Sound clip
-      + Related Instruments
+      + string name
+      + string history
+      + string family
+      + Genre genres[]
+      + image
+      + soundClip
     }
 
     class Song {
@@ -47,32 +46,45 @@ classDiagram
 
 
     %%Links between entities - don't worry too much about details
-    Musician "1..*" -- "1..*" Song 
 
-    Genre "1" -- "*" Musician
-    Genre "1..*" -- "*" Song
-    Genre "1..*" -- "*" Instrument
-
+    Song "1" -- "0..*" Genre
     Song "1" -- "1..*" Musician
-    Song "1" -- "*" Instrument
+    Song "1" -- "0..*" Instrument
 
-    Instrument "1" -- "*" Genre
-    Instrument "*" -- "*" Instrument
+    Instrument "1" -- "0..*" Genre
 ```
+Relationships:
+Instrument:
+* Each instrument has a few genres
+    * Relationship stored on Instrument side
+    * When an instrument is deleted, Genre is updated with Nothing
+* An instrument has many songs
+    * Relationship stored on Song side
+    * When an instrument is deleted, Song is updated with Clear
+	
+Genre:
+* Each genre has many songs 
+     * Relationship stored on Song side.
+    * When a Genre is deleted, Song is updated with Clear
+* Each genre has many instruments
+    * Relationship stored on Instrument side
+    * When a genre is deleted, Instrument is updated with Clear
 
-Relationships Descriptions:
+Musician:
+* Each musician has many songs:
+    * Relationship stored on Song side.
+    * When a Musician is deleted, Song is updated with Cascade
 
-Instrument Relationship:
-* Each instrument has many genres (aggregation)
-* Each instrument is related to many other instruments (aggregation)
-
-Genre Relationship:
-* Each genre has one to many musicians
-* Each genre has many to many songs
-* Each genre has many to many instruments
-
-Musician Relationship:
-* 1 or many musicians has 1 or many songs
+Song:
+    * Each song has one musician
+        * Relationship is stored on the Song side
+        * When a song is deleted, update Musician with Nothing
+    * Each song has a few genres
+        * Relationship stored on Song side
+        * When a song is deleted, update Genre with Nothing
+    * A song has a few instruments
+        * Relationship stored on Song side
+        * When a song is deleted, update Instrument with Nothing
 
 Teammates Contact:
 (william) Yifei Zhao
