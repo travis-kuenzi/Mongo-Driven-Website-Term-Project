@@ -3,7 +3,7 @@ import express from 'express';
 const router = express.Router();
 
 // Get all instruments
-router.get('/', (req, res) => {
+router.get('/instruments', (req, res) => {
   res.send('GET all instruments');
 });
 
