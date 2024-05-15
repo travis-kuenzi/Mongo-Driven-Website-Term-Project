@@ -54,6 +54,7 @@ classDiagram
     Instrument "1" -- "0..*" Genre
 ```
 Relationships:
+
 Instrument:
 * Each instrument has a few genres
     * Relationship stored on Instrument side
@@ -76,15 +77,15 @@ Musician:
     * When a Musician is deleted, Song is updated with Cascade
 
 Song:
-    * Each song has one musician
-        * Relationship is stored on the Song side
-        * When a song is deleted, update Musician with Nothing
-    * Each song has a few genres
-        * Relationship stored on Song side
-        * When a song is deleted, update Genre with Nothing
-    * A song has a few instruments
-        * Relationship stored on Song side
-        * When a song is deleted, update Instrument with Nothing
+* Each song has one musician
+	* Relationship is stored on the Song side
+    	* When a song is deleted, update Musician with Nothing
+* Each song has a few genres
+    	* Relationship stored on Song side
+	* When a song is deleted, update Genre with Nothing
+* Each song has a few instruments
+	* Relationship stored on Song side
+    	* When a song is deleted, update Instrument with Nothing
 
 Teammates Contact:
 (william) Yifei Zhao
