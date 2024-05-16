@@ -31,8 +31,8 @@ classDiagram
       + string history
       + string family
       + Genre genres[]
-      + image
-      + soundClip
+      + string imageUri
+      + string soundClipUri
     }
 
     class Song {
