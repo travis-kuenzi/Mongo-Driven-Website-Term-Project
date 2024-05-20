@@ -8,9 +8,17 @@ const app = express();
 // Get the directory name of the current module
 const __dirname = import.meta.dirname;
 
+app.use(express.static('public'));
+
 // view engine setup
 //app.set("views", path.join(__dirname, "views"));
 //app.set("view engine", "ejs");
+
+// serve index.html as the route file
+app.get("/", (req, res) => {
+    let fileName = __dirname + "/public.index.html"
+    res.sendFile(fileName);
+  });
 
 app.get("/test", (req, res) => {
     res.send("You accessed /test");
@@ -36,13 +44,6 @@ app.use('/instrument', instrumentRouter);
 import {default as songRouter} from './routes/song.mjs';
 app.use('/song', songRouter);
 
-
-
-
-//---------------------------------------------------
-// If no other route works, try looking for the file in the
-// public folder
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 //---------------------------------------------------

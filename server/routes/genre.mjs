@@ -5,7 +5,7 @@ export default router;
 
 // Handle / ( within /user )
 router.get('/', (req, res) => {
-  res.send('This will be the genre page');
+  res.send('This will be the genre page... eventually this will show an ejs rendering');
 });
 
 /* // Create a new genre

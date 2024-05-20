@@ -5,7 +5,7 @@ export default router;
 
 // Handle / (within /song)
 router.get('/', (req, res) => {
-  res.send('This will be the songs page');
+  res.send('This will be the songs page... eventually this will show an ejs rendering');
 });
 
 

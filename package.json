@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "app.mjs",
   "scripts": {
-    "start": "node app.mjs",
-    "dev": "nodemon app.mjs"
+    "start": "node ./server/app.mjs",
+    "dev": "nodemon ./server/app.mjs"
   },
   "author": "Nina, Sophia, Travis, William ",
   "license": "ISC",
