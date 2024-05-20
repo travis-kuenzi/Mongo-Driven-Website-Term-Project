@@ -1,12 +1,6 @@
 import { default as express } from 'express';
 import { default as path } from 'path';
-import { default as createError } from 'http-errors';
-
-// Import the route files
-import genreRoutes from './routes/genre.js';
-import musicianRoutes from './routes/musician.js';
-import instrumentRoutes from './routes/instrument.js';
-import songRoutes from './routes/song.js';
+// import { default as createError } from 'http-errors';
 
 // Create an express app
 const app = express();
@@ -15,14 +9,35 @@ const app = express();
 const __dirname = import.meta.dirname;
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+//app.set("views", path.join(__dirname, "views"));
+//app.set("view engine", "ejs");
 
-// Integrate the routes
-app.use('/api/genres', genreRoutes);
-app.use('/api/musicians', musicianRoutes);
-app.use('/api/instruments', instrumentRoutes);
-app.use('/api/songs', songRoutes);
+app.get("/test", (req, res) => {
+    res.send("You accessed /test");
+  });
+  
+//---------------------------------------------------
+// Direct all /genre requests to the rules in routes/genre.mjs
+import {default as genreRouter} from './routes/genre.mjs';
+app.use('/genre', genreRouter);
+
+//---------------------------------------------------
+// Direct all /musician requests to the rules in routes/musician.mjs
+import {default as musicianRouter} from './routes/musician.mjs';
+app.use('/musician', musicianRouter);
+
+//---------------------------------------------------
+// Direct all /instrument requests to the rules in routes/instrument.mjs
+import {default as instrumentRouter} from './routes/instrument.mjs';
+app.use('/instrument', instrumentRouter);
+
+//---------------------------------------------------
+// Direct all /song requests to the rules in routes/song.mjs
+import {default as songRouter} from './routes/song.mjs';
+app.use('/song', songRouter);
+
+
+
 
 //---------------------------------------------------
 // If no other route works, try looking for the file in the
@@ -35,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res) {
     //send a custom 404 (file not found) page
     res.status(404);
-    res.sendFile(__dirname + "/public/404.html");
+    res.sendFile(__dirname + "/public/error.html");
     //---------------------------------------------------
 });
 
@@ -43,7 +58,7 @@ app.use(function (req, res) {
 //---------------------------------------------------
 // error handler - if any middleware above calls next(error)
 // this will handle it
-app.use(function (err, req, res) {
+/* app.use(function (err, req, res) {
     let message = err.message;
     console.log(req.app);
 
@@ -54,12 +69,12 @@ app.use(function (err, req, res) {
     body += `<h2>${err.status}</h2>`;
     body += `<pre>${err.stack}</pre>`;
     res.send(body);
-});
+}); */
 
 
 //---------------------------------------------------
 // Start the server
 const port = 3000;
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port} in directory ${__dirname}`);
+    console.log(`App listening on port ${port} in directory ${__dirname}`);
 });
