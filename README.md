@@ -11,11 +11,11 @@ Here are our proposed data types:
 ```mermaid
 classDiagram 
     class Genre {
-      + Name
-      + Description
-      + Musicians
-      + Songs
-      + History
+      + String Name
+      + String Description
+      + Songs Songs[]
+      + String History
+      + String Image
     }
 
     class Musician {
