@@ -8,8 +8,6 @@ import { default as mongoose } from "mongoose";
 //     attibute:{type:Schema.Types.ObjectId, ref: "Datatype"},
 // });
 
-// TODO: Virtuals
-// *
 
-// TODO: 
+
 // export default mongoose.model('Datatype', DatatypeSchema);
