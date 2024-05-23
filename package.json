@@ -4,7 +4,9 @@
   "main": "app.mjs",
   "scripts": {
     "start": "node ./server/app.mjs",
-    "dev": "nodemon ./server/app.mjs"
+    "dev": "nodemon ./server/app.mjs",
+    "addData": "node addData.mjs",
+    "testData": "node testData.mjs"
   },
   "author": "Nina, Sophia, Travis, William ",
   "license": "ISC",
