@@ -1,4 +1,3 @@
-This is William's test ReadMe file.
 This is CS290 Group 2's main repo 😸
 It will contain our basic information and code
 We have another google doc📄 for discussing and Github project page💻 for project tracking
@@ -36,12 +35,12 @@ classDiagram
     }
 
     class Song {
-      + Name
-      + Sound clip
-      + Musicians
-      + Genre
-      + Instrument
-      + Video
+      + string name
+      + string soundClipUri
+      + Musician musician
+      + Genre genres
+      + Instrument instrument
+      + string videoUri
     }
 
 
