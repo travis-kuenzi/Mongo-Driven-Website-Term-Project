@@ -1,15 +1,18 @@
-// import mongoose
-//get schema
+import { default as mongoose } from "mongoose";
+const Schema = mongoose.Schema;
 
-// var DatatypeSchema = new Schema({
-//     attibute:{type:Datatype},
-//     attibute:{type:Datatype},
-//     attibute:{type:Datatype},
-//     attibute:{type:Schema.Types.ObjectId, ref: "Datatype"},
-// });
+let MusicianSchema = new Schema({
+    name: { type: String, required: true },
+    picture: String,
+    anecdote: String,
+    //I names my datatype "Song" without "s"
+    //Hi Sophia!uncomment below if need this:
+    // Song: Song{ type: Schema.Types.ObjectId, ref: "Song"},
+    process: String
+  });
 
+ 
 // TODO: Virtuals
 // *
 
-// TODO: 
-// export default mongoose.model('musician', MusicianSchema);
+export default mongoose.model('Musician', MusicianSchema); 
