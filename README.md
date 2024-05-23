@@ -19,11 +19,11 @@ classDiagram
     }
 
     class Musician {
-      + Name
-      + Picture
-      + Anecdote
-      + Songs
-      + Process
+      + string Name
+      + string Picture
+      + string Anecdote
+      + Songs songs[]
+      + string Process
     }
 
     class Instrument {
