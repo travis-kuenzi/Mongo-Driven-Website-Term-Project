@@ -6,7 +6,9 @@
     "start": "node ./server/app.mjs",
     "dev": "nodemon ./server/app.mjs",
     "addData": "node addData.mjs",
-    "testData": "node testData.mjs"
+    "testData": "node testData.mjs",
+    "wzadd": "node tempAddDataWZ.mjs",
+    "wztest": "node tempTestDataWZ.mjs"
   },
   "author": "Nina, Sophia, Travis, William ",
   "license": "ISC",

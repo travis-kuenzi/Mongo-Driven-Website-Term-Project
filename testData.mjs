@@ -5,8 +5,7 @@ import Instrument from './instrument.js';
 import Song from './song.js';
 
 // Replace with our MongoDB connection string
-const mongoDB = 'mongodb+srv://<username>:<password>@cluster0.mongodb.net/<dbname>?retryWrites=true&w=majority';
-
+const mongoDB = 'mongodb+srv://team2:<password>@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024';
 async function main() {
     await mongoose.connect(mongoDB);
 
