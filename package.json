@@ -7,7 +7,7 @@
     "dev": "nodemon ./server/app.mjs",
     "addData": "node addData.mjs",
     "testData": "node testData.mjs",
-    "wzadd": "node tempAddDataWZ.mjs",
+    "loadData": "node loadData.mjs",
     "wztest": "node tempTestDataWZ.mjs"
   },
   "author": "Nina, Sophia, Travis, William ",
