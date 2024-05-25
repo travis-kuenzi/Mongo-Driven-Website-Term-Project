@@ -5,7 +5,7 @@ let SongSchema = new Schema({
     //TODO: 
     // fix relationship and detail below, refrence cs290Code/Wk7
     name: { type: String, required: true },
-    soundClipUri: String,
+    soundClipUri: {type: String},
     //TODO: Musician attribute
     // Musician: Musician{type: Schema.Types.ObjectId, ref: "Musician"},
 
@@ -14,7 +14,7 @@ let SongSchema = new Schema({
 
     //TODO: Instrument attribute
     // Instrument: Instrument{[ type: Schema.Types.ObjectId, ref: "Instrument"]},
-    videoUri: String
+    videoUri: {type: String}
   });
 
  //virtual below: 

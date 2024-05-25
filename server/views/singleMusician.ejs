@@ -1,0 +1,10 @@
+<%- include("super-common-header.ejs", {title:title }) %>
+
+
+<h1><%- musician.name %></h1>
+<img src="<%= musician.imageUri %>" alt="<%= musician.name %>">
+<p><b>Anecdote : </b><%- musician.andecdote %></p>
+<p><b>Process : </b><%- musician.process %></p>
+
+<p></p>
+<a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this instrument (Broken right now)</a>

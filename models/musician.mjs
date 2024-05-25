@@ -5,11 +5,11 @@ let MusicianSchema = new Schema({
     //TODO: 
     // fix relationship and detail below
     name: { type: String, required: true },
-    picture: String,
-    anecdote: String,
+    imageUri: {type: String},
+    anecdote: {type: String},
     // need test: song list, there are a list of song
     // Song: Song{ [type: Schema.Types.ObjectId, ref: "Song"]},
-    process: String
+    process: {type: String}
   });
 
 //virtual below: 
@@ -18,4 +18,5 @@ let MusicianSchema = new Schema({
 MusicianSchema.virtual("url").get(function () {
 return "/musician/id/" + this._id;
 });
+
 export default mongoose.model('Musician', MusicianSchema); 

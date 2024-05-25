@@ -5,11 +5,11 @@ let GenreSchema = new Schema({
     //TODO: 
     // fix relationship and detail below
     name: {type: String},
-    description: String,
+    description: {type: String},
     // need test: connection: song attribute
     // Song: Song{[type: Schema.Types.ObjectId, ref: "Song"]},
-    history: String,
-    image: String
+    history: {type: String},
+    image: {type: String}
   });
 
  

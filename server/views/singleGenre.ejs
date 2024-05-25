@@ -1,0 +1,11 @@
+<%- include("super-common-header.ejs", {title:title }) %>
+
+
+<h1><%- genre.name %></h1>
+<p><b>Location: </b><%- genre.location %></p>
+<p><b>Description : </b><%- genre.description %></p>
+<p><b>History : </b><%- genre.history %></p>
+<p><b>Image : </b><%- genre.image %></p>
+
+<p></p>
+<a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this genre (Broken right now)</a>
