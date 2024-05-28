@@ -1,0 +1,13 @@
+<%- include("super-common-header.ejs", {title:title }) %>
+
+<h1>Instruments:</h1>
+<p> </p>
+
+    
+<% for (let i = 0; i < instruments.length; i++) { %>
+    <h2><%- instruments[i].name %></h2>
+    <a href="<%= instruments[i].url %>">Click here for <%=instruments[i].name %></a>
+<% } %>
+
+<p></p>
+<a href="/instrument/create" class="btn btn-primary">Create a new Instrument (broken)</a>

@@ -2,13 +2,10 @@ import { default as mongoose } from "mongoose";
 const Schema = mongoose.Schema;
 
 let MusicianSchema = new Schema({
-    //TODO: 
-    // fix relationship and detail below
     name: { type: String, required: true },
     imageUri: {type: String},
     anecdote: {type: String},
-    // need test: song list, there are a list of song
-    // Song: Song{ [type: Schema.Types.ObjectId, ref: "Song"]},
+    song: [{type: Schema.Types.ObjectId, ref: "Song"}],
     process: {type: String}
   });
 

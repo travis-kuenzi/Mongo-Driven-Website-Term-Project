@@ -6,8 +6,7 @@ let GenreSchema = new Schema({
     // fix relationship and detail below
     name: {type: String},
     description: {type: String},
-    // need test: connection: song attribute
-    // Song: Song{[type: Schema.Types.ObjectId, ref: "Song"]},
+    songs: [{ type: Schema.Types.ObjectId, ref: "Song"}],
     history: {type: String},
     image: {type: String}
   });

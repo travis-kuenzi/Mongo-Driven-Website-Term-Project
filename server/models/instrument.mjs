@@ -14,11 +14,10 @@ let InstrumentSchema = new Schema({
     family: {
       type: String
     },
-    // need test: connection: Genre attribute
-    /* genre: { 
+    genre: { 
       type: Schema.Types.ObjectId, 
       ref: "Genre"
-    }, */
+    },
     imageUri: {type: String},
     soundClipUri: {type: String}
   });

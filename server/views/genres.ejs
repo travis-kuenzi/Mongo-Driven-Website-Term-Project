@@ -1,0 +1,13 @@
+<%- include("super-common-header.ejs", {title:title }) %>
+
+<h1>Genres:</h1>
+<p> </p>
+
+    
+<% for (let i = 0; i < genres.length; i++) { %>
+    <h2><%- genres[i].name %></h2>
+    <a href="<%= genres[i].url %>">Click here to view <%= genres[i].name %></a>
+<% } %>
+
+<p></p>
+<a href="/genre/create" class="btn btn-primary">Create a new genre (broken)</a>

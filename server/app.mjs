@@ -10,38 +10,38 @@ const __dirname = import.meta.dirname;
 
 app.use(express.static('public'));
 
+import { default as mongoose } from "mongoose";
+const connection_string = "mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024";
+mongoose.connect(connection_string);
+
 // view engine setup
-//app.set("views", path.join(__dirname, "views"));
-//app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 // serve index.html as the route file
 app.get("/", (req, res) => {
     let fileName = __dirname + "/public.index.html"
     res.sendFile(fileName);
   });
-
-app.get("/test", (req, res) => {
-    res.send("You accessed /test");
-  });
   
 //---------------------------------------------------
 // Direct all /genre requests to the rules in routes/genre.mjs
-import {default as genreRouter} from './routes/genre.mjs';
+import {default as genreRouter} from './routes/genres.mjs';
 app.use('/genre', genreRouter);
 
 //---------------------------------------------------
 // Direct all /musician requests to the rules in routes/musician.mjs
-import {default as musicianRouter} from './routes/musician.mjs';
+import {default as musicianRouter} from './routes/musicians.mjs';
 app.use('/musician', musicianRouter);
 
 //---------------------------------------------------
 // Direct all /instrument requests to the rules in routes/instrument.mjs
-import {default as instrumentRouter} from './routes/instrument.mjs';
+import {default as instrumentRouter} from './routes/instruments.mjs';
 app.use('/instrument', instrumentRouter);
 
 //---------------------------------------------------
 // Direct all /song requests to the rules in routes/song.mjs
-import {default as songRouter} from './routes/song.mjs';
+import {default as songRouter} from './routes/songs.mjs';
 app.use('/song', songRouter);
 
 
@@ -51,7 +51,7 @@ app.use('/song', songRouter);
 app.use(function (req, res) {
     //send a custom 404 (file not found) page
     res.status(404);
-    res.sendFile(__dirname + "/public/error.html");
+    res.sendFile(path.join(__dirname, 'Public', 'error.html'));
     //---------------------------------------------------
 });
 
