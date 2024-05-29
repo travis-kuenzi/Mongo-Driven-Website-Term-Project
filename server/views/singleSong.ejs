@@ -2,6 +2,15 @@
 
 
 <h1><%- song.name %></h1>
+<div class="Song">
+    <h1>Name: <%- song.name %></h1>
+    <p>Sound Clip URI: <%- song.soundClipUri %></p>
+    <p>Video URI: <%- song.videoUri %></p>
+    <p>Musician: <%- musician.name %></p>
+    <p>Genre: <%- genre.name %></p>
+    <p>Instrument: <%- instrument.name %></p>
+</div>
+
 <audio controls>
     <source src="<%= song.soundClipUri %>" type="audio/mpeg">
     Your browser does not support the audio element.
