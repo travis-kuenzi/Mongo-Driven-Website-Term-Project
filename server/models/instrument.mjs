@@ -26,8 +26,11 @@ let InstrumentSchema = new Schema({
   //BEWARE if there is "s"
   //BEWARE if there is "s"
 InstrumentSchema.virtual("url").get(function () {
-    return "/instrument/id/" + this._id;
+    return "/instrument/" + this._id + "/";
   });
+
+InstrumentSchema.set('toJSON', { virtuals: true });
+InstrumentSchema.set('toObject', { virtuals: true });
 
 let Instrument = mongoose.model("instruments", InstrumentSchema);
 export default Instrument;

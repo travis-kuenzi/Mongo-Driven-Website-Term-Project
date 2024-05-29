@@ -8,7 +8,7 @@ let GenreSchema = new Schema({
     description: {type: String},
     songs: [{ type: Schema.Types.ObjectId, ref: "Song"}],
     history: {type: String},
-    image: {type: String}
+    imageUri: {type: String}
   });
 
  
@@ -16,7 +16,10 @@ let GenreSchema = new Schema({
   //BEWARE if there is "s"
   //BEWARE if there is "s"
 GenreSchema.virtual("url").get(function () {
-    return "/genre/id/" + this._id;
+    return "/genre/" + this._id + "/";
   });
+
+GenreSchema.set('toJSON', { virtuals: true });
+GenreSchema.set('toObject', { virtuals: true });
 
 export default mongoose.model('Genre', GenreSchema); 

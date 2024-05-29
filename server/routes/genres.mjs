@@ -7,7 +7,7 @@ import * as genreController from "../controllers/genreController.mjs";
 
 // Handle / (within /genre )
 router.get('/', genreController.genreList);
-router.get('/genre/:id', genreController.genreById);
+router.get('/:id', genreController.genreById);
 /* router.get("/genre/create", genreController.creategenre);
 router.get("/genre/update/:id", genreController.update_get);
 router.post("/genre/update/:id", genreController.update_post);

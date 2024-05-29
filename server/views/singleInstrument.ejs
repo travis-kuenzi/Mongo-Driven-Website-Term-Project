@@ -2,12 +2,26 @@
 
 
 <h1><%- instrument.name %></h1>
-<img src="<%= instrument.imageUri %>" alt="<%= instrument.name %>">
-<p><b>History: </b><%- instrument.history %></p>
-<p><b>Family : </b><%- instrument.family %></p>
-<audio controls>
-    <source src="<%= instrument.soundClipUri %>" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+
+<% if (instrument.imageUri) { %>
+    <img src="<%= instrument.imageUri %>" alt="<%= instrument.name %>">
+<% } %>
+
+<% if (instrument.History) { %>
+    <p><b>History: </b><%- instrument.history %></p>
+<% } %>
+
+<% if (instrument.family) { %>
+    <p><b>Family : </b><%- instrument.family %></p>
+<% } %>
+
+<% if (instrument.soundClipUri) { %>
+    <audio controls>
+        <source src="<%= instrument.soundClipUri %>" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+<% } %>
+
+
 <p></p>
 <a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this instrument (Broken right now)</a>

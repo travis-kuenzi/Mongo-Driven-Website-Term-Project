@@ -21,7 +21,10 @@ let SongSchema = new Schema({
   //BEWARE if there is "s"
   //BEWARE if there is "s"
   SongSchema.virtual("url").get(function () {
-    return "/song/id/" + this._id;
+    return "/song/" + this._id + "/";
   });
+
+SongSchema.set('toJSON', { virtuals: true });
+SongSchema.set('toObject', { virtuals: true });
 
 export default mongoose.model('Song', SongSchema); 

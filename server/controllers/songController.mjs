@@ -22,15 +22,16 @@ async function songList(req, res, next) {
 async function songById(req, res, next) {
     try {
         const songId = req.params.id;
+        console.log(songId);
         let song = await Song.findById(songId);
         if (song) {
             res.render("singleSong.ejs", {
                 title: `${song.name}`,
                 song: song
             });
-        }  
-        else
-            next();
+        } else {
+            res.status(404).send('Song not found');
+        }
     } catch (err) {
         next(err);
     }

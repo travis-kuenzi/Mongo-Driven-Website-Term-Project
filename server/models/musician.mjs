@@ -13,7 +13,10 @@ let MusicianSchema = new Schema({
   //BEWARE if there is "s"
   //BEWARE if there is "s"
 MusicianSchema.virtual("url").get(function () {
-return "/musician/id/" + this._id;
+return "/musician/" + this._id + "/";
 });
+
+MusicianSchema.set('toJSON', { virtuals: true });
+MusicianSchema.set('toObject', { virtuals: true });
 
 export default mongoose.model('Musician', MusicianSchema); 

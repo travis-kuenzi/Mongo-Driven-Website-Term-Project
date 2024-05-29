@@ -2,14 +2,21 @@
 
 
 <h1><%- song.name %></h1>
-<audio controls>
-    <source src="<%= song.soundClipUri %>" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
-<video width="640" height="360" controls>
-    <source src="<%= song.videoUri %>" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
+
+<% if (song.soundClipUri) { %>
+    <audio controls>
+        <source src="<%= song.soundClipUri %>" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+<% } %>
+
+<% if (song.videoUri) { %>
+    <video width="640" height="360" controls>
+        <source src="<%= song.videoUri %>" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+<% } %>
+
 
 <p></p>
 <a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this instrument (Broken right now)</a>

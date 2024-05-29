@@ -8,7 +8,10 @@ const app = express();
 // Get the directory name of the current module
 const __dirname = import.meta.dirname;
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 import { default as mongoose } from "mongoose";
 const connection_string = "mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024";
@@ -48,11 +51,15 @@ app.use('/song', songRouter);
 
 //---------------------------------------------------
 // If all else fails, send a 404 error
-app.use(function (req, res) {
+/* app.use(function (req, res) {
     //send a custom 404 (file not found) page
     res.status(404);
     res.sendFile(path.join(__dirname, 'Public', 'error.html'));
     //---------------------------------------------------
+}); */
+
+app.use((err, req, res, next) => {
+    res.status(500).sendFile(path.join(__dirname, '..', 'public', 'error.html'));
 });
 
 
