@@ -14,10 +14,10 @@ let InstrumentSchema = new Schema({
     family: {
       type: String
     },
-    genres: [{ 
+    genre: { 
       type: Schema.Types.ObjectId, 
       ref: "Genre"
-    }],
+    },
     imageUri: {type: String},
     soundClipUri: {type: String}
   });
