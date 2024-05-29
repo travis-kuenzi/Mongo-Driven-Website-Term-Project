@@ -32,5 +32,4 @@ InstrumentSchema.virtual("url").get(function () {
 InstrumentSchema.set('toJSON', { virtuals: true });
 InstrumentSchema.set('toObject', { virtuals: true });
 
-let Instrument = mongoose.model("instruments", InstrumentSchema);
-export default Instrument;
+export default mongoose.model('Instrument', InstrumentSchema); 

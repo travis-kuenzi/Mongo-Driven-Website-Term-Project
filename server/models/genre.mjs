@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 let GenreSchema = new Schema({
     //TODO: 
     // fix relationship and detail below
-    name: {type: String},
+    name: {type: String, required: true},
     description: {type: String},
     songs: [{ type: Schema.Types.ObjectId, ref: "Song"}],
     history: {type: String},
