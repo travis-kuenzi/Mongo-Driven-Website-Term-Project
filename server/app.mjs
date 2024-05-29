@@ -6,13 +6,21 @@ import { default as path } from 'path';
 const app = express();
 
 // Get the directory name of the current module
-const __dirname = import.meta.dirname;
+// const __dirname = import.meta.dirname;
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
+// app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+//uncomment abobe
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+//deleye above
+app.use(express.static('public'));
 import { default as mongoose } from "mongoose";
 const connection_string = "mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024";
 mongoose.connect(connection_string);
