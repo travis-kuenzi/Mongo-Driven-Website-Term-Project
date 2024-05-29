@@ -1,19 +1,25 @@
 // Connect to DB with Mongoose
 import { default as credentials } from "./dbCredentials.mjs";
 import { default as mongoose } from "mongoose";
-mongoose.connect(credentials.connection_string);
+//await mongoose.connect(credentials.connection_string);
 
 //load our 4 models
-import { default as Song} from './models/song.mjs';
-import { default as Genre} from './models/genre.mjs';
-import { default as Instrument} from './models/instrument.mjs';
-import { default as Musician} from './models/musician.mjs';
+//this works fine? (5/29 WZ)
+import { default as Song} from './server/models/song.mjs';
+import { default as Genre} from './server/models/genre.mjs';
+import { default as Instrument} from './server/models/instrument.mjs';
+import { default as Musician} from './server/models/musician.mjs';
 
 //load the data stored in this data.mjs file:
 import { default as dataFile} from './data.mjs';
 
+// MongoDB connection string
+const mongoDB = 'mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024';
+
 //Async functions so we can use await to synchronize steps
 async function loadAllrecords(){
+  await mongoose.connect(mongoDB);
+  
   //delete all existing records
   await Song.deleteMany();
   await Genre.deleteMany();
@@ -36,33 +42,56 @@ async function loadAllrecords(){
   console.log("Done loading Songs:");
   console.log(SongRecords);
 
-  //TODO:
   //--- Genre add multiple data
+  const GenreRecords = [];
+  for (let genre of dataFile.GenreList) {
+    const record = new Genre(genre);
+    GenreRecords.push(record);
+  }
+
+  console.log("Done loading Genres:");
+  console.log(GenreRecords);
 
   //--- Instrument add multiple data
+  const InstrumentRecords = [];
+  for (let instrument of dataFile.InstrumentList) {
+    const record = new Instrument(instrument);
+    InstrumentRecords.push(record);
+  }
+
+  console.log("Done loading Instruments:");
+  console.log(InstrumentRecords);
 
   //--- Musician add multiple data
- 
+  const MusicianRecords = [];
+  for (let musician of dataFile.MusicianList) {
+    const record = new Musician(musician);
+    MusicianRecords.push(record);
+  }
+  console.log("Done loading Musicians:");
+  console.log(MusicianRecords);
 
 
   // TODO - a forloop that wires our 4 Datatype's relations 
-  //Require Connection done in "data.mjs"
-  //See below:
-  // https://github.com/ChemeketaCS/cs290Code/blob/main/Week07/dataRelationSamplesCourses/addData.mjs
 
-
-  // TODO 
-  //  Now we are ready to save everything. Make one giant list:  
-  // let allRecords = InstrumentRecords.concat(GenreRecords).concat(MusicianRecords).concat(SongRecords);
-  let allRecords = SongRecords.concat();
+    // Wire relations
+    for (let relation of dataFile.songGenreRelation) {
+      SongRecords[relation.SongIndex].genre = GenreRecords[relation.GenreIndex]._id;
+    }
   
+    for (let relation of dataFile.songMusicianRelation) {
+      SongRecords[relation.SongIndex].musician = MusicianRecords[relation.MusicianIndex]._id;
+    }
+  
+    for (let relation of dataFile.songInstrumentRelation) {
+      SongRecords[relation.SongIndex].instrument = InstrumentRecords[relation.InstrumentIndex]._id;
+    }
+ 
 
-  /*
-  //Andrew's comment
-  //We could loop through all records and call save on each and await results
-  // one by one. But it is more efficient to start up all the saves in
-  // parallel and then wait for all to finish.
-  */
+
+
+  let allRecords = InstrumentRecords.concat(GenreRecords).concat(MusicianRecords).concat(SongRecords);
+  
   //Use map to tell each record to save itself and collect resulting promises
   let promises = allRecords.map((record) => record.save());
 

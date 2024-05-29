@@ -6,8 +6,8 @@
     
 <% for (let i = 0; i < instruments.length; i++) { %>
     <h2><%- instruments[i].name %></h2>
-    <a href="<%= instruments[i].url %>">Click here for <%=instruments[i].name %></a>
+    <a href="<%= instruments[i].url %>">Click here to view <%= instruments[i].name %></a>
 <% } %>
 
 <p></p>
-<a href="/instrument/create" class="btn btn-primary">Create a new Instrument (broken)</a>
+<a href="/instrument/create" class="btn btn-primary">Create a new instrument (broken)</a>
