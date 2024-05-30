@@ -5,6 +5,20 @@
 <a href="/genre/<%= genre._id %>" class="btn btn-primary"><%- genre.name %></a>
 <a href="/musician/<%= musician._id %>" class="btn btn-primary"><%- musician.name %></a>
 
+<!-- todo: this needs attention -->
+<!-- we have array of instrument in song.instruments -->
+<!-- and this is not working -->
+<ul>
+    <% for (let i = 0; i < instruments.length; i++) { %>
+        <li>
+            <a href="/instrument/<%= song.instruments[i]._id %>" class="btn btn-primary">
+                <%- instruments[i].name %>
+            </a>
+        </li>
+    <% } %>
+</ul>
+
+
 <% if (song.soundClipUri) { %>
     <audio controls>
         <source src="<%= song.soundClipUri %>" type="audio/mpeg">
