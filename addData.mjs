@@ -1,8 +1,8 @@
 import { default as mongoose } from 'mongoose';
-import { default as Genre } from './models/genre.mjs';
-import { default as Musician } from './models/musician.mjs';
-import {default as Instrument } from './models/instrument.mjs';
-import { default as Song } from './models/song.mjs';
+import { default as Genre } from './server/models/genre.mjs';
+import { default as Musician } from './server/models/musician.mjs';
+import {default as Instrument } from './server/models/instrument.mjs';
+import { default as Song } from './server/models/song.mjs';
 
 // Replace with our MongoDB connection string
 const mongoDB = 'mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024';

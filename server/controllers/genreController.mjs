@@ -3,7 +3,8 @@
 //Use express-validator to remove harmful content
 //import { default as validator } from 'express-validator';
 
-import { default as Genre } from '../models/Genre.mjs';
+// Changed this back to lower case genre and fixed some issure WZ may30
+import { default as Genre } from '../models/genre.mjs';
 
 async function genreList(req, res, next) {
     try {

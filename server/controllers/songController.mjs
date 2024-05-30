@@ -3,7 +3,10 @@
 //Use express-validator to remove harmful content
 //import { default as validator } from 'express-validator';
 
-import { default as Song } from '../models/Song.mjs';
+import { default as Song } from '../models/song.mjs';
+import { default as Genre } from '../models/genre.mjs';
+import { default as Musician } from '../models/musician.mjs';
+
 
 async function songList(req, res, next) {
     try {
@@ -24,10 +27,17 @@ async function songById(req, res, next) {
         const songId = req.params.id;
         console.log(songId);
         let song = await Song.findById(songId);
+        let genre = await Genre.findById(song.genre).exec();
+        let musician = await Musician.findById(song.musician).exec();
+       
+
         if (song) {
             res.render("singleSong.ejs", {
                 title: `${song.name}`,
-                song: song
+                song: song,
+                genre: genre,
+                musician: musician
+
             });
         } else {
             res.status(404).send('Song not found');

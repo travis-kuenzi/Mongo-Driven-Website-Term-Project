@@ -3,7 +3,7 @@
 //Use express-validator to remove harmful content
 //import { default as validator } from 'express-validator';
 
-import { default as Musician } from '../models/Musician.mjs';
+import { default as Musician } from '../models/musician.mjs';
 
 async function musicianList(req, res, next) {
     try {

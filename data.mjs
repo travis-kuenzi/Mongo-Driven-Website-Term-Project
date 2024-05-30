@@ -128,7 +128,7 @@ const songMusicianRelation = [
 const songInstrumentRelation = [
   { SongIndex: 0, InstrumentIndex: 0 }, // Smooth Jazz features Guitar
   { SongIndex: 1, InstrumentIndex: 3 },  // Hotel California features Drum
-  { SongIndex: 1, InstrumentIndex: 1 }  // Give Life Back to Music features Keyboard
+  { SongIndex: 2, InstrumentIndex: [0,1,4] }  // Give Life Back to Music features Keyboard
 
 ];
 export default { GenreList, MusicianList, InstrumentList, SongList, songGenreRelation, songMusicianRelation, songInstrumentRelation };
