@@ -6,6 +6,7 @@
 import { default as Song } from '../models/song.mjs';
 import { default as Genre } from '../models/genre.mjs';
 import { default as Musician } from '../models/musician.mjs';
+import { default as Instrument } from '../models/instrument.mjs';
 
 
 async function songList(req, res, next) {
@@ -23,25 +24,45 @@ async function songList(req, res, next) {
 };
 
 async function songById(req, res, next) {
+    //In song case, song tracks 3 other relationship within song object.
     try {
         const songId = req.params.id;
         console.log(songId);
-        let song = await Song.findById(songId);
-        let genre = await Genre.findById(song.genre).exec();
-        let musician = await Musician.findById(song.musician).exec();
-       
+        let song = await Song.findById(songId).exec();
 
-        if (song) {
-            res.render("singleSong.ejs", {
-                title: `${song.name}`,
-                song: song,
-                genre: genre,
-                musician: musician
-
-            });
-        } else {
-            res.status(404).send('Song not found');
+        // if there is no object at all, blew up.
+        if (!song) {
+            return res.status(404).send('Song not found');
         }
+
+        // if song has genre, find it by id
+        let genre = null;
+        if (song.genre) {
+            genre = await Genre.findById(song.genre).exec();
+        }
+
+        // if song has musician, find it by id
+        let musician = null;
+        if (song.musician) {
+            musician = await Musician.findById(song.musician).exec();
+        }
+        
+        // in song case instruments are an array of object
+        const instruments = await Instrument.find({
+            // if song has a list of instruments , find them by id
+            _id: { $in: song.instruments }
+        }).exec();
+
+        //render each
+        //if nothing is there render null.
+        res.render("singleSong.ejs", {
+            title: `${song.name}`,
+            song: song,
+            genre: genre,
+            musician: musician,
+            // in song case instruments are an array of object
+            instruments: instruments
+        });
     } catch (err) {
         next(err);
     }

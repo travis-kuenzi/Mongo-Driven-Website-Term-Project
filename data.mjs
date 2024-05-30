@@ -34,7 +34,7 @@ const MusicianList = ([
   {
   name: "John Doe",
   picture: "johndoe_picture_url",
-  anecdote: "John Doe started playing guitar at the age of 5...",
+  anecdote: "John Doe has no published music yet",
   process: "John practices 4 hours a day..."
 },
 {
@@ -113,22 +113,25 @@ const SongList = ([
 
 // Song-Genre Relation
 const songGenreRelation = [
-  { SongIndex: 0, GenreIndex: 3 }, // Smooth Jazz belongs to Rock
+  { SongIndex: 0, GenreIndex: 3 }, // Layla is Rock music
   { SongIndex: 1, GenreIndex: 3 },  // Hotel California belongs to Rock
   { SongIndex: 2, GenreIndex: 1 }   // Give Life Back to Music belongs to House Music
 ];
 
 // Song-Musician Relation
 const songMusicianRelation = [
-  { SongIndex: 1, MusicianIndex: 1 }, // Give Life Back to Music by Daft Punk
-  { SongIndex: 1, MusicianIndex: 2 }  // Hotel California by Eagles
+  { SongIndex: 0, MusicianIndex: 3 }, // Layla by Eric Clapton
+  { SongIndex: 1, MusicianIndex: 2 },  // Hotel California by Eagles
+  { SongIndex: 2, MusicianIndex: 1 }, // Give Life Back to Music by Daft Punk
 ];
 
 // Song-Instrument Relation
 const songInstrumentRelation = [
-  { SongIndex: 0, InstrumentIndex: 0 }, // Smooth Jazz features Guitar
+  { SongIndex: 0, InstrumentIndex: 0 }, // Layla features Guitar
   { SongIndex: 1, InstrumentIndex: 3 },  // Hotel California features Drum
-  { SongIndex: 2, InstrumentIndex: [0,1,4] }  // Give Life Back to Music features Keyboard
+  //TODO: song could save more than 1 instrument. How does that work?
+  // { SongIndex: 2, InstrumentIndex: [1,2] }  // Give Life Back to Music features Keyboard and Drum
+  { SongIndex: 2, InstrumentIndex: 1 }  // Give Life Back to Music features Keyboard and Drum
 
 ];
 export default { GenreList, MusicianList, InstrumentList, SongList, songGenreRelation, songMusicianRelation, songInstrumentRelation };
