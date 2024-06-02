@@ -1,112 +1,118 @@
-//import * as routeHelper from '../routes/routeHelpers.mjs';
-
-//Use express-validator to remove harmful content
-//import { default as validator } from 'express-validator';
-
-// Changed this back to lower case genre and fixed some issure WZ may30
-import { default as Genre } from '../models/genre.mjs';
+import Genre from '../models/genre.mjs';
+import Instrument from '../models/instrument.mjs';
+import Song from '../models/song.mjs';
 
 async function genreList(req, res, next) {
     try {
+        console.log('genreList called');
         let genres = await Genre.find().exec();
-        const data = genres;
-
-        res.render("genres.ejs", {
-            title: "genres",
-            genres: data
+        res.render('genres.ejs', {
+            title: 'Genres',
+            genres: genres,
         });
     } catch (err) {
+        console.error('Error in genreList:', err);
         next(err);
     }
-};
+}
 
 async function genreById(req, res, next) {
     try {
+        console.log('genreById called with id:', req.params.id);
         const genreId = req.params.id;
         let genre = await Genre.findById(genreId).exec();
-
+        if (!genre) {
+            return res.status(404).send('Genre not found');
+        }
         let songs = await genre.songs;
         let instruments = await genre.instruments;
-
-        res.render("singleGenre.ejs", {genre: genre, songs: songs, instruments: instruments});
+        res.render('singleGenre.ejs', { genre: genre, songs: songs, instruments: instruments });
     } catch (err) {
+        console.error('Error in genreById:', err);
         next(err);
     }
-};
+}
 
-
-/* async function creategenre(req, res, next) {
+async function createGenreForm(req, res, next) {
     try {
-        let genre = new genre({});
-        
-        res.render("genreForm.ejs", {
-            title: "Create genre",
+        console.log('createGenreForm called');
+        let genre = new Genre({});
+        res.render('genreForm.ejs', {
+            title: 'Create Genre',
             genre: genre,
         });
     } catch (err) {
+        console.error('Error in createGenreForm:', err);
         next(err);
     }
-}; */
+}
 
-/* async function update_get(req, res, next) {
+async function createGenre(req, res, next) {
     try {
-      let genre = await genre.findById(req.params.id).exec();
-  
-      res.render("genreForm.ejs", {
-        title: `Update ${genre.name}`,
-        genre: genre,
-      });
+        console.log('createGenre called with data:', req.body);
+        let genre = new Genre({
+            name: req.body.name,
+            description: req.body.description,
+            history: req.body.history,
+            imageUri: req.body.imageUri,
+        });
+        await genre.save();
+        res.redirect(genre.url);
     } catch (err) {
-      next(err);
+        console.error('Error in createGenre:', err);
+        next(err);
     }
-  }; */
+}
 
-/* const update_post = [
-    async function (req, res, next) {
-        try {
-            let genre = await genre.findById(req.params.id).exec();
-
-            if (genre === null)
-                genre = new genre({
-                    _id: req.body.id,
-            })
-            
-           
-            let amenitiesStrings = req.body.amenities.split("\n");
-            let amenitiesList = [];
-            for (let amenitiesString of amenitiesStrings) {
-                amenitiesString = amenitiesString.trim();
-                if (amenitiesString !== "")
-                    amenitiesList.push(amenitiesString);
-            }
-
-            //replace the data
-            genre.name = req.body.name;
-            genre.location = req.body.location;
-            genre.nightlyCost = req.body.nightlyCost;
-            genre.cleaningFee = req.body.cleaningFee;
-            genre.numGuests = req.body.numGuests;
-            genre.type = req.body.type;
-            genre.amenities = amenitiesList;
-            genre.rating = req.body.rating;
-
-            genre
-                .save()
-                .then((genre) => {
-                    res.redirect(genre.url);
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                    res.render("genreForm.ejs", {
-                        title: `Update ${genre.name}`,
-                        genre: genre,
-                        errors: routeHelper.errorParser(err.message),
-                    });
-                });
-        } catch (err) {
-            next(err);
+async function updateGenreForm(req, res, next) {
+    try {
+        console.log('updateGenreForm called with id:', req.params.id);
+        let genre = await Genre.findById(req.params.id).exec();
+        if (!genre) {
+            return res.status(404).send('Genre not found');
         }
+        res.render('genreForm.ejs', {
+            title: `Update ${genre.name}`,
+            genre: genre,
+        });
+    } catch (err) {
+        console.error('Error in updateGenreForm:', err);
+        next(err);
     }
-] */
+}
 
-export {genreList, genreById}
+async function updateGenre(req, res, next) {
+    try {
+        console.log('updateGenre called with id:', req.params.id, 'and data:', req.body);
+        let genre = await Genre.findById(req.params.id).exec();
+        if (!genre) {
+            console.log('Genre not found');
+            return res.status(404).send('Genre not found');
+        }
+        genre.name = req.body.name;
+        genre.description = req.body.description;
+        genre.history = req.body.history;
+        genre.imageUri = req.body.imageUri;
+        await genre.save();
+        res.redirect(genre.url);
+    } catch (err) {
+        console.error('Error in updateGenre:', err);
+        next(err);
+    }
+}
+
+async function deleteGenre(req, res, next) {
+    try {
+        console.log('deleteGenre called with id:', req.params.id);
+        const genreId = req.params.id;
+        await Instrument.updateMany({ genre: genreId }, { $unset: { genre: 1 } }).exec();
+        await Song.updateMany({ genre: genreId }, { $unset: { genre: 1 } }).exec();
+        await Genre.findByIdAndDelete(genreId).exec();
+        res.redirect('/genre');
+    } catch (err) {
+        console.error('Error in deleteGenre:', err);
+        next(err);
+    }
+}
+
+export { genreList, genreById, createGenreForm, createGenre, updateGenreForm, updateGenre, deleteGenre };

@@ -1,6 +1,5 @@
 <%- include("super-common-header.ejs", {title:title }) %>
 
-
 <h1><%- musician.name %></h1>
 
 <% if (musician.imageUri) { %>
@@ -16,12 +15,17 @@
 <% } %>
 
 <p>Songs:
-    <ul>
-      <% for (let s of songs) { %>
+<ul>
+    <% for (let s of songs) { %>
         <li><a href="<%= s.url %>"><%= s.name %></a></li>
-      <% } %>
-    </ul>
-  </p>
+    <% } %>
+</ul>
+</p>
 
 <p></p>
-<a href="/musician/update/<%= musician._id %>" class="btn btn-primary">Update this musician (Broken right now)</a>
+
+<a href="/musician/update/<%= musician._id %>" class="btn btn-primary">Update this musician</a>
+
+<form action="/musician/delete/<%= musician._id %>" method="POST" style="display:inline;">
+    <button type="submit" class="btn btn-danger">Delete this musician</button>
+</form>

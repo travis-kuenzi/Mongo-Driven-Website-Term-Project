@@ -5,10 +5,10 @@ import { default as mongoose } from "mongoose";
 
 //load our 4 models
 //this works fine? (5/29 WZ)
-import { default as Song} from './server/models/song.mjs';
-import { default as Genre} from './server/models/genre.mjs';
-import { default as Instrument} from './server/models/instrument.mjs';
-import { default as Musician} from './server/models/musician.mjs';
+import { default as Song} from './models/song.mjs';
+import { default as Genre} from './models/genre.mjs';
+import { default as Instrument} from './models/instrument.mjs';
+import { default as Musician} from './models/musician.mjs';
 
 //load the data stored in this data.mjs file:
 import { default as dataFile} from './data.mjs';
