@@ -26,9 +26,7 @@ async function instrumentById(req, res, next) {
             .populate("genres")
             .exec();
 
-        let songs = await instrument.songs;
-
-        res.render("singleInstrument.ejs", { instrument: instrument, songs: songs });
+        res.render("singleInstrument.ejs", { instrument: instrument});
     } catch (err) {
         next(err);
     }

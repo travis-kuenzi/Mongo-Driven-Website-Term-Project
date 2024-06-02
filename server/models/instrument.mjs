@@ -29,10 +29,7 @@ InstrumentSchema.virtual("url").get(function () {
     return "/instrument/" + this._id + "/";
   });
 
-InstrumentSchema.virtual("genres").get(async function () {
-  let genres = await Genre.find().where("team").equals(this._id).exec();
-  return heroArray;
-});
+
 
 InstrumentSchema.set('toJSON', { virtuals: true });
 InstrumentSchema.set('toObject', { virtuals: true });

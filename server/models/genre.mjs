@@ -11,20 +11,21 @@ let GenreSchema = new Schema({
     imageUri: {type: String}
   });
 
-  TeamSchema.virtual("members").get(async function () {
-    let heroArray = await Hero.find().where("team").equals(this._id).exec();
-    return heroArray;
+  import { default as Song } from "./song.mjs";
+  GenreSchema.virtual("songs").get(async function () {
+    let songArray = await Song.find().where("genre").equals(this._id).exec();
+    return songArray;
   });
 
-  TeamSchema.virtual("members").get(async function () {
-    let heroArray = await Hero.find().where("team").equals(this._id).exec();
-    return heroArray;
-  });
 
-  TeamSchema.virtual("members").get(async function () {
-    let heroArray = await Hero.find().where("team").equals(this._id).exec();
-    return heroArray;
+  import { default as Instrument } from "./instrument.mjs";
+  GenreSchema.virtual("instruments").get(async function () {
+    // 'this._id' refers to the current genre's ID
+    let instrumentArray = await Instrument.find({ genres: { $in: [this._id] } }).exec();
+    return instrumentArray;
   });
+  
+
   
  
 //virtual below: 

@@ -13,7 +13,13 @@ let MusicianSchema = new Schema({
   //BEWARE if there is "s"
   //BEWARE if there is "s"
 MusicianSchema.virtual("url").get(function () {
-return "/musician/" + this._id + "/";
+  return "/musician/" + this._id + "/";
+});
+
+import { default as Song } from "./song.mjs";
+MusicianSchema.virtual("songs").get(async function () {
+  let songArray = await Song.find().where("musician").equals(this._id).exec();
+  return songArray;
 });
 
 MusicianSchema.set('toJSON', { virtuals: true });

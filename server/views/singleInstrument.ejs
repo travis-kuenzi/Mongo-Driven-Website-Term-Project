@@ -31,13 +31,6 @@
     </ul>
 <% } %>
 
-<p>Songs:
-    <ul>
-      <% for (let s of songs) { %>
-        <li><a href="<%= s.url %>"><%= s.name %></a></li>
-      <% } %>
-    </ul>
-  </p>
 
 <p></p>
 <a href="/instrument/update/<%= instrument._id %>" class="btn btn-primary">Update this instrument (Broken right now)</a>
