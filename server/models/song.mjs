@@ -4,8 +4,11 @@ const Schema = mongoose.Schema;
 let SongSchema = new Schema({
   name: { type: String, required: true },
   soundClipUri: { type: String },
+  //Each song has one musician
   musician: { type: Schema.Types.ObjectId, ref: "Musician" },
+  //Each song has a few genres
   genre: { type: Schema.Types.ObjectId, ref: "Genre" },
+  //Each song has a few instruments
   instruments: [{ type: Schema.Types.ObjectId, ref: "Instrument" }],
   videoUri: { type: String }
   });

@@ -111,13 +111,7 @@ const SongList = ([
   ]
 );
 
-// Song-Genre Relation
-const songGenreRelation = [
-  { SongIndex: 0, GenreIndex: 3 }, // Layla is Rock music
-  { SongIndex: 1, GenreIndex: 3 },  // Hotel California belongs to Rock
-  { SongIndex: 2, GenreIndex: 1 }   // Give Life Back to Music belongs to House Music
-];
-
+//One to one Relationships
 // Song-Musician Relation
 const songMusicianRelation = [
   { SongIndex: 0, MusicianIndex: 3 }, // Layla by Eric Clapton
@@ -125,6 +119,7 @@ const songMusicianRelation = [
   { SongIndex: 2, MusicianIndex: 1 }, // Give Life Back to Music by Daft Punk
 ];
 
+//One to many relationships
 // Song-Instrument Relation
 const songInstrumentRelation = [
   { SongIndex: 0, InstrumentIndex: 0 }, // Layla features Guitar
@@ -132,6 +127,13 @@ const songInstrumentRelation = [
   //TODO: song could save more than 1 instrument. How does that work?
   // { SongIndex: 2, InstrumentIndex: [1,2] }  // Give Life Back to Music features Keyboard and Drum
   { SongIndex: 2, InstrumentIndex: 1 }  // Give Life Back to Music features Keyboard and Drum
-
+  
+];
+  //TODO
+// Song-Genre Relation
+const songGenreRelation = [
+  { SongIndex: 0, GenreIndex: 3 }, // Layla is Rock music
+  { SongIndex: 1, GenreIndex: 3 },  // Hotel California belongs to Rock
+  { SongIndex: 2, GenreIndex: 1 }   // Give Life Back to Music belongs to House Music
 ];
 export default { GenreList, MusicianList, InstrumentList, SongList, songGenreRelation, songMusicianRelation, songInstrumentRelation };
