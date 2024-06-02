@@ -6,7 +6,6 @@ let GenreSchema = new Schema({
     // fix relationship and detail below
     name: {type: String, required: true},
     description: {type: String},
-    songs: [{ type: Schema.Types.ObjectId, ref: "Song"}],
     history: {type: String},
     imageUri: {type: String}
   });

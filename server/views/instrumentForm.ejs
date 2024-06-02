@@ -1,0 +1,41 @@
+<%- include("super-common-header.ejs", {title:title }) %>
+
+<% if(locals.errors) {   //Check to see if there even is an errors variable %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% errors.forEach(function(error) { %>
+          <li><%= error %></li>
+        <% }); %>
+      </ul>
+    </div>
+<% } %>
+
+<form method="POST" action="/instrument/update/<%=instrument._id%>" id="instrumentForm">
+    <input type="hidden" name="id" value="<%= instrument._id %>" >
+    <div class="mb-3">
+        <label for="name" class="form-label">Name <em>(Required)</em></label>
+        <input type="text" class="form-control" name="name" id="name"
+          value="<%= instrument.name %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="history" class="form-label">History <em>(Required)</em></label>
+        <input type="text" class="form-control" name="history" id="history"
+          value="<%= instrument.history %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="family" class="form-label">Family <em>(Required)</em></label>
+        <input type="text" class="form-control" name="family" id="family"
+          value="<%= instrument.family %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="imageUri" class="form-label">Image (URI) <em>(Required)</em></label>
+        <input type="text" class="form-control" name="imageUri" id="imageUri"
+          value="<%= instrument.imageUri %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="soundClipUri" class="form-label">Sound Clip (URI) <em>(Required)</em></label>
+        <input type="text" class="form-control" name="soundClipUri" id="soundClipUri"
+          value="<%= instrument.soundClipUri %>" required>
+    </div>
+    <button class="btn btn-primary my-3" type="submit">Submit</button>
+</form>

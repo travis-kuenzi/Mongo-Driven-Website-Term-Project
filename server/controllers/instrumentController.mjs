@@ -1,4 +1,4 @@
-//import * as routeHelper from '../routes/routeHelpers.mjs';
+import * as routeHelper from '../routes/routeHelpers.mjs';
 
 //Use express-validator to remove harmful content
 //import { default as validator } from 'express-validator';
@@ -32,7 +32,7 @@ async function instrumentById(req, res, next) {
     }
 };
 
-/* async function createinstrument(req, res, next) {
+ async function createInstrument(req, res, next) {
     try {
         let instrument = new instrument({});
         
@@ -44,8 +44,9 @@ async function instrumentById(req, res, next) {
         next(err);
     }
 };
- */
-/* async function update_get(req, res, next) {
+ 
+
+ async function update_get(req, res, next) {
     try {
       let instrument = await instrument.findById(req.params.id).exec();
   
@@ -56,9 +57,9 @@ async function instrumentById(req, res, next) {
     } catch (err) {
       next(err);
     }
-  }; */
+  };
 
-/* const update_post = [
+const update_post = [
     async function (req, res, next) {
         try {
             let instrument = await instrument.findById(req.params.id).exec();
@@ -68,24 +69,22 @@ async function instrumentById(req, res, next) {
                     _id: req.body.id,
             })
             
-           
+/*            
             let amenitiesStrings = req.body.amenities.split("\n");
             let amenitiesList = [];
             for (let amenitiesString of amenitiesStrings) {
                 amenitiesString = amenitiesString.trim();
                 if (amenitiesString !== "")
                     amenitiesList.push(amenitiesString);
-            }
+            } */
 
             //replace the data
             instrument.name = req.body.name;
-            instrument.location = req.body.location;
-            instrument.nightlyCost = req.body.nightlyCost;
-            instrument.cleaningFee = req.body.cleaningFee;
-            instrument.numGuests = req.body.numGuests;
-            instrument.type = req.body.type;
-            instrument.amenities = amenitiesList;
-            instrument.rating = req.body.rating;
+            instrument.history = req.body.history;
+            instrument.family = req.body.family;
+            //instrument.genre = req.body.genre;
+            instrument.imageUri = req.body.imageUri;
+            instrument.soundClipUri = req.body.soundClipUri;
 
             instrument
                 .save()
@@ -104,6 +103,6 @@ async function instrumentById(req, res, next) {
             next(err);
         }
     }
-] */
+]
 
-export {instrumentList, instrumentById}
+export {instrumentList, instrumentById, createInstrument, update_get, update_post}

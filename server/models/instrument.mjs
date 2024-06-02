@@ -6,7 +6,6 @@ let InstrumentSchema = new Schema({
     // fix relationship and detail below
     name: { 
       type: String, 
-      required: true 
     },
     history: { 
       type: String
@@ -14,10 +13,10 @@ let InstrumentSchema = new Schema({
     family: {
       type: String
     },
-    genre: { 
+    genres: [{ 
       type: Schema.Types.ObjectId, 
       ref: "Genre"
-    },
+    }],
     imageUri: {type: String},
     soundClipUri: {type: String}
   });

@@ -1,4 +1,4 @@
-<%- include("super-common-header.ejs", {title:title }) %>
+<%- include("super-common-header.ejs", {title:instrument.name}) %>
 
 
 <h1><%- instrument.name %></h1>
@@ -22,10 +22,11 @@
     </audio>
 <% } %>
 
-<% if(genres) { %>
+<!--Instrument needs to store an array of genres in database!!-->
+<% if(instrument.genres) { %>
     <p><b>Genres: </b></p>
     <ul>
-        <% for (let g of genres) { %>
+        <% for (let g of instrument.genres) { %>
           <li><a href="<%= g.url %>"><%= g.name %></a></li>
         <% } %>
     </ul>

@@ -1,22 +1,7 @@
-<%- include("super-common-header.ejs", {title:title }) %>
+<%- include("super-common-header.ejs", {title:song.name}) %>
 
 
 <h1><%- song.name %></h1>
-<a href="/genre/<%= genre._id %>" class="btn btn-primary"><%- genre.name %></a>
-<a href="/musician/<%= musician._id %>" class="btn btn-primary"><%- musician.name %></a>
-
-<!-- todo: this needs attention -->
-<!-- we have array of instrument in song.instruments -->
-<!-- and this is not working -->
-<!-- <ul>
-    <% //for (let i = 0; i < instruments.length; i++) { %>
-        <li>
-            <a href="/instrument/<%= //song.instruments[i]._id %>" class="btn btn-primary">
-                <%- //instruments[i].name %>
-            </a>
-        </li>
-    <% //} %>
-</ul> -->
 
 
 <% if (song.soundClipUri) { %>
@@ -33,18 +18,19 @@
     </video>
 <% } %>
 
-<% if(genre) { %>
-    <p>Genre: <a href="<%= genre.url %>"><%= genre.name %></a></p>
-    <% } %>
 
-<% if(musician) { %>
-    <p>Musician: <a href="<%= musician.url %>"><%= musician.name %></a></p>
+<% if(song.genre) { %>
+    <p>Genre: <a href="<%= song.genre.url %>"><%= song.genre.name %></a></p>
 <% } %>
 
-<% if(instruments) { %>
+<% if(song.musician) { %>
+    <p>Musician: <a href="<%= song.musician.url %>"><%= song.musician.name %></a></p>
+<% } %>
+
+<% if(song.instruments) { %>
     <p>Instruments:
         <ul>
-          <% for (let i of instruments) { %>
+          <% for (let i of song.instruments) { %>
             <li><a href="<%= i.url %>"><%= i.name %></a></li>
           <% } %>
         </ul>

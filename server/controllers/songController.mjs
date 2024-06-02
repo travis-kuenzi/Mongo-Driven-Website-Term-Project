@@ -1,8 +1,9 @@
-//import * as routeHelper from '../routes/routeHelpers.mjs';
+import * as routeHelper from '../routes/routeHelpers.mjs';
 
 //Use express-validator to remove harmful content
 //import { default as validator } from 'express-validator';
 
+import { default as mongoose } from "mongoose";
 import { default as Song } from '../models/song.mjs';
 import { default as Genre } from '../models/genre.mjs';
 import { default as Musician } from '../models/musician.mjs';
@@ -28,15 +29,17 @@ async function songById(req, res, next) {
     try {
         const songId = req.params.id;
         console.log(songId);
+        // populate musician as well, turned off temporarily!!!!
+        //populate genre too!!!
         let song = await Song.findById(songId)
-            .populate("genre")
-            .populate("musician")
-            .populate("instruments")
-            .exec();
+        .populate("genre")
+        .populate("musician")
+        .populate("instruments")
+        .exec();
 
-        res.render("singleSong.ejs", song);
-    } catch (err) {
-        next(err);
+        res.render("singleSong.ejs", {song: song});
+    } catch (error) {
+        console.error(error.message);
     }
 
         // if there is no object at all, blew up.

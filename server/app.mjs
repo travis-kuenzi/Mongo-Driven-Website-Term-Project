@@ -58,15 +58,15 @@ app.use('/song', songRouter);
     //---------------------------------------------------
 }); */
 
-app.use((err, req, res, next) => {
+/* app.use((err, req, res, next) => {
     res.status(500).sendFile(path.join(__dirname, '..', 'public', 'error.html'));
-});
+}); */
 
 
 //---------------------------------------------------
 // error handler - if any middleware above calls next(error)
 // this will handle it
-/* app.use(function (err, req, res) {
+app.use(function (err, req, res) {
     let message = err.message;
     console.log(req.app);
 
@@ -77,7 +77,7 @@ app.use((err, req, res, next) => {
     body += `<h2>${err.status}</h2>`;
     body += `<pre>${err.stack}</pre>`;
     res.send(body);
-}); */
+});
 
 
 //---------------------------------------------------
