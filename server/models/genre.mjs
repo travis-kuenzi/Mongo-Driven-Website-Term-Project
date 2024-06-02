@@ -32,9 +32,14 @@ let GenreSchema = new Schema({
   //BEWARE if there is "s"
 GenreSchema.virtual("url").get(function () {
     return "/genre/" + this._id + "/";
-  });
+});
+
+GenreSchema.virtual("instruments").get(async function () {
+    let instrumentArray = await Instrument.find().where("genre").equals(this._id).exec();
+    return instrumentArray;
+});
 
 GenreSchema.set('toJSON', { virtuals: true });
 GenreSchema.set('toObject', { virtuals: true });
 
-export default mongoose.model('Genre', GenreSchema); 
+export default mongoose.model('Genre', GenreSchema);

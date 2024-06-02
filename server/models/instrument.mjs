@@ -26,11 +26,16 @@ let InstrumentSchema = new Schema({
   //BEWARE if there is "s"
 InstrumentSchema.virtual("url").get(function () {
     return "/instrument/" + this._id + "/";
-  });
+});
 
+import { default as Song } from "./song.mjs";
 
+InstrumentSchema.virtual("songs").get(async function () {
+    let songArray = await Song.find().where("instrument").equals(this._id).exec();
+    return songArray;
+});
 
 InstrumentSchema.set('toJSON', { virtuals: true });
 InstrumentSchema.set('toObject', { virtuals: true });
 
-export default mongoose.model('Instrument', InstrumentSchema); 
+export default mongoose.model('Instrument', InstrumentSchema);

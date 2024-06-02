@@ -1,19 +1,34 @@
-import {default as express} from 'express';
-
+import express from 'express';
 const router = express.Router();
-export default router;
+import * as songController from '../controllers/songController.mjs';
 
-import * as songController from "../controllers/songController.mjs";
-
-// Handle / (within /song )
-router.get('/', songController.songList);
-router.get('/:id', songController.songById);
-/* router.get("/song/create", songController.createsong);
-router.get("/song/update/:id", songController.update_get);
-router.post("/song/update/:id", songController.update_post);
-
- // Create a new song
-router.post('/', (req, res) => {
-  res.send('POST new song');
+router.get('/', (req, res, next) => {
+    console.log('GET /song');
+    songController.songList(req, res, next);
 });
- */
+router.get('/create', (req, res, next) => {
+    console.log('GET /song/create');
+    songController.createSongForm(req, res, next);
+});
+router.post('/create', (req, res, next) => {
+    console.log('POST /song/create');
+    songController.createSong(req, res, next);
+});
+router.get('/:id', (req, res, next) => {
+    console.log(`GET /song/${req.params.id}`);
+    songController.songById(req, res, next);
+});
+router.get('/update/:id', (req, res, next) => {
+    console.log(`GET /song/update/${req.params.id}`);
+    songController.updateSongForm(req, res, next);
+});
+router.post('/update/:id', (req, res, next) => {
+    console.log(`POST /song/update/${req.params.id}`);
+    songController.updateSong(req, res, next);
+});
+router.post('/delete/:id', (req, res, next) => {
+    console.log(`POST /song/delete/${req.params.id}`);
+    songController.deleteSong(req, res, next);
+});
+
+export default router;

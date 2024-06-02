@@ -1,0 +1,21 @@
+<%- include("super-common-header.ejs", {title: title }) %>
+
+<h1><%= title %></h1>
+
+<form action="<%= song._id ? '/song/update/' + song._id : '/song/create' %>" method="POST">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= song.name %>" required>
+    </div>
+    <div>
+        <label for="soundClipUri">Sound Clip URL:</label>
+        <input type="text" id="soundClipUri" name="soundClipUri" value="<%= song.soundClipUri %>">
+    </div>
+    <div>
+        <label for="videoUri">Video URL:</label>
+        <input type="text" id="videoUri" name="videoUri" value="<%= song.videoUri %>">
+    </div>
+    <div>
+        <button type="submit"><%= song._id ? 'Update' : 'Create' %> Song</button>
+    </div>
+</form>

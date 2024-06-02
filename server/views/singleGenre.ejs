@@ -3,10 +3,6 @@
 
 <h1><%- genre.name %></h1>
 
-<% if (genre.location) { %>
-    <p><b>Location: </b><%- genre.location %></p>
-<% } %>
-
 <% if (genre.description) { %>
     <p><b>Description : </b><%- genre.description %></p>
 <% } %>
@@ -20,8 +16,8 @@
 <% } %>
 
 <p>Instruments:
-    <ul>
-      <% for (let i of instruments) { %>
+<ul>
+    <% for (let i of genre.instruments) { %>
         <li><a href="<%= i.url %>"><%= i.name %></a></li>
       <% } %>
     </ul>
@@ -31,9 +27,12 @@
     <ul>
       <% for (let s of songs) { %>
         <li><a href="<%= s.url %>"><%= s.name %></a></li>
-      <% } %>
-    </ul>
-  </p>
+    <% } %>
+</ul>
+</p>
 
-<p></p>
-<a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this genre (Broken right now)</a>
+<a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this genre</a>
+
+<form action="/genre/delete/<%= genre._id %>" method="POST" style="display:inline;">
+    <button type="submit" class="btn btn-danger">Delete this genre</button>
+</form>

@@ -12,21 +12,21 @@ import { default as Instrument } from '../models/instrument.mjs';
 
 async function songList(req, res, next) {
     try {
+        console.log('songList called');
         let songs = await Song.find().exec();
-        const data = songs;
-
-        res.render("songs.ejs", {
-            title: "songs",
-            songs: data
+        res.render('songs.ejs', {
+            title: 'Songs',
+            songs: songs,
         });
     } catch (err) {
+        console.error('Error in songList:', err);
         next(err);
     }
-};
+}
 
 async function songById(req, res, next) {
-    //In song case, song tracks 3 other relationship within song object.
     try {
+        console.log('songById called with id:', req.params.id);
         const songId = req.params.id;
         console.log(songId);
         // populate musician as well, turned off temporarily!!!!
@@ -41,118 +41,84 @@ async function songById(req, res, next) {
     } catch (error) {
         console.error(error.message);
     }
+}
 
-        // if there is no object at all, blew up.
-/*         if (!song) {
+async function createSongForm(req, res, next) {
+    try {
+        console.log('createSongForm called');
+        let song = new Song({});
+        res.render('songForm.ejs', {
+            title: 'Create Song',
+            song: song,
+        });
+    } catch (err) {
+        console.error('Error in createSongForm:', err);
+        next(err);
+    }
+}
+
+async function createSong(req, res, next) {
+    try {
+        console.log('createSong called with data:', req.body);
+        let song = new Song({
+            name: req.body.name,
+            soundClipUri: req.body.soundClipUri,
+            videoUri: req.body.videoUri,
+        });
+        await song.save();
+        res.redirect(song.url);
+    } catch (err) {
+        console.error('Error in createSong:', err);
+        next(err);
+    }
+}
+
+async function updateSongForm(req, res, next) {
+    try {
+        console.log('updateSongForm called with id:', req.params.id);
+        let song = await Song.findById(req.params.id).exec();
+        if (!song) {
             return res.status(404).send('Song not found');
         }
-
-        // if song has genre, find it by id
-        let genre = null;
-        if (song.genre) {
-            genre = await Genre.findById(song.genre).exec();
-        }
-
-        // if song has musician, find it by id
-        let musician = null;
-        if (song.musician) {
-            musician = await Musician.findById(song.musician).exec();
-        }
-        
-        // in song case instruments are an array of object
-        const instruments = await Instrument.find({
-            // if song has a list of instruments , find them by id
-            _id: { $in: song.instruments }
-        }).exec();
-
-        //render each
-        //if nothing is there render null.
-        res.render("singleSong.ejs", {
-            title: `${song.name}`,
-            song: song,
-            genre: genre,
-            musician: musician,
-            // in song case instruments are an array of object
-            instruments: instruments 
-        });
-    } catch (err) {
-        next(err);
-    } */
-};
-
-
-/* async function createsong(req, res, next) {
-    try {
-        let song = new song({});
-        
-        res.render("songForm.ejs", {
-            title: "Create song",
+        res.render('songForm.ejs', {
+            title: `Update ${song.name}`,
             song: song,
         });
     } catch (err) {
+        console.error('Error in updateSongForm:', err);
         next(err);
     }
-};
- */
-/* async function update_get(req, res, next) {
+}
+
+async function updateSong(req, res, next) {
     try {
-      let song = await song.findById(req.params.id).exec();
-  
-      res.render("songForm.ejs", {
-        title: `Update ${song.name}`,
-        song: song,
-      });
-    } catch (err) {
-      next(err);
-    }
-  }; */
-
-/* const update_post = [
-    async function (req, res, next) {
-        try {
-            let song = await song.findById(req.params.id).exec();
-
-            if (song === null)
-                song = new song({
-                    _id: req.body.id,
-            })
-            
-           
-            let amenitiesStrings = req.body.amenities.split("\n");
-            let amenitiesList = [];
-            for (let amenitiesString of amenitiesStrings) {
-                amenitiesString = amenitiesString.trim();
-                if (amenitiesString !== "")
-                    amenitiesList.push(amenitiesString);
-            }
-
-            //replace the data
-            song.name = req.body.name;
-            song.location = req.body.location;
-            song.nightlyCost = req.body.nightlyCost;
-            song.cleaningFee = req.body.cleaningFee;
-            song.numGuests = req.body.numGuests;
-            song.type = req.body.type;
-            song.amenities = amenitiesList;
-            song.rating = req.body.rating;
-
-            song
-                .save()
-                .then((song) => {
-                    res.redirect(song.url);
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                    res.render("songForm.ejs", {
-                        title: `Update ${song.name}`,
-                        song: song,
-                        errors: routeHelper.errorParser(err.message),
-                    });
-                });
-        } catch (err) {
-            next(err);
+        console.log('updateSong called with id:', req.params.id, 'and data:', req.body);
+        let song = await Song.findById(req.params.id).exec();
+        if (!song) {
+            console.log('Song not found');
+            return res.status(404).send('Song not found');
         }
+        song.name = req.body.name;
+        song.soundClipUri = req.body.soundClipUri;
+        song.videoUri = req.body.videoUri;
+        await song.save();
+        res.redirect(song.url);
+    } catch (err) {
+        console.error('Error in updateSong:', err);
+        next(err);
     }
-] */
+}
 
-export {songList, songById}
+async function deleteSong(req, res, next) {
+    try {
+        console.log('deleteSong called with id:', req.params.id);
+        const songId = req.params.id;
+        await Song.findByIdAndDelete(songId).exec();
+        res.redirect('/song');
+    } catch (err) {
+        console.error('Error in deleteSong:', err);
+        next(err);
+    }
+}
+
+export { songList, songById, createSongForm, createSong, updateSongForm, updateSong, deleteSong };
