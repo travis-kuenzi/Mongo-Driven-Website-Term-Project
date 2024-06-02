@@ -35,10 +35,7 @@ async function instrumentById(req, res, next) {
     }
 };
 
- async function createInstrument(req, res, next) {
-}
-
-async function createInstrumentForm(req, res, next) {
+/* async function createInstrumentForm(req, res, next) {
     try {
         console.log('createInstrumentForm called');
         let instrument = new Instrument({});
@@ -119,6 +116,6 @@ async function deleteInstrument(req, res, next) {
         console.error('Error in deleteInstrument:', err);
         next(err);
     }
-}
+} */
 
-export { instrumentList, instrumentById, createInstrumentForm, createInstrument, updateInstrumentForm, updateInstrument, deleteInstrument };
+export { instrumentList, instrumentById};
