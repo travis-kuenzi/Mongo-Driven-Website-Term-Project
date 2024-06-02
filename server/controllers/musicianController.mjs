@@ -22,15 +22,11 @@ async function musicianList(req, res, next) {
 async function musicianById(req, res, next) {
     try {
         const musicianId = req.params.id;
-        let musician = await Musician.findById(musicianId);
-        if (musician) {
-            res.render("singleMusician.ejs", {
-                title: `${musician.name}`,
-                musician: musician
-            });
-        }  
-        else
-            next();
+        let musician = await Musician.findById(musicianId).exec();
+            
+        let songs = await musician.songs;
+
+        res.render("singleMusician.ejs", { musician: musician, songs: songs});
     } catch (err) {
         next(err);
     }

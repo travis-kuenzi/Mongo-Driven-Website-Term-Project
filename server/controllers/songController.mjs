@@ -28,10 +28,19 @@ async function songById(req, res, next) {
     try {
         const songId = req.params.id;
         console.log(songId);
-        let song = await Song.findById(songId).exec();
+        let song = await Song.findById(songId)
+            .populate("genre")
+            .populate("musician")
+            .populate("instruments")
+            .exec();
+
+        res.render("singleSong.ejs", song);
+    } catch (err) {
+        next(err);
+    }
 
         // if there is no object at all, blew up.
-        if (!song) {
+/*         if (!song) {
             return res.status(404).send('Song not found');
         }
 
@@ -61,11 +70,11 @@ async function songById(req, res, next) {
             genre: genre,
             musician: musician,
             // in song case instruments are an array of object
-            instruments: instruments
+            instruments: instruments 
         });
     } catch (err) {
         next(err);
-    }
+    } */
 };
 
 

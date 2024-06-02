@@ -19,6 +19,21 @@
     <img src="<%= genre.imageUri %>" alt="<%= genre.name %>">
 <% } %>
 
+<p>Instruments:
+    <ul>
+      <% for (let i of instruments) { %>
+        <li><a href="<%= i.url %>"><%= i.name %></a></li>
+      <% } %>
+    </ul>
+  </p>
+
+  <p>Songs:
+    <ul>
+      <% for (let s of songs) { %>
+        <li><a href="<%= s.url %>"><%= s.name %></a></li>
+      <% } %>
+    </ul>
+  </p>
 
 <p></p>
 <a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this genre (Broken right now)</a>

@@ -22,15 +22,13 @@ async function instrumentList(req, res, next) {
 async function instrumentById(req, res, next) {
     try {
         const instrumentId = req.params.id;
-        let instrument = await Instrument.findById(instrumentId);
-        if (instrument) {
-            res.render("singleInstrument.ejs", {
-                title: `${instrument.name}`,
-                instrument: instrument
-            });
-        }  
-        else
-            next();
+        let instrument = await Instrument.findById(instrumentId)
+            .populate("genres")
+            .exec();
+
+        let songs = await instrument.songs;
+
+        res.render("singleInstrument.ejs", { instrument: instrument, songs: songs });
     } catch (err) {
         next(err);
     }

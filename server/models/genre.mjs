@@ -11,6 +11,21 @@ let GenreSchema = new Schema({
     imageUri: {type: String}
   });
 
+  TeamSchema.virtual("members").get(async function () {
+    let heroArray = await Hero.find().where("team").equals(this._id).exec();
+    return heroArray;
+  });
+
+  TeamSchema.virtual("members").get(async function () {
+    let heroArray = await Hero.find().where("team").equals(this._id).exec();
+    return heroArray;
+  });
+
+  TeamSchema.virtual("members").get(async function () {
+    let heroArray = await Hero.find().where("team").equals(this._id).exec();
+    return heroArray;
+  });
+  
  
 //virtual below: 
   //BEWARE if there is "s"

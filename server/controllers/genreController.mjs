@@ -23,15 +23,12 @@ async function genreList(req, res, next) {
 async function genreById(req, res, next) {
     try {
         const genreId = req.params.id;
-        let genre = await Genre.findById(genreId);
-        if (genre) {
-            res.render("singleGenre.ejs", {
-                title: `${genre.name}`,
-                genre: genre
-            });
-        }  
-        else
-            next();
+        let genre = await Genre.findById(genreId).exec();
+
+        let songs = await genre.songs;
+        let instruments = await genre.instruments;
+
+        res.render("singleGenre.ejs", {genre: genre, songs: songs, instruments: instruments});
     } catch (err) {
         next(err);
     }

@@ -9,7 +9,7 @@ const GenreList = ([
   image: "jazz_image_url"
 },
 {
-  name: "House Music",
+  name: "House Music Free",
   description: "Electronic dance music characterized by a repetitive four-on-the-floor beat...",
   history: "House music originated in Chicago during the early 1980s...",
   image: "house_music_image_url"

@@ -8,15 +8,15 @@
 <!-- todo: this needs attention -->
 <!-- we have array of instrument in song.instruments -->
 <!-- and this is not working -->
-<ul>
-    <% for (let i = 0; i < instruments.length; i++) { %>
+<!-- <ul>
+    <% //for (let i = 0; i < instruments.length; i++) { %>
         <li>
-            <a href="/instrument/<%= song.instruments[i]._id %>" class="btn btn-primary">
-                <%- instruments[i].name %>
+            <a href="/instrument/<%= //song.instruments[i]._id %>" class="btn btn-primary">
+                <%- //instruments[i].name %>
             </a>
         </li>
-    <% } %>
-</ul>
+    <% //} %>
+</ul> -->
 
 
 <% if (song.soundClipUri) { %>
@@ -31,6 +31,24 @@
         <source src="<%= song.videoUri %>" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+<% } %>
+
+<% if(genre) { %>
+    <p>Genre: <a href="<%= genre.url %>"><%= genre.name %></a></p>
+    <% } %>
+
+<% if(musician) { %>
+    <p>Musician: <a href="<%= musician.url %>"><%= musician.name %></a></p>
+<% } %>
+
+<% if(instruments) { %>
+    <p>Instruments:
+        <ul>
+          <% for (let i of instruments) { %>
+            <li><a href="<%= i.url %>"><%= i.name %></a></li>
+          <% } %>
+        </ul>
+    </p>
 <% } %>
 
 
