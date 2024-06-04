@@ -5,10 +5,9 @@
   "scripts": {
     "start": "node ./server/app.mjs",
     "dev": "nodemon ./server/app.mjs",
-    "addData": "node addData.mjs",
-    "testData": "node testData.mjs",
-    "loadData": "node loadData.mjs",
-    "wztest": "node tempTestDataWZ.mjs"
+    "addData": "node ./server/addData.mjs",
+    "testData": "node ./server/testData.mjs",
+    "loadData": "node ./server/loadData.mjs"
   },
   "author": "Nina, Sophia, Travis, William ",
   "license": "ISC",
