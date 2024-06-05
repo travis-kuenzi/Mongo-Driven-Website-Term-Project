@@ -20,6 +20,6 @@
         <input type="text" id="imageUri" name="imageUri" value="<%= genre.imageUri %>">
     </div>
     <div>
-        <button type="submit"><%= genre._id === null ? 'Create' : 'Update' %> Genre</button>
+        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Genre</button>
     </div>
 </form>

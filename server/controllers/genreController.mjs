@@ -80,7 +80,8 @@ async function createGenre(req, res, next) {
         let genre = new Genre({});
 
         res.render("genreForm.ejs", {
-            genre: genre
+            genre: genre,
+            creatingNew: {new: true}
         });
     } catch (err) {
         next(err);
@@ -111,6 +112,7 @@ async function update_get(req, res, next) {
       res.render("genreForm.ejs", {
         title: `Update ${genre.name}`,
         genre: genre,
+        creatingNew: {new: false}
       });
     } catch (err) {
       next(err);
