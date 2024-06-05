@@ -3,18 +3,21 @@ import * as routeHelper from '../routes/routeHelpers.mjs';
 //Use express-validator to remove harmful content
 //import { default as validator } from 'express-validator';
 
+import { default as mongoose } from "mongoose";
 import { default as Instrument } from '../models/instrument.mjs';
+import { default as Genre } from '../models/genre.mjs';
+import { default as Musician } from '../models/musician.mjs';
 
 async function instrumentList(req, res, next) {
     try {
-        console.log('instrumentList called');
+        console.log('InstrumentList called');
         let instruments = await Instrument.find().exec();
-        res.render('instruments.ejs', {
+        res.render('Instruments.ejs', {
             title: 'Instruments',
             instruments: instruments,
         });
     } catch (err) {
-        console.error('Error in instrumentList:', err);
+        console.error('Error in InstrumentList:', err);
         next(err);
     }
 }
@@ -23,19 +26,19 @@ async function instrumentById(req, res, next) {
     try {
         console.log('instrumentById called with id:', req.params.id);
         const instrumentId = req.params.id;
-        let instrument = await Instrument.findById(instrumentId).exec();
-        if (!instrument) {
-            return res.status(404).send('Instrument not found');
-        }
-        let songs = await instrument.songs;
-        res.render('singleInstrument.ejs', { instrument: instrument, songs: songs });
-    } catch (err) {
-        console.error('Error in instrumentById:', err);
-        next(err);
-    }
-};
+        console.log(instrumentId);
+        //populate genre too!!!
+        let instrument = await Instrument.findById(instrumentId)
+        .populate("genres")
+        .exec();
 
-/* async function createInstrumentForm(req, res, next) {
+        res.render("singleInstrument.ejs", {instrument: instrument});
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+async function createInstrumentForm(req, res, next) {
     try {
         console.log('createInstrumentForm called');
         let instrument = new Instrument({});
@@ -56,8 +59,8 @@ async function createInstrument(req, res, next) {
             name: req.body.name,
             history: req.body.history,
             family: req.body.family,
-            imageUri: req.body.imageUri,
             soundClipUri: req.body.soundClipUri,
+            imageUri: req.body.videoUri,
         });
         await instrument.save();
         res.redirect(instrument.url);
@@ -93,10 +96,8 @@ async function updateInstrument(req, res, next) {
             return res.status(404).send('Instrument not found');
         }
         instrument.name = req.body.name;
-        instrument.history = req.body.history;
-        instrument.family = req.body.family;
-        instrument.imageUri = req.body.imageUri;
         instrument.soundClipUri = req.body.soundClipUri;
+        instrument.videoUri = req.body.videoUri;
         await instrument.save();
         res.redirect(instrument.url);
     } catch (err) {
@@ -109,13 +110,12 @@ async function deleteInstrument(req, res, next) {
     try {
         console.log('deleteInstrument called with id:', req.params.id);
         const instrumentId = req.params.id;
-        await Song.updateMany({ instrument: instrumentId }, { $unset: { instrument: 1 } }).exec();
         await Instrument.findByIdAndDelete(instrumentId).exec();
         res.redirect('/instrument');
     } catch (err) {
         console.error('Error in deleteInstrument:', err);
         next(err);
     }
-} */
+}
 
-export { instrumentList, instrumentById};
+export { instrumentList, instrumentById, createInstrumentForm, createInstrument, updateInstrumentForm, updateInstrument, deleteInstrument };
