@@ -33,7 +33,7 @@ async function genreById(req, res, next) {
     }
 }
 
-async function createGenreForm(req, res, next) {
+/* async function createGenreForm(req, res, next) {
     try {
         console.log('createGenreForm called');
         let genre = new Genre({});
@@ -46,8 +46,8 @@ async function createGenreForm(req, res, next) {
         next(err);
     }
 }
-
-async function createGenre(req, res, next) {
+ */
+/* async function createGenre(req, res, next) {
     try {
         console.log('createGenre called with data:', req.body);
         let genre = new Genre({
@@ -63,8 +63,22 @@ async function createGenre(req, res, next) {
         next(err);
     }
 }
+ */
 
-async function updateGenreForm(req, res, next) {
+async function createGenre(req, res, next) {
+    try {
+        console.log('createGenre called with data:', req.body);
+        let genre = new Genre({});
+
+        res.render("genreForm.ejs", {
+            genre: genre
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+/* async function updateGenreForm(req, res, next) {
     try {
         console.log('updateGenreForm called with id:', req.params.id);
         let genre = await Genre.findById(req.params.id).exec();
@@ -79,22 +93,52 @@ async function updateGenreForm(req, res, next) {
         console.error('Error in updateGenreForm:', err);
         next(err);
     }
-}
+} */
 
-async function updateGenre(req, res, next) {
+async function update_get(req, res, next) {
+    try {
+      let genre = await Genre.findById(req.params.id).exec();
+  
+      res.render("genreForm.ejs", {
+        title: `Update ${genre.name}`,
+        genre: genre,
+      });
+    } catch (err) {
+      next(err);
+    }
+};
+
+
+async function update_post(req, res, next) {
     try {
         console.log('updateGenre called with id:', req.params.id, 'and data:', req.body);
         let genre = await Genre.findById(req.params.id).exec();
-        if (!genre) {
-            console.log('Genre not found');
-            return res.status(404).send('Genre not found');
+        if (genre === null) {
+            //console.log('Genre not found');
+            genre = new Genre({
+                _id: req.body.id
+            });
         }
+
         genre.name = req.body.name;
         genre.description = req.body.description;
         genre.history = req.body.history;
         genre.imageUri = req.body.imageUri;
         await genre.save();
-        res.redirect(genre.url);
+        
+        genre
+            .save()
+            .then((genre) => {
+                res.redirect(genre.url);
+            })
+            .catch((err) => {
+                console.log(err.message);
+                res.render("genreForm.ejs", {
+                    title: `Update ${genre.name}`,
+                    genre: genre,
+                    errors: routeHelper.errorParser(err.message),
+                });
+            });
     } catch (err) {
         console.error('Error in updateGenre:', err);
         next(err);
@@ -104,6 +148,7 @@ async function updateGenre(req, res, next) {
 async function deleteGenre(req, res, next) {
     try {
         console.log('deleteGenre called with id:', req.params.id);
+        
         const genreId = req.params.id;
         await Instrument.updateMany({ genre: genreId }, { $unset: { genre: 1 } }).exec();
         await Song.updateMany({ genre: genreId }, { $unset: { genre: 1 } }).exec();
@@ -115,4 +160,4 @@ async function deleteGenre(req, res, next) {
     }
 }
 
-export { genreList, genreById, createGenreForm, createGenre, updateGenreForm, updateGenre, deleteGenre };
+export {genreList, genreById, createGenre, deleteGenre, update_get, update_post}
