@@ -42,6 +42,7 @@ router.get("/create", genreController.createGenre);
 router.get("/update/:id", genreController.update_get);
 router.post("/update/:id", genreController.update_post);
 router.get('/:id', genreController.genreById);
+router.post('/delete/:id', genreController.deleteGenre);
 
 export default router;
 

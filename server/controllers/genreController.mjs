@@ -7,6 +7,7 @@ import { default as mongoose } from "mongoose";
 import { default as Instrument } from '../models/instrument.mjs';
 import { default as Genre } from '../models/genre.mjs';
 import { default as Musician } from '../models/musician.mjs';
+import { default as Song } from '../models/song.mjs';
 
 async function genreList(req, res, next) {
     try {

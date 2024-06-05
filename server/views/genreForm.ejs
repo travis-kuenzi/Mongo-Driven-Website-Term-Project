@@ -2,7 +2,7 @@
 
 <h1><%= genre.name %></h1>
 
-<form action="<%= genre._id ? '/genre/update/' + genre._id : '/genre/create' %>" method="POST">
+<form method="POST" action="/genre/update/<%=genre._id%>" id="listingForm">
     <div>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" value="<%= genre.name %>" required>
@@ -20,6 +20,6 @@
         <input type="text" id="imageUri" name="imageUri" value="<%= genre.imageUri %>">
     </div>
     <div>
-        <button type="submit"><%= genre._id ? 'Update' : 'Create' %> Genre</button>
+        <button type="submit"><%= genre._id === null ? 'Create' : 'Update' %> Genre</button>
     </div>
 </form>
