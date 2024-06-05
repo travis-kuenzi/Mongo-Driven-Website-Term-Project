@@ -32,14 +32,17 @@ router.post('/delete/:id', (req, res, next) => {
 }); */
 
 import { default as express } from "express";
-const router = express.Router();
-export default router;
-
 import * as genreController from "../controllers/genreController.mjs";
+
+const router = express.Router();
 
 
 router.get("/", genreController.genreList);
-router.get("/genre/create", genreController.createGenre);
-router.get("/genre/update/:id", genreController.update_get);
-router.post("/genre/update/:id", genreController.update_post);
-router.get('/genre/:id', genreController.genreById);
+router.get("/create", genreController.createGenre);
+router.get("/update/:id", genreController.update_get);
+router.post("/update/:id", genreController.update_post);
+router.get('/:id', genreController.genreById);
+
+export default router;
+
+

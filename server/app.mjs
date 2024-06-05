@@ -2,10 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
-import genreRouter from './routes/genres.mjs';
-import musicianRouter from './routes/musicians.mjs';
-import instrumentRouter from './routes/instruments.mjs';
-import songRouter from './routes/songs.mjs';
+
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -21,9 +18,16 @@ app.use(express.urlencoded({ extended: true }));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+import { default as genreRouter } from './routes/genres.mjs';
 app.use('/genre', genreRouter);
+
+import {default as musicianRouter } from './routes/musicians.mjs';
 app.use('/musician', musicianRouter);
+
+import {default as instrumentRouter } from './routes/instruments.mjs';
 app.use('/instrument', instrumentRouter);
+
+import {default as songRouter } from './routes/songs.mjs';
 app.use('/song', songRouter);
 
 
@@ -45,7 +49,7 @@ app.use('/song', songRouter);
 //---------------------------------------------------
 // error handler - if any middleware above calls next(error)
 // this will handle it
-app.use(function (err, req, res) {
+app.use(function (err, req, res, next) {
     let message = err.message;
     console.log(req.app);
 

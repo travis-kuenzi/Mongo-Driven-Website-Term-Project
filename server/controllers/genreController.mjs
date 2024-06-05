@@ -1,17 +1,24 @@
-import Genre from '../models/genre.mjs';
-import Instrument from '../models/instrument.mjs';
-import Song from '../models/song.mjs';
+import * as routeHelper from '../routes/routeHelpers.mjs';
+
+//Use express-validator to remove harmful content
+//import { default as validator } from 'express-validator';
+
+import { default as mongoose } from "mongoose";
+import { default as Instrument } from '../models/instrument.mjs';
+import { default as Genre } from '../models/genre.mjs';
+import { default as Musician } from '../models/musician.mjs';
 
 async function genreList(req, res, next) {
     try {
-        console.log('genreList called');
+        //console.log('genreList called');
         let genres = await Genre.find().exec();
+
         res.render('genres.ejs', {
             title: 'Genres',
             genres: genres,
         });
     } catch (err) {
-        console.error('Error in genreList:', err);
+        //console.error('Error in genreList:', err);
         next(err);
     }
 }
@@ -21,14 +28,15 @@ async function genreById(req, res, next) {
         console.log('genreById called with id:', req.params.id);
         const genreId = req.params.id;
         let genre = await Genre.findById(genreId).exec();
-        if (!genre) {
-            return res.status(404).send('Genre not found');
+        if (genre) {
+            let songs = await genre.songs;
+            let instruments = await genre.instruments;
+            res.render('singleGenre.ejs', { genre: genre, songs: songs, instruments: instruments });
         }
-        let songs = await genre.songs;
-        let instruments = await genre.instruments;
-        res.render('singleGenre.ejs', { genre: genre, songs: songs, instruments: instruments });
+        else
+            next();
     } catch (err) {
-        console.error('Error in genreById:', err);
+        //console.error('Error in genreById:', err);
         next(err);
     }
 }

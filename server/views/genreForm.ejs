@@ -1,6 +1,6 @@
-<%- include("super-common-header.ejs", {title: title }) %>
+<%- include("super-common-header.ejs", {title: genre.name }) %>
 
-<h1><%= title %></h1>
+<h1><%= genre.name %></h1>
 
 <form action="<%= genre._id ? '/genre/update/' + genre._id : '/genre/create' %>" method="POST">
     <div>
