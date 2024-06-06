@@ -121,4 +121,21 @@ async function deleteGenre(req, res, next) {
     }
 }
 
-export {genreList, genreById, createGenre, deleteGenre, update_get, update_post}
+async function verifyDelete(req, res, next) {
+    try {
+        //console.log('instrumentList called');
+        const genreId = req.params.id;
+        let genre = await Genre.findById(genreId).exec();
+
+        res.render('verifyDeleteForm', {
+            title: 'verifyGenreDelete',
+            object: genre,
+            objectType: { type: 'genre' }
+        });
+    } catch (err) {
+        //console.error('Error in instrumentList:', err);
+        next(err);
+    }
+}
+
+export {genreList, genreById, createGenre, deleteGenre, update_get, update_post, verifyDelete}

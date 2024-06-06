@@ -10,6 +10,7 @@ router.get("/update/:id", genreController.update_get);
 router.post("/update/:id", genreController.update_post);
 router.get('/:id', genreController.genreById);
 router.post('/delete/:id', genreController.deleteGenre);
+router.get('/verifyDelete/:id', genreController.verifyDelete);
 
 export default router;
 
