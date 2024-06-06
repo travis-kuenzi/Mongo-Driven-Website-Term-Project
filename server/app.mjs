@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 const connection_string = "mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024";
 mongoose.connect(connection_string);
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'Public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,13 +21,13 @@ app.set("view engine", "ejs");
 import { default as genreRouter } from './routes/genres.mjs';
 app.use('/genre', genreRouter);
 
-import {default as musicianRouter } from './routes/musicians.mjs';
+import { default as musicianRouter } from './routes/musicians.mjs';
 app.use('/musician', musicianRouter);
 
-import {default as instrumentRouter } from './routes/instruments.mjs';
+import { default as instrumentRouter } from './routes/instruments.mjs';
 app.use('/instrument', instrumentRouter);
 
-import {default as songRouter } from './routes/songs.mjs';
+import { default as songRouter } from './routes/songs.mjs';
 app.use('/song', songRouter);
 
 
