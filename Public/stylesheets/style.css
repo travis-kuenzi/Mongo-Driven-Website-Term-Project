@@ -48,7 +48,9 @@ input:invalid {
 }
 
 #description,
-#history {
+#history,
+#anecdote,
+#process {
   width: 100%;
   height: 200px;
   font-size: 16px;

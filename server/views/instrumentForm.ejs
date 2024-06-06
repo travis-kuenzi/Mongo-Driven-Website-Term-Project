@@ -1,29 +1,34 @@
 <%- include("super-common-header.ejs", {title: instrument.name }) %>
 
-<h1><%= instrument.name %></h1>
+    <h1>
+        <%= instrument.name %>
+    </h1>
 
-<form action="<%= instrument._id ? '/instrument/update/' + instrument._id : '/instrument/create' %>" method="POST">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<%= instrument.name %>" required>
-    </div>
-    <div>
-        <label for="history">History:</label>
-        <textarea id="history" name="history"><%= instrument.history %></textarea>
-    </div>
-    <div>
-        <label for="family">Family:</label>
-        <input type="text" id="family" name="family" value="<%= instrument.family %>">
-    </div>
-    <div>
-        <label for="imageUri">Image URL:</label>
-        <input type="text" id="imageUri" name="imageUri" value="<%= instrument.imageUri %>">
-    </div>
-    <div>
-        <label for="soundSampleUri">Sound Sample URL:</label>
-        <input type="text" id="soundSampleUri" name="soundSampleUri" value="<%= instrument.soundSampleUri %>">
-    </div>
-    <div>
-        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Instrument</button>
-    </div>
-</form>
+    <form action="<%= instrument._id ? '/instrument/update/' + instrument._id : '/instrument/create' %>" method="POST">
+        <div class="mb-3">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= instrument.name %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="history">History:</label>
+            <textarea id="history" name="history"><%= instrument.history %></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="family">Family:</label>
+            <input type="text" class="form-control" id="family" name="family" value="<%= instrument.family %>">
+        </div>
+        <div class="mb-3">
+            <label for="imageUri">Image URL:</label>
+            <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= instrument.imageUri %>">
+        </div>
+        <div class="mb-3">
+            <label for="soundSampleUri">Sound Sample URL:</label>
+            <input type="text" class="form-control" id="soundSampleUri" name="soundSampleUri"
+                value="<%= instrument.soundSampleUri %>">
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary my-3" type="submit">
+                <%= creatingNew.new ? 'Create' : 'Update' %> Instrument
+            </button>
+        </div>
+    </form>

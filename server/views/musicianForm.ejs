@@ -1,25 +1,29 @@
 <%- include("super-common-header.ejs", {title: musician.name }) %>
 
-<h1><%= musician.name %></h1>
+    <h1>
+        <%= musician.name %>
+    </h1>
 
-<form action="<%= musician._id ? '/musician/update/' + musician._id : '/musician/create' %>" method="POST">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<%= musician.name %>" required>
-    </div>
-    <div>
-        <label for="imageUri">Image URL:</label>
-        <input type="text" id="imageUri" name="imageUri" value="<%= musician.imageUri %>">
-    </div>
-    <div>
-        <label for="anecdote">Anecdote:</label>
-        <textarea id="anecdote" name="anecdote"><%= musician.anecdote %></textarea>
-    </div>
-    <div>
-        <label for="process">Process:</label>
-        <textarea id="process" name="process"><%= musician.process %></textarea>
-    </div>
-    <div>
-        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Musician</button>
-    </div>
-</form>
+    <form action="<%= musician._id ? '/musician/update/' + musician._id : '/musician/create' %>" method="POST">
+        <div class="mb-3">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= musician.name %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="imageUri">Image URL:</label>
+            <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= musician.imageUri %>">
+        </div>
+        <div class="mb-3">
+            <label for="anecdote">Anecdote:</label>
+            <textarea id="anecdote" name="anecdote"><%= musician.anecdote %></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="process">Process:</label>
+            <textarea id="process" name="process"><%= musician.process %></textarea>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary my-3" type="submit">
+                <%= creatingNew.new ? 'Create' : 'Update' %> Musician
+            </button>
+        </div>
+    </form>

@@ -1,21 +1,26 @@
 <%- include("super-common-header.ejs", {title: song.name }) %>
 
-<h1><%= song.name %></h1>
+    <h1>
+        <%= song.name %>
+    </h1>
 
-<form action="<%= song._id ? '/song/update/' + song._id : '/song/create' %>" method="POST">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<%= song.name %>" required>
-    </div>
-    <div>
-        <label for="soundClipUri">Sound Clip URL:</label>
-        <input type="text" id="soundClipUri" name="soundClipUri" value="<%= song.soundClipUri %>">
-    </div>
-    <div>
-        <label for="videoUri">Video URL:</label>
-        <input type="text" id="videoUri" name="videoUri" value="<%= song.videoUri %>">
-    </div>
-    <div>
-        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Song</button>
-    </div>
-</form>
+    <form action="<%= song._id ? '/song/update/' + song._id : '/song/create' %>" method="POST">
+        <div class="mb-3">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= song.name %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="soundClipUri">Sound Clip URL:</label>
+            <input type="text" class="form-control" id="soundClipUri" name="soundClipUri"
+                value="<%= song.soundClipUri %>">
+        </div>
+        <div class="mb-3">
+            <label for="videoUri">Video URL:</label>
+            <input type="text" class="form-control" id="videoUri" name="videoUri" value="<%= song.videoUri %>">
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary my-3" type="submit">
+                <%= creatingNew.new ? 'Create' : 'Update' %> Song
+            </button>
+        </div>
+    </form>
