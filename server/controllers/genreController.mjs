@@ -7,6 +7,7 @@ import { default as mongoose } from "mongoose";
 import { default as Instrument } from '../models/instrument.mjs';
 import { default as Genre } from '../models/genre.mjs';
 import { default as Musician } from '../models/musician.mjs';
+import { default as Song } from '../models/song.mjs';
 
 async function genreList(req, res, next) {
     try {
@@ -79,7 +80,8 @@ async function createGenre(req, res, next) {
         let genre = new Genre({});
 
         res.render("genreForm.ejs", {
-            genre: genre
+            genre: genre,
+            creatingNew: {new: true}
         });
     } catch (err) {
         next(err);
@@ -110,6 +112,7 @@ async function update_get(req, res, next) {
       res.render("genreForm.ejs", {
         title: `Update ${genre.name}`,
         genre: genre,
+        creatingNew: {new: false}
       });
     } catch (err) {
       next(err);
