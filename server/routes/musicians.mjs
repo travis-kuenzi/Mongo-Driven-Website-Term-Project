@@ -10,5 +10,6 @@ router.get("/update/:id", musicianController.update_get);
 router.post("/update/:id", musicianController.update_post);
 router.get('/:id', musicianController.musicianById);
 router.post('/delete/:id', musicianController.deleteMusician);
+router.get('/verifyDelete/:id', musicianController.verifyDelete);
 
 export default router;

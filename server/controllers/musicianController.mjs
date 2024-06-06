@@ -121,4 +121,21 @@ async function deleteMusician(req, res, next) {
     }
 }
 
-export {musicianList, musicianById, createMusician, deleteMusician, update_get, update_post}
+async function verifyDelete(req, res, next) {
+    try {
+        //console.log('musicianList called');
+        const musicianId = req.params.id;
+        let musician = await Musician.findById(musicianId).exec();
+
+        res.render('verifyDeleteForm', {
+            title: 'verifyMusicianDelete',
+            object: musician,
+            objectType: { type: 'musician' }
+        });
+    } catch (err) {
+        //console.error('Error in musicianList:', err);
+        next(err);
+    }
+}
+
+export {musicianList, musicianById, createMusician, deleteMusician, update_get, update_post, verifyDelete}
