@@ -1,6 +1,6 @@
-<%- include("super-common-header.ejs", {title: title }) %>
+<%- include("super-common-header.ejs", {title: song.name }) %>
 
-<h1><%= title %></h1>
+<h1><%= song.name %></h1>
 
 <form action="<%= song._id ? '/song/update/' + song._id : '/song/create' %>" method="POST">
     <div>

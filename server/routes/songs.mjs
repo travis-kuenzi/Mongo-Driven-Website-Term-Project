@@ -1,4 +1,4 @@
-import express from 'express';
+/* import express from 'express';
 const router = express.Router();
 import * as songController from '../controllers/songController.mjs';
 
@@ -30,5 +30,20 @@ router.post('/delete/:id', (req, res, next) => {
     console.log(`POST /song/delete/${req.params.id}`);
     songController.deleteSong(req, res, next);
 });
+
+export default router; */
+
+import { default as express } from "express";
+import * as songController from "../controllers/songController.mjs";
+
+const router = express.Router();
+
+
+router.get("/", songController.songList);
+router.get("/create", songController.createSong);
+router.get("/update/:id", songController.update_get);
+router.post("/update/:id", songController.update_post);
+router.get('/:id', songController.songById);
+router.post('/delete/:id', songController.deleteSong);
 
 export default router;
