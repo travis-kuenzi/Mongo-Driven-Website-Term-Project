@@ -36,6 +36,22 @@ label em {
   background-color: #005374;
 }
 
+.centered {
+  width: 50%;
+  /* Set a specific width */
+  margin: 0 auto;
+  /* Center horizontally */
+}
+
 input:invalid {
   outline: 3px solid red;
+}
+
+#description,
+#history,
+#anecdote,
+#process {
+  width: 100%;
+  height: 200px;
+  font-size: 16px;
 }
