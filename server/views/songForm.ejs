@@ -16,6 +16,6 @@
         <input type="text" id="videoUri" name="videoUri" value="<%= song.videoUri %>">
     </div>
     <div>
-        <button type="submit"><%= song._id ? 'Update' : 'Create' %> Song</button>
+        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Song</button>
     </div>
 </form>

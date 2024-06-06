@@ -20,6 +20,6 @@
         <textarea id="process" name="process"><%= musician.process %></textarea>
     </div>
     <div>
-        <button type="submit"><%= musician._id ? 'Update' : 'Create' %> Musician</button>
+        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Musician</button>
     </div>
 </form>
