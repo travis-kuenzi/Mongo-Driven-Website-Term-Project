@@ -45,3 +45,7 @@
 
 <p></p>
 <a href="/song/update/<%= song._id %>" class="btn btn-primary">Update this Song</a>
+
+<form action="/song/delete/<%= song._id %>" method="POST" style="display:inline;">
+    <button type="submit" class="btn btn-danger">Delete this song</button>
+</form>
