@@ -1,25 +1,31 @@
 <%- include("super-common-header.ejs", {title: genre.name }) %>
 
-<h1><%= genre.name %></h1>
+    <h1>
+        <%= genre.name %>
+    </h1>
 
-<form method="POST" action="/genre/update/<%=genre._id%>" id="listingForm">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<%= genre.name %>" required>
-    </div>
-    <div>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description"><%= genre.description %></textarea>
-    </div>
-    <div>
-        <label for="history">History:</label>
-        <textarea id="history" name="history"><%= genre.history %></textarea>
-    </div>
-    <div>
-        <label for="imageUri">Image URL:</label>
-        <input type="text" id="imageUri" name="imageUri" value="<%= genre.imageUri %>">
-    </div>
-    <div>
-        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Genre</button>
-    </div>
-</form>
+    <form method="POST" action="/genre/update/<%=genre._id%>" id="listingForm">
+        <div class="mb-3">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= genre.name %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"><%= genre.description %></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="history">History:</label>
+            <textarea id="history" name="history"><%= genre.history %></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="imageUri">Image URL:</label>
+            <input type="text" id="imageUri" name="imageUri" value="<%= genre.imageUri %>">
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary my-3" type="submit">
+                <%= creatingNew.new ? 'Create' : 'Update' %> Genre
+            </button>
+        </div>
+    </form>
+
+    <%- include("super-common-footer.ejs")%>
