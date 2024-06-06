@@ -1,5 +1,10 @@
 <%- include("super-common-header.ejs", {title:song.name}) %>
 
+<p></p>
+
+<a href="/song" class="btn btn-primary">Back to Songs</a>
+
+<p></p>
 
 <h1><%- song.name %></h1>
 
@@ -39,4 +44,8 @@
 
 
 <p></p>
-<a href="/song/update/<%= song._id %>" class="btn btn-primary">Update this Song(Broken right now)</a>
+<a href="/song/update/<%= song._id %>" class="btn btn-primary">Update this Song</a>
+
+<form action="/song/delete/<%= song._id %>" method="POST" style="display:inline;">
+    <button type="submit" class="btn btn-danger">Delete this song</button>
+</form>

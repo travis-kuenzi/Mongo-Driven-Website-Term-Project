@@ -1,6 +1,6 @@
-<%- include("super-common-header.ejs", {title: title }) %>
+<%- include("super-common-header.ejs", {title: instrument.name }) %>
 
-<h1><%= title %></h1>
+<h1><%= instrument.name %></h1>
 
 <form action="<%= instrument._id ? '/instrument/update/' + instrument._id : '/instrument/create' %>" method="POST">
     <div>
@@ -20,10 +20,10 @@
         <input type="text" id="imageUri" name="imageUri" value="<%= instrument.imageUri %>">
     </div>
     <div>
-        <label for="soundClipUri">Sound Clip URL:</label>
-        <input type="text" id="soundClipUri" name="soundClipUri" value="<%= instrument.soundClipUri %>">
+        <label for="soundSampleUri">Sound Sample URL:</label>
+        <input type="text" id="soundSampleUri" name="soundSampleUri" value="<%= instrument.soundSampleUri %>">
     </div>
     <div>
-        <button type="submit"><%= instrument._id ? 'Update' : 'Create' %> Instrument</button>
+        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Instrument</button>
     </div>
 </form>

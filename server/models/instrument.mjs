@@ -18,7 +18,7 @@ let InstrumentSchema = new Schema({
       ref: "Genre"
     }],
     imageUri: {type: String},
-    soundClipUri: {type: String}
+    soundSampleUri: {type: String}
   });
  
 //virtual below: 

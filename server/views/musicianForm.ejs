@@ -1,6 +1,6 @@
-<%- include("super-common-header.ejs", {title: title }) %>
+<%- include("super-common-header.ejs", {title: musician.name }) %>
 
-<h1><%= title %></h1>
+<h1><%= musician.name %></h1>
 
 <form action="<%= musician._id ? '/musician/update/' + musician._id : '/musician/create' %>" method="POST">
     <div>
@@ -20,6 +20,6 @@
         <textarea id="process" name="process"><%= musician.process %></textarea>
     </div>
     <div>
-        <button type="submit"><%= musician._id ? 'Update' : 'Create' %> Musician</button>
+        <button type="submit"><%= creatingNew.new ? 'Create' : 'Update' %> Musician</button>
     </div>
 </form>

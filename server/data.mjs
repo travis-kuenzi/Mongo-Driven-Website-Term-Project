@@ -61,32 +61,32 @@ const MusicianList = ([
 ]);
 
 const InstrumentList = ([{
-  name: "Guitar",
+  name: "Acoustic Guitar",
   history: "The guitar has ancient roots, dating back over 4000 years...",
   family: "String Instruments",
-  imageUri: "guitar_image_url",
-  soundClipUri: "guitar_sound_clip_url"
+  imageUri: "https://th.bing.com/th/id/R.672dcc14c27f13a9d386fbf5787fd512?rik=nqtc4%2f6Z5yEA6w&riu=http%3a%2f%2fwww.prodipeguitars.co.uk%2fmedia%2fjmfsa25_faceprodipe.jpg&ehk=nLK1TW6OEXatDj72RcsRWiCMdj89ji10389tCU%2fmsTE%3d&risl=&pid=ImgRaw&r=0",
+  soundSampleUri: "https://www.youtube.com/embed/htnobkrtDoo?si=bUv9iuF-R4xctppr"
 },
 {
-  name: "Keyboard",
+  name: "Digital Piano",
   history: "The keyboard instrument family includes the piano, organ, harpsichord, and many other instruments...",
   family: "Keyboard Instruments",
-  imageUri: "keyboard_image_url",
-  soundClipUri: "keyboard_sound_clip_url"
+  imageUri: "https://images-na.ssl-images-amazon.com/images/I/61qVAf3NBdL._AC_SX679_.jpg",
+  soundSampleUri: "https://www.youtube.com/embed/utWjs8tro0k?si=-VPpyxUpJp2anxiV"
 },
 {
   name: "Classic Guitar",
   history: "The classical guitar, also known as the nylon-string guitar or Spanish guitar...",
   family: "String Instruments",
-  imageUri: "classic_guitar_image_url",
-  soundClipUri: "classic_guitar_sound_clip_url"
+  imageUri: "https://th.bing.com/th/id/R.2269f8f4f6f5cbca1ba287e74a7a8bdb?rik=RJNkGl4CA4YjtQ&pid=ImgRaw&r=0",
+  soundSampleUri: "https://www.youtube.com/embed/bMt81mNhuZA?si=W3sZ0iJ4yvDezGiV"
 },
 {
   name: "Drum",
     history: "Drums are among the oldest musical instruments, with evidence of their existence dating back thousands of years...",
     family: "Percussion Instruments",
-    imageUri: "drum_image_url",
-    soundClipUri: "drum_sound_clip_url"
+    imageUri: "https://www.bhphotovideo.com/images/images2500x2500/tama_ip52nchbk_imperialstar_5_piece_complete_kit_1366236.jpg",
+    soundSampleUri: "https://www.youtube.com/embed/2fqzbwsy4nA?si=yyzOSWXa3RA5I4wW"
 }
 
 ]);
