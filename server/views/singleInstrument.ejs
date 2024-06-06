@@ -19,11 +19,19 @@
 <% } %>
 
 
-<% if (instrument.soundSampleUri) { %>
-    <iframe width="420" height="315"
-    src="<%= instrument.soundSampleUri %>">
-    </iframe>
+<% try { %>
+    <% if (instrument.soundSampleUri) { %>
+        <iframe width="420" height="315"
+        src="<%= instrument.soundSampleUri %>">
+        </iframe>
+        <% } else { %>
+            <p>No sound sample provided.</p>
+        <% } %>
+<% } catch (error) { %>
+    <p>Sorry, invalid sound sample.</p>
 <% } %>
+
+
 
 <!--Instrument needs to store an array of genres in database!!-->
 <% if(instrument.genres) { %>
@@ -37,6 +45,6 @@
 
 <a href="/instrument/update/<%= instrument._id %>" class="btn btn-primary">Update this instrument</a>
 
-<form action="/instrument/delete/<%= instrument._id %>" method="POST" style="display:inline;">
+<form action="/instrument/verifyDelete/<%= instrument._id %>" method="GET" style="display:inline;">
     <button type="submit" class="btn btn-danger">Delete this instrument</button>
 </form>

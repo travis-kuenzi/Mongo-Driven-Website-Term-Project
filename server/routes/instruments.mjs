@@ -10,5 +10,6 @@ router.get("/update/:id", instrumentController.update_get);
 router.post("/update/:id", instrumentController.update_post);
 router.get('/:id', instrumentController.instrumentById);
 router.post('/delete/:id', instrumentController.deleteInstrument);
+router.get('/verifyDelete/:id', instrumentController.verifyDelete);
 
 export default router;
