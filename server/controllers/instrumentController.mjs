@@ -87,8 +87,8 @@ async function update_post(req, res, next) {
         instrument.name = req.body.name;
         instrument.history= req.body.history;
         instrument.family= req.body.family;
-        instrument.soundClipUri= req.body.soundClipUri;
-        instrument.imageUri= req.body.videoUri;
+        instrument.soundSampleUri= req.body.soundSampleUri;
+        instrument.imageUri= req.body.imageUri;
 
         instrument
             .save()
