@@ -123,4 +123,21 @@ async function deleteSong(req, res, next) {
     }
 }
 
-export {songList, songById, createSong, deleteSong, update_get, update_post}
+async function verifyDelete(req, res, next) {
+    try {
+        //console.log('songList called');
+        const songId = req.params.id;
+        let song = await Song.findById(songId).exec();
+
+        res.render('verifyDeleteForm', {
+            title: 'verifySongDelete',
+            object: song,
+            objectType: { type: 'song' }
+        });
+    } catch (err) {
+        //console.error('Error in songList:', err);
+        next(err);
+    }
+}
+
+export {songList, songById, createSong, deleteSong, update_get, update_post, verifyDelete}
