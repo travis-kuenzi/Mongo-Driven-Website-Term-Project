@@ -55,3 +55,40 @@ input:invalid {
   height: 200px;
   font-size: 16px;
 }
+
+/* Additional custom styles */
+.custom-select-box {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  /* Adjust padding */
+  font-size: 1rem;
+  /* Adjust font size */
+  border: 1px solid #ced4da;
+  /* Add border */
+  border-radius: 0.25rem;
+  /* Add border radius */
+}
+
+/* Style when the dropdown is open */
+.custom-select-box:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+
+/* Default light mode styles */
+body {
+  background-color: #f8f9fa !important;
+  color: #212529 !important;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #212529 !important;
+  color: #f8f9fa !important;
+}
+
+/* Additional element styles for dark mode */
+body.dark-mode a {
+  color: #1e90ff;
+}

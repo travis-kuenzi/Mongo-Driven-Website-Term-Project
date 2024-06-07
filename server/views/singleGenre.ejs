@@ -1,43 +1,56 @@
 <%- include("super-common-header.ejs", {title:genre.name}) %>
 
-<p></p>
+    <p></p>
 
-<a href="/genre" class="btn btn-primary">Back to Genres</a>
+    <a href="/genre" class="btn btn-primary">Back to Genres</a>
 
-<p></p>
+    <p></p>
 
-<h1><%- genre.name %></h1>
+    <h1><%- genre.name %></h1>
 
-<% if (genre.description) { %>
-    <p><b>Description : </b><%- genre.description %></p>
-<% } %>
+    <% if (genre.description) { %>
+        <p><b>Description : </b><%- genre.description %></p>
+        <% } %>
 
-<% if (genre.history) { %>
-    <p><b>History : </b><%- genre.history %></p>
-<% } %>
+            <% if (genre.history) { %>
+                <p><b>History : </b><%- genre.history %></p>
+                <% } %>
 
-<% if (genre.imageUri) { %>
-    <img src="<%= genre.imageUri %>" alt="<%= genre.name %>">
-<% } %>
+                    <% if (genre.imageUri) { %>
+                        <img src="<%= genre.imageUri %>" alt="<%= genre.name %>">
+                        <% } %>
 
-<p>Instruments:
-    <ul>
-      <% for (let i of instruments) { %>
-        <li><a href="<%= i.url %>"><%= i.name %></a></li>
-    <% } %>
-</ul>
-</p>
+                            <p>Instruments:
+                            <ul>
+                                <% for (let i of instruments) { %>
+                                    <li><a href="<%= i.url %>">
+                                            <%= i.name %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+                            </ul>
+                            </p>
 
-<p>Songs:
-    <ul>
-      <% for (let s of songs) { %>
-        <li><a href="<%= s.url %>"><%= s.name %></a></li>
-    <% } %>
-</ul>
-</p>
+                            <p>Songs:
+                            <ul>
+                                <% for (let s of songs) { %>
+                                    <li>
+                                        <a href="<%= s.url %>">
+                                            <%= s.name %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+                            </ul>
+                            </p>
 
-<a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this genre</a>
+                            <a href="/genre/update/<%= genre._id %>" class="btn btn-primary">Update this genre</a>
 
-<form action="/genre/verifyDelete/<%= genre._id %>" method="GET" style="display:inline;">
-    <button type="submit" class="btn btn-danger">Delete this genre</button>
-</form>
+                            <form action="/genre/delete/<%= genre._id %>" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Delete this genre</button>
+                            </form>
+
+                            <!-- <form action="/genre/verifyDelete/<%= genre._id %>" method="GET" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Delete this genre</button>
+                            </form> -->
+
+                            <%- include("super-common-footer.ejs")%>

@@ -47,9 +47,11 @@ async function createGenre(req, res, next) {
         console.log('createGenre called with data:', req.body);
         let genre = new Genre({});
 
+        const instruments = await Instrument.find();
+
         res.render("genreForm.ejs", {
-            genre: genre,
-            creatingNew: {new: true}
+            genre: genre, instruments: instruments,
+            creatingNew: { new: true }
         });
     } catch (err) {
         next(err);
@@ -58,15 +60,15 @@ async function createGenre(req, res, next) {
 
 async function update_get(req, res, next) {
     try {
-      let genre = await Genre.findById(req.params.id).exec();
-  
-      res.render("genreForm.ejs", {
-        title: `Update ${genre.name}`,
-        genre: genre,
-        creatingNew: {new: false}
-      });
+        let genre = await Genre.findById(req.params.id).exec();
+
+        res.render("genreForm.ejs", {
+            title: `Update ${genre.name}`,
+            genre: genre,
+            creatingNew: { new: false }
+        });
     } catch (err) {
-      next(err);
+        next(err);
     }
 };
 
@@ -86,7 +88,8 @@ async function update_post(req, res, next) {
         genre.description = req.body.description;
         genre.history = req.body.history;
         genre.imageUri = req.body.imageUri;
-        
+        genre.instruments = req.body.instruments;
+
         genre
             .save()
             .then((genre) => {
@@ -109,7 +112,7 @@ async function update_post(req, res, next) {
 async function deleteGenre(req, res, next) {
     try {
         console.log('deleteGenre called with id:', req.params.id);
-        
+
         const genreId = req.params.id;
         await Instrument.updateMany({ genre: genreId }, { $unset: { genre: 1 } }).exec();
         await Song.updateMany({ genre: genreId }, { $unset: { genre: 1 } }).exec();
@@ -123,9 +126,9 @@ async function deleteGenre(req, res, next) {
 
 async function verifyDelete(req, res, next) {
     try {
-        //console.log('instrumentList called');
+        //console.log('genreList called');
         const genreId = req.params.id;
-        let genre = await Genre.findById(genreId).exec();
+        let genre = await Instrument.findById(genreId).exec();
 
         res.render('verifyDeleteForm', {
             title: 'verifyGenreDelete',
@@ -133,9 +136,9 @@ async function verifyDelete(req, res, next) {
             objectType: { type: 'genre' }
         });
     } catch (err) {
-        //console.error('Error in instrumentList:', err);
+        console.error('Error in genreList:', err);
         next(err);
     }
 }
 
-export {genreList, genreById, createGenre, deleteGenre, update_get, update_post, verifyDelete}
+export { genreList, genreById, createGenre, deleteGenre, update_get, update_post, verifyDelete }
