@@ -76,5 +76,8 @@
 
 <div class="mt-3">
     <a href="/musician/update/<%= musician._id %>" class="btn btn-primary">Update This Musician</a>
-    <a href="/musician/delete/<%= musician._id %>" class="btn btn-danger ml-2">Delete This Musician</a>
+    <form action="/musician/verifyDelete/<%= musician._id %>" method="GET"
+        style="display:inline;">
+        <button type="submit" class="btn btn-danger">Delete this musician</button>
+    </form>
 </div>
