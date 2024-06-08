@@ -1,14 +1,38 @@
-<%- include("super-common-header.ejs", {title:title }) %>
+<%- include("super-common-header.ejs", { title: "Musicians" }) %>
 
 <h1>Musicians:</h1>
 
-<% for (let i = 0; i < musicians.length; i++) { %>
-    <div>
-        <h2><%- musicians[i].name %></h2>
-        <a href="<%= musicians[i].url %>">Click here for <%= musicians[i].name %></a>
-    </div>
-<% } %>
+<img src="/images/musicians.jpg" alt="Musicians" class="main-image">
 
-<a href="/musician/create" class="btn btn-primary mt-3">Create A New Musician</a>
+<p> </p>
+
+<div class="musician-list">
+    <% for (let i = 0; i < musicians.length; i++) { %>
+        <div class="musician-item">
+            <h2><%- musicians[i].name %></h2>
+            <a href="<%= musicians[i].url %>">Click here for <%= musicians[i].name %></a>
+        </div>
+    <% } %>
+</div>
+
+<a href="/musician/create" class="btn btn-primary">Create A New Musician</a>
 
 <%- include("super-common-footer.ejs") %>
+
+<style>
+    .main-image {
+        width: 50%;
+        height: auto;
+        margin: 20px 0;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .musician-list {
+        text-align: left;
+    }
+
+    h1, .main-image, .musician-list, .btn {
+        margin-left: 20px;
+    }
+</style>
