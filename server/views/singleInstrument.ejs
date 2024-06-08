@@ -32,16 +32,15 @@
 
 
     <!--Instrument needs to store an array of genres in database!!-->
-    <% if(instrument.genres) { %>
-        <p><b>Genres: </b></p>
-            <ul>
-                <% for (let g of instrument.genres) { %>
-                    <li><a href="<%= g.url %>">
-                            <%= g.name %>
-                        </a></li>
-                    <% } %>
-            </ul>
-    <% } %>
+
+    <p><b>Genres: </b></p>
+        <ul>
+            <% for (let g of genres) { %>
+                <li><a href="<%= g.url %>">
+                        <%= g.name %>
+                    </a></li>
+                <% } %>
+        </ul>
 
     <p><b>Songs: </b></p>
         <ul>

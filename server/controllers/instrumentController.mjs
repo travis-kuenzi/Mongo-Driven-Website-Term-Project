@@ -28,13 +28,12 @@ async function instrumentById(req, res, next) {
     try {
         //console.log('instrumentById called with id:', req.params.id);
         const instrumentId = req.params.id;
-        let instrument = await Instrument.findById(instrumentId)
-            .populate("genres")
-            .exec();
+        let instrument = await Instrument.findById(instrumentId).exec();
 
         if (instrument) {
             let songs = await instrument.songs;
-            res.render('singleInstrument.ejs', { instrument: instrument, songs: songs });
+            let genres = await instrument.genres;
+            res.render('singleInstrument.ejs', { instrument: instrument, songs: songs, genres: genres });
         }
         else
             next();
