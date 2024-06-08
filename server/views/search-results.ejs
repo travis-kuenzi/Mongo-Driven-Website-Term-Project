@@ -1,0 +1,18 @@
+<%- include("super-common-header.ejs", {title: 'Search Results' }) %>
+
+<h1>Search Results:</h1>
+
+<% if (instruments.length > 0) { %>
+    <ul>
+        <% instruments.forEach(function(instrument) { %>
+            <li>
+                <a href="/instrument/<%= instrument._id %>"> <%= instrument.name %></a>
+            </li>
+        <% }); %>
+    </ul>
+<% } else { %>
+    <p>No instruments found.</p>
+<% } %>
+
+
+<%- include("super-common-footer.ejs") %>

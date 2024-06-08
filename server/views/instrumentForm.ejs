@@ -19,8 +19,12 @@
             <textarea id="history" class="form-control" name="history"><%= instrument.history %></textarea>
         </div>
         <div>
-            <label for="family">Family:</label>
-            <input type="text" id="family" class="form-control" name="family" value="<%= instrument.family %>">
+            <label for="family">Family:</label><br>
+            <% const families = ['Strings', 'Woodwinds', 'Brass', 'Percussion', 'Keyboards', 'Electronic']; %>
+            <% families.forEach(function(family) { %>
+                <input type="radio" id="<%= family.toLowerCase() %>" name="family" value="<%= family %>" <% if (instrument.family === family) { %> checked <% } %>>
+                <label for="<%= family.toLowerCase() %>"><%= family %></label><br>
+            <% }); %>
         </div>
         <div>
             <label for="imageUri">Image URL: </label>
@@ -46,11 +50,10 @@
 
 
         <div>
-            <div>
-                <button type="submit" class="btn btn-primary">
-                    <%= creatingNew.new ? 'Create' : 'Update' %> Instrument
-                </button>
-            </div>
+            <button type="submit" class="btn btn-primary">
+                <%= creatingNew.new ? 'Create' : 'Update' %> Instrument
+            </button>
+        </div>
     </form>
 
     <%- include("super-common-footer.ejs")%>

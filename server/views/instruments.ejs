@@ -3,6 +3,17 @@
     <h1>Instruments:</h1>
     <p> </p>
 
+    <form action="/instrument/search" method="GET">
+        <div>
+            <label for="search">Search for an instrument by name</label>
+            <input type="text" id="search" name="search" placeholder="Enter instrument name">
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+
+
+    <p></p>
 
     <% for (let i=0; i < instruments.length; i++) { %>
         <h2><%- instruments[i].name %></h2>
@@ -13,3 +24,5 @@
             <a href="/instrument/create" class="btn btn-primary">Create a new instrument</a>
 
             <%- include("super-common-footer.ejs")%>
+    </body>
+</html>

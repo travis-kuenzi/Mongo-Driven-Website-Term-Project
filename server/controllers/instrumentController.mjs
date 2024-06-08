@@ -43,6 +43,21 @@ async function instrumentById(req, res, next) {
     }
 }
 
+async function instrumentSearch(req, res, next) {
+    try {
+        const searchQuery = req.query.search || ''; // Get the search query from the request query parameters
+
+        // Search for instruments by name using a case-insensitive regular expression
+        const instruments = await Instrument.find({ name: { $regex: searchQuery, $options: 'i' } }).exec();
+
+        res.render('search-results', { title: 'Search Results', instruments, searchQuery });
+    } catch (error) {
+        console.error('Error searching for instruments:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
+
 async function createInstrument(req, res, next) {
     try {
         //console.log('createinstrument called with data:', req.body);
@@ -162,4 +177,4 @@ async function verifyDelete(req, res, next) {
     }
 }
 
-export {instrumentList, instrumentById, createInstrument, deleteInstrument, update_get, update_post, verifyDelete}
+export {instrumentList, instrumentById, instrumentSearch, createInstrument, deleteInstrument, update_get, update_post, verifyDelete}
