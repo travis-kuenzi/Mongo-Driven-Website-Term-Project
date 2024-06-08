@@ -189,10 +189,10 @@ const songGenreRelation = [
 ];
 
 const instrumentGenreRelation = [
-  { instrumentIndex: 0, GenreIndex:  0}, // Layla is Rock music
-  { instrumentIndex: 1, GenreIndex: 5 },  // Hotel California belongs to Rock
-  { instrumentIndex: 2, GenreIndex: 2 },
-  { instrumentIndex: 3, GenreIndex: 3 }  // Give Life Back to Music belongs to House Music
+  { InstrumentIndex: 0, GenreIndex:  0}, // Layla is Rock music
+  { InstrumentIndex: 1, GenreIndex: 5 },  // Hotel California belongs to Rock
+  { InstrumentIndex: 2, GenreIndex: 2 },
+  { InstrumentIndex: 3, GenreIndex: 3 }  // Give Life Back to Music belongs to House Music
 ];
 
 export default { GenreList, MusicianList, InstrumentList, SongList, songGenreRelation, songMusicianRelation, songInstrumentRelation, instrumentGenreRelation};
