@@ -14,48 +14,47 @@
             <source src="<%= song.soundClipUri %>" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
-        <% } %>
+    <% } %>
 
-            <% if (song.videoUri) { %>
-                <video width="640" height="360" controls>
-                    <source src="<%= song.videoUri %>" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+    <% if (song.videoUri) { %>
+        <video width="640" height="360" controls>
+            <source src="<%= song.videoUri %>" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    <% } %>
+
+
+    <% if(song.genre) { %>
+        <p>Genre: <a href="<%= song.genre.url %>">
+                <%= song.genre.name %>
+        </a></p>
+    <% } %>
+
+    <% if(song.musician) { %>
+        <p>Musician: <a href="<%= song.musician.url %>">
+                <%= song.musician.name %>
+            </a></p>
+    <% } %>
+
+    <% if(song.instruments) { %>
+        <p>Instruments:
+        <ul>
+            <% for (let i of song.instruments) { %>
+                <li><a href="<%= i.url %>">
+                        <%= i.name %>
+                    </a></li>
                 <% } %>
+        </ul>
+        </p>
+    <% } %>
 
 
-                    <% if(song.genre) { %>
-                        <p>Genre: <a href="<%= song.genre.url %>">
-                                <%= song.genre.name %>
-                            </a></p>
-                        <% } %>
+    <p></p>
+    <a href="/song/update/<%= song._id %>" class="btn btn-primary">Update this Song</a>
 
-                            <% if(song.musician) { %>
-                                <p>Musician: <a href="<%= song.musician.url %>">
-                                        <%= song.musician.name %>
-                                    </a></p>
-                                <% } %>
+    <form action="/song/verifyDelete/<%= song._id %>" method="GET"
+        style="display:inline;">
+        <button type="submit" class="btn btn-danger">Delete this song</button>
+    </form>
 
-                                    <% if(song.instruments) { %>
-                                        <p>Instruments:
-                                        <ul>
-                                            <% for (let i of song.instruments) { %>
-                                                <li><a href="<%= i.url %>">
-                                                        <%= i.name %>
-                                                    </a></li>
-                                                <% } %>
-                                        </ul>
-                                        </p>
-                                        <% } %>
-
-
-                                            <p></p>
-                                            <a href="/song/update/<%= song._id %>" class="btn btn-primary">Update this
-                                                Song</a>
-
-                                            <form action="/song/verifyDelete/<%= song._id %>" method="GET"
-                                                style="display:inline;">
-                                                <button type="submit" class="btn btn-danger">Delete this song</button>
-                                            </form>
-
-                                            <%- include("super-common-footer.ejs")%>
+    <%- include("super-common-footer.ejs")%>

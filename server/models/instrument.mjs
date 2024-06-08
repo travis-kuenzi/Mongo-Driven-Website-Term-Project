@@ -27,7 +27,7 @@ InstrumentSchema.virtual("url").get(function () {
 import { default as Song } from "./song.mjs";
 
 InstrumentSchema.virtual("songs").get(async function () {
-    let songArray = await Song.find().where("instrument").equals(this._id).exec();
+    let songArray = await Song.find({ instruments: { $in: [this._id] } }).exec();
     return songArray;
 });
 
