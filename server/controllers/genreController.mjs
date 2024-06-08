@@ -81,7 +81,7 @@ async function update_get(req, res, next) {
 
 async function update_post(req, res, next) {
     try {
-        console.log('updateGenre called with id:', req.params.id, 'and data:', req.body);
+        //console.log('updateGenre called with id:', req.params.id, 'and data:', req.body);
         let genre = await Genre.findById(req.params.id).exec();
         if (genre === null) {
             //console.log('Genre not found');

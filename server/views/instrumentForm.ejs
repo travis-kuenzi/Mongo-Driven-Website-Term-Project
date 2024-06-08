@@ -31,26 +31,7 @@
             <input type="text" id="soundSampleUri" class="form-control" name="soundSampleUri"
                 value="<%= instrument.soundSampleUri %>">
         </div>
-        <div class="alert alert-warning">
-            <div class="mb-3 ">
-                <label for="genres">Select from available genres (use Control-Click to MultiSelect)</label>
-                <select class="form-select" id="genres" name="genres" multiple>
-                    <% for(let g of genres) { %>
-                        <%# Have to use .equals to compare _ids!!! %>
-                            <option value="<%= g._id %>" <%=instrument.genre && instrument.genre._id.equals(g._id)
-                                ? "selected" : "" %>>
-                                <%= g.name %>
-                            </option>
-                            <% } %>
-                </select>
-                <div>
-                    <p></p>
-                    <p>Don't see the Genre you're looking for? Add it and then navigate back to this page.</p>
-                    <a href="/genre/create%>" class="btn btn-secondary">Create new genre</a>
-                    <p></p>
-                </div>
-            </div>
-        </div>
+
         <div>
             <div>
                 <button type="submit" class="btn btn-primary">

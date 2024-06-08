@@ -17,13 +17,33 @@
             <label for="history">History:</label>
             <textarea id="history" name="history"><%= genre.history %></textarea>
         </div>
-        <div class="mb-3">
+<!--         <div class="mb-3">
             <label for="instruments">Instruments:</label>
             <select class="custom-select custom-select-box" id="instruments" name="instruments" multiple>
-              <% instruments.forEach(function(instrument) { %>
-                <option value="<%= instrument._id %>"><%= instrument.name %></option>
-              <% }); %>
+              <% //instruments.forEach(function(instrument) { %>
+                <option value="<%= //instrument._id %>"><%= //instrument.name %></option>
+              <% //}); %>
             </select>
+        </div> -->
+        <div class="alert alert-warning">
+            <div class="mb-3 ">
+                <label for="instruments">Select from available instruments (use Control-Click to MultiSelect)</label>
+                <select class="form-select" id="instruments" name="instruments" multiple>
+                    <% for(let g of instruments) { %>
+                        <%# Have to use .equals to compare _ids!!! %>
+                            <option value="<%= g._id %>" <%=g.instrument && g.instrument._id.equals(g._id)
+                                ? "selected" : "" %>>
+                                <%= g.name %>
+                            </option>
+                            <% } %>
+                </select>
+                <div>
+                    <p></p>
+                    <p>Don't see the Instrument you're looking for? Add it and then navigate back to this page.</p>
+                    <a href="/instrument/create%>" class="btn btn-secondary">Create new instrument</a>
+                    <p></p>
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <label for="imageUri">Image URL:</label>
