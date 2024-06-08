@@ -3,6 +3,7 @@ import { default as Instrument } from '../models/instrument.mjs';
 import { default as Genre } from '../models/genre.mjs';
 import { default as Musician } from '../models/musician.mjs';
 import { default as Song } from '../models/song.mjs';
+import { errorParser } from '../routes/routeHelpers.mjs';  // Correct import
 
 // Function to ensure the URL starts with http or https
 function ensureHttp(url) {
@@ -40,7 +41,7 @@ async function createMusician(req, res, next) {
     try {
         let musician = new Musician({});
         let songs = await Song.find().exec(); // Fetch all songs
-        res.render("musicianForm.ejs", { musician: musician, songs: songs, creatingNew: { new: true } });
+        res.render("musicianForm.ejs", { title: "Create Musician", musician: musician, songs: songs, creatingNew: { new: true }, errors: [] });
     } catch (err) {
         next(err);
     }
@@ -50,7 +51,7 @@ async function update_get(req, res, next) {
     try {
         let musician = await Musician.findById(req.params.id).exec();
         let songs = await Song.find().exec(); // Fetch all songs
-        res.render("musicianForm.ejs", { title: `Update ${musician.name}`, musician: musician, songs: songs, creatingNew: { new: false } });
+        res.render("musicianForm.ejs", { title: `Update ${musician.name}`, musician: musician, songs: songs, creatingNew: { new: false }, errors: [] });
     } catch (err) {
         next(err);
     }
@@ -71,7 +72,7 @@ async function update_post(req, res, next) {
             .then(() => res.redirect(musician.url))
             .catch(async (err) => {
                 let songs = await Song.find().exec(); // Fetch all songs again
-                res.render("musicianForm.ejs", { title: `Update ${musician.name}`, musician: musician, songs: songs, errors: routeHelper.errorParser(err.message) });
+                res.render("musicianForm.ejs", { title: `Update ${musician.name}`, musician: musician, songs: songs, creatingNew: { new: false }, errors: errorParser(err.message) });
             });
     } catch (err) {
         next(err);

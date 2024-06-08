@@ -4,6 +4,7 @@
 // Team validation failed: squadName: You must provide a Team Name, homeTown: You must provide a Hometown
 // and extracts the list of error messages into an array like:
 // ["You must provide a Team Name","You must provide a Hometown"]
+
 function errorParser(errorString) {
   errorString = errorString.slice(errorString.indexOf(":") + 1);
   let errorArray = errorString.split(",");
@@ -14,4 +15,4 @@ function errorParser(errorString) {
   return errorArray;
 }
 
-export default errorParser;
+export { errorParser };

@@ -5,75 +5,73 @@
 <h1><%= musician.name %></h1>
 
 <form action="<%= musician._id ? '/musician/update/' + musician._id : '/musician/create' %>" method="POST" id="musicianForm">
+    <div class="mb-3">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= musician.name %>" required>
+    </div>
 
-<div class="mb-3">
-    <label for="name">Name:</label>
-    <input type="text" class="form-control" id="name" name="name" value="<%= musician.name %>" required>
-</div>
+    <div class="mb-3">
+        <label for="imageUri">Image URL:</label>
+        <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= musician.imageUri %>">
+        <% if (musician.imageUri && musician.imageUri.trim().length > 0) { %>
+            <img src="<%= musician.imageUri %>" alt="<%= musician.name %>" class="img-fluid mt-2">
+        <% } %>
+    </div>
 
-<div class="mb-3">
-    <label for="imageUri">Image URL:</label>
-    <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= musician.imageUri %>">
-    <% if (musician.imageUri && musician.imageUri.trim().length > 0) { %>
-        <img src="<%= musician.imageUri %>" alt="<%= musician.name %>" class="img-fluid mt-2">
-    <% } %>
-</div>
+    <div class="mb-3">
+        <label for="anecdote"><strong>Anecdote:</strong></label>
+        <textarea id="anecdote" class="form-control" name="anecdote"><%= musician.anecdote %></textarea>
+    </div>
 
-<div class="mb-3">
-    <label for="anecdote"><strong>Anecdote:</strong></label>
-    <textarea id="anecdote" class="form-control" name="anecdote"><%= musician.anecdote %></textarea>
-</div>
-
-<div class="mb-3">
-    <label for="processVideoUri"><strong>Process:</strong></label>
-    <input type="text" id="processVideoUri" class="form-control" name="processVideoUri" placeholder="Please embed a video link (e.g., https://www.youtube.com/watch?v=example)" value="<%= musician.processVideoUri %>">
-    <% if (musician.processVideoUri && musician.processVideoUri.trim().length > 0) { %>
-        <div class="embed-responsive embed-responsive-16by9 mt-2" style="height: 560px;">
-            <iframe class="embed-responsive-item" src="<%= musician.processVideoUri.replace('watch?v=', 'embed/') %>" allowfullscreen></iframe>
-        </div>
-    <% } %>
-</div>
-
-<div class="alert alert-info">
-    <label for="songs"><strong>Songs:</strong></label>
-    <p>Drag and drop songs to associate them with this musician.</p>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="song-list">
-                <h5>Available Songs</h5>
-                <div id="availableSongs" class="list-group mb-3 song-container">
-                    <% for(let song of songs) { %>
-                        <% if (!musician.songs.includes(song._id.toString())) { %>
-                            <div class="list-group-item draggable-song" data-id="<%= song._id %>"><%= song.name %></div>
-                        <% } %>
-                    <% } %>
-                </div>
-                <a href="/song/create" class="btn btn-secondary">Create New Song</a>
+    <div class="mb-3">
+        <label for="processVideoUri"><strong>Process:</strong></label>
+        <input type="text" id="processVideoUri" class="form-control" name="processVideoUri" placeholder="Please embed a video link (e.g., https://www.youtube.com/watch?v=example)" value="<%= musician.processVideoUri %>">
+        <% if (musician.processVideoUri && musician.processVideoUri.trim().length > 0) { %>
+            <div class="embed-responsive embed-responsive-16by9 mt-2" style="height: 560px;">
+                <iframe class="embed-responsive-item" src="<%= musician.processVideoUri.replace('watch?v=', 'embed/') %>" allowfullscreen></iframe>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="song-list">
-                <h5>Selected Songs</h5>
-                <div id="selectedSongs" class="list-group mb-3 song-container">
-                    <% if (musician.songs && musician.songs.length > 0) { %>
-                        <% for(let songId of musician.songs) { %>
-                            <% let selectedSong = songs.find(s => s._id.toString() === songId.toString()); %>
-                            <% if (selectedSong) { %>
-                                <div class="list-group-item draggable-song" data-id="<%= selectedSong._id %>"><%= selectedSong.name %></div>
+        <% } %>
+    </div>
+
+    <div class="alert alert-info">
+        <label for="songs"><strong>Songs:</strong></label>
+        <p>Drag and drop songs to associate them with this musician.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="song-list">
+                    <h5>Available Songs</h5>
+                    <div id="availableSongs" class="list-group mb-3 song-container">
+                        <% for(let song of songs) { %>
+                            <% if (!musician.songs.includes(song._id.toString())) { %>
+                                <div class="list-group-item draggable-song" data-id="<%= song._id %>"><%= song.name %></div>
                             <% } %>
                         <% } %>
-                    <% } %>
+                    </div>
+                    <a href="/song/create" class="btn btn-secondary">Create New Song</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="song-list">
+                    <h5>Selected Songs</h5>
+                    <div id="selectedSongs" class="list-group mb-3 song-container">
+                        <% if (musician.songs && musician.songs.length > 0) { %>
+                            <% for(let songId of musician.songs) { %>
+                                <% let selectedSong = songs.find(s => s._id.toString() === songId.toString()); %>
+                                <% if (selectedSong) { %>
+                                    <div class="list-group-item draggable-song" data-id="<%= selectedSong._id %>"><%= selectedSong.name %></div>
+                                <% } %>
+                            <% } %>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div>
-    <input type="hidden" id="selectedSongIds" name="songs" value="<%= musician.songs.join(',') %>">
-    <button type="submit" class="btn btn-primary my-3">Update Musician</button>
-</div>
-
+    <div>
+        <input type="hidden" id="selectedSongIds" name="songs" value="<%= musician.songs.join(',') %>">
+        <button type="submit" class="btn btn-primary my-3">Update Musician</button>
+    </div>
 </form>
 
 <!-- Include SortableJS from CDN -->
