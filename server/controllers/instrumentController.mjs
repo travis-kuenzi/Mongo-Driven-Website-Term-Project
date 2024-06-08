@@ -48,10 +48,12 @@ async function createInstrument(req, res, next) {
         //console.log('createinstrument called with data:', req.body);
         let instrument = new Instrument({});
 
+        let allGenres = await Genre.find().select("name instruments").exec();
         //let genres = await Genre.find().select("name").exec();
 
         res.render("instrumentForm.ejs", {
             instrument: instrument,
+            allGenres: allGenres,
             creatingNew: {new: true}
         });
     } catch (err) {
@@ -64,10 +66,12 @@ async function update_get(req, res, next) {
       let instrument = await Instrument.findById(req.params.id).exec();
   
       //let genres = await Genre.find().select("name").exec();
+      let allGenres = await Genre.find().select("name instruments").exec();
 
       res.render("instrumentForm.ejs", {
         title: `Update ${instrument.name}`,
         instrument: instrument,
+        allGenres: allGenres,
         creatingNew: {new: false}
       });
     } catch (err) {
@@ -93,7 +97,21 @@ async function update_post(req, res, next) {
         instrument.soundSampleUri= req.body.soundSampleUri;
         instrument.imageUri= req.body.imageUri;
 
-        instrument
+        await instrument.save();
+
+        await Genre.updateMany({}, { $pull: { instruments: instrument._id } });
+
+        const {genres} = req.body;
+        if (genres && genres.length > 0) {
+            const genreIds = Array.isArray(genres) ? genres : [genres];
+            await Genre.updateMany(
+                { _id: { $in: genreIds } },
+                { $addToSet: { instruments: instrument._id } }
+            );
+        }
+
+        res.redirect(instrument.url);
+/*         instrument
             .save()
             .then((instrument) => {
                 res.redirect(instrument.url);
@@ -105,7 +123,7 @@ async function update_post(req, res, next) {
                     instrument: instrument,
                     errors: routeHelper.errorParser(err.message),
                 });
-            });
+            }); */
     } catch (err) {
         console.error('Error in updateinstrument:', err);
         next(err);

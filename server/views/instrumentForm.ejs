@@ -32,6 +32,19 @@
                 value="<%= instrument.soundSampleUri %>">
         </div>
 
+
+        <div class="mb-3 ">
+            <label for="genres">Genres:</label>
+            <select class="form-select" id="genres" name="genres" multiple>
+                <% for(let g of allGenres) { %>
+                    <option value="<%= g._id %>" <%= g.instruments.includes(instrument._id) ? "selected" : "" %>> 
+                      <%= g.name %>
+                    </option>
+                <% } %>
+            </select>
+        </div>
+
+
         <div>
             <div>
                 <button type="submit" class="btn btn-primary">
