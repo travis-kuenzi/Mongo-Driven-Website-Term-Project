@@ -31,20 +31,9 @@ import { default as songRouter } from './routes/songs.mjs';
 app.use('/song', songRouter);
 
 
-
-//---------------------------------------------------
-// If all else fails, send a 404 error
-/* app.use(function (req, res) {
-    //send a custom 404 (file not found) page
-    res.status(404);
-    res.sendFile(path.join(__dirname, 'Public', 'error.html'));
-    //---------------------------------------------------
-}); */
-
-/* app.use((err, req, res, next) => {
-    res.status(500).sendFile(path.join(__dirname, '..', 'public', 'error.html'));
-}); */
-
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, '..', 'Public', '404.html'));
+});
 
 //---------------------------------------------------
 // error handler - if any middleware above calls next(error)
