@@ -31,7 +31,10 @@ async function genreById(req, res, next) {
         let genre = await Genre.findById(genreId).exec();
         if (genre) {
             let songs = await genre.songs;
-            let instruments = await genre.instruments;
+            await genre.populate('instruments');
+            let instruments = genre.instruments;
+            console.log("in genreById, instruments:", instruments)
+
             res.render('singleGenre.ejs', { genre: genre, songs: songs, instruments: instruments });
         }
         else
@@ -44,10 +47,11 @@ async function genreById(req, res, next) {
 
 async function createGenre(req, res, next) {
     try {
-        console.log('createGenre called with data:', req.body);
         let genre = new Genre({});
 
         const instruments = await Instrument.find();
+
+        //console.log('createGenre creates instruments list:', instruments);
 
         res.render("genreForm.ejs", {
             genre: genre, instruments: instruments,
@@ -62,9 +66,11 @@ async function update_get(req, res, next) {
     try {
         let genre = await Genre.findById(req.params.id).exec();
 
+        const instruments = await Instrument.find();
+
         res.render("genreForm.ejs", {
             title: `Update ${genre.name}`,
-            genre: genre,
+            genre: genre, instruments: instruments,
             creatingNew: { new: false }
         });
     } catch (err) {
@@ -100,13 +106,21 @@ async function update_post(req, res, next) {
                 res.render("genreForm.ejs", {
                     title: `Update ${genre.name}`,
                     genre: genre,
+                    instruments: genre.instruments,
                     errors: routeHelper.errorParser(err.message),
                 });
             });
     } catch (err) {
         console.error('Error in updateGenre:', err);
-        next(err);
+
+        // Render the form again with error messages if there was an error
+        res.render("genreForm.ejs", {
+            title: `Update ${req.body.name}`,
+            genre: genre,
+            errors: routeHelper.errorParser(err.message),
+        });
     }
+
 }
 
 async function deleteGenre(req, res, next) {

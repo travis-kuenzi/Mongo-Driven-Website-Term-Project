@@ -17,19 +17,20 @@
                 <% } %>
 
                     <% if (genre.imageUri) { %>
-                        <img src="<%= genre.imageUri %>" alt="<%= genre.name %>">
+                        <img src="<%= genre.imageUri %>" alt="<%= genre.name %>" width="1024" class="img-fluid">
                         <% } %>
 
                             <p>Instruments:
-                            <ul>
-                                <% for (let i of instruments) { %>
-                                    <li><a href="<%= i.url %>">
-                                            <%= i.name %>
-                                        </a>
-                                    </li>
+                                <ul>
+                                    <% for (let i of instruments) { %>
+                                        <li><a href="<%= i.url %>">
+                                                <%= i.name %>
+                                            </a>
+                                        </li>
                                     <% } %>
-                            </ul>
+                                </ul>
                             </p>
+
 
                             <p>Songs:
                             <ul>
