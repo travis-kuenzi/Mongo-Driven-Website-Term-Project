@@ -142,7 +142,7 @@ async function verifyDelete(req, res, next) {
     try {
         //console.log('genreList called');
         const genreId = req.params.id;
-        let genre = await Instrument.findById(genreId).exec();
+        let genre = await Genre.findById(genreId).exec();
 
         res.render('verifyDeleteForm', {
             title: 'verifyGenreDelete',
