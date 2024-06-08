@@ -86,6 +86,10 @@ async function loadAllrecords(){
     for (let relation of dataFile.songInstrumentRelation) {
       SongRecords[relation.SongIndex].instrument = InstrumentRecords[relation.InstrumentIndex]._id;
     }
+
+    for (let relation of dataFile.genreInstrumentRelation) {
+      GenreRecords[relation.GenreIndex].instrument = InstrumentRecords[relation.InstrumentIndex]._id;
+    }
  
 
 

@@ -28,13 +28,12 @@ async function instrumentById(req, res, next) {
     try {
         //console.log('instrumentById called with id:', req.params.id);
         const instrumentId = req.params.id;
-        let instrument = await Instrument.findById(instrumentId)
-            .populate("genres")
-            .exec();
+        let instrument = await Instrument.findById(instrumentId).exec();
 
         if (instrument) {
             let songs = await instrument.songs;
-            res.render('singleInstrument.ejs', { instrument: instrument, songs: songs });
+            let genres = await instrument.genres;
+            res.render('singleInstrument.ejs', { instrument: instrument, songs: songs, genres: genres });
         }
         else
             next();
@@ -49,11 +48,12 @@ async function createInstrument(req, res, next) {
         //console.log('createinstrument called with data:', req.body);
         let instrument = new Instrument({});
 
-        let genres = await Genre.find().select("name").exec();
+        let allGenres = await Genre.find().select("name instruments").exec();
+        //let genres = await Genre.find().select("name").exec();
 
         res.render("instrumentForm.ejs", {
             instrument: instrument,
-            genres: genres,
+            allGenres: allGenres,
             creatingNew: {new: true}
         });
     } catch (err) {
@@ -65,12 +65,13 @@ async function update_get(req, res, next) {
     try {
       let instrument = await Instrument.findById(req.params.id).exec();
   
-      let genres = await Genre.find().select("name").exec();
+      //let genres = await Genre.find().select("name").exec();
+      let allGenres = await Genre.find().select("name instruments").exec();
 
       res.render("instrumentForm.ejs", {
         title: `Update ${instrument.name}`,
         instrument: instrument,
-        genres: genres,
+        allGenres: allGenres,
         creatingNew: {new: false}
       });
     } catch (err) {
@@ -95,8 +96,22 @@ async function update_post(req, res, next) {
         instrument.family= req.body.family;
         instrument.soundSampleUri= req.body.soundSampleUri;
         instrument.imageUri= req.body.imageUri;
-        instrument.genres = [].concat(req.body.genres);
-        instrument
+
+        await instrument.save();
+
+        await Genre.updateMany({}, { $pull: { instruments: instrument._id } });
+
+        const {genres} = req.body;
+        if (genres && genres.length > 0) {
+            const genreIds = Array.isArray(genres) ? genres : [genres];
+            await Genre.updateMany(
+                { _id: { $in: genreIds } },
+                { $addToSet: { instruments: instrument._id } }
+            );
+        }
+
+        res.redirect(instrument.url);
+/*         instrument
             .save()
             .then((instrument) => {
                 res.redirect(instrument.url);
@@ -108,7 +123,7 @@ async function update_post(req, res, next) {
                     instrument: instrument,
                     errors: routeHelper.errorParser(err.message),
                 });
-            });
+            }); */
     } catch (err) {
         console.error('Error in updateinstrument:', err);
         next(err);
@@ -121,6 +136,7 @@ async function deleteInstrument(req, res, next) {
         
         const instrumentId = req.params.id;
         await Song.updateMany({ instruments: instrumentId }, { $pull: { instruments: instrumentId } }).exec();
+        await Genre.updateMany({ instruments: instrumentId }, { $pull: { instruments: instrumentId } }).exec();
         await Instrument.findByIdAndDelete(instrumentId).exec();
         res.redirect('/instrument');
     } catch (err) {

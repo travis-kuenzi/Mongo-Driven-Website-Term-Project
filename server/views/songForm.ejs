@@ -9,6 +9,55 @@
             <label for="name">Name:</label>
             <input type="text" class="form-control" id="name" name="name" value="<%= song.name %>" required>
         </div>
+
+
+        <!-- form for genre -->
+        <fieldset class="mb-3">
+            <legend>Genre</legend>
+            <% for(let g of genres) { %>
+            <div class="form-check">
+                <%# Have to use .equals to compare _ids!!!!!!! %>
+                <input type="radio" class="form-check-input" name="genre" value="<%= g._id %>"
+                id="genre_<%= g._id %>" <%= song.genre && song.genre._id.equals(g._id) ? "checked" : "" %>>
+                <label for="genre_<%= g._id %>" class="form-check-label"><%= g.name %></label>
+            </div>
+            <% } %>
+        </fieldset>
+
+        <!-- form for musician -->
+        <fieldset class="mb-3">
+            <legend>Musician</legend>
+            <% for(let m of musicians) { %>
+            <div class="form-check">
+                <%# Have to use .equals to compare _ids!!!!!!! %>
+                <input type="radio" class="form-check-input" name="musician" value="<%= m._id %>"
+                id="musician_<%= m._id %>" <%= song.musician && song.musician._id.equals(m._id) ? "checked" : "" %>>
+                <label for="musician_<%= m._id %>" class="form-check-label"><%= m.name %></label>
+            </div>
+            <% } %>
+        </fieldset>
+
+        <!-- form for instruments-->
+        <div class="alert alert-warning">
+            <div class="mb-3 ">
+                <label for="instruments">Select from available instruments (use Control-Click to MultiSelect)</label>
+                <select class="form-select" id="instruments" name="instruments" multiple>
+                    <% for(let i of instruments) { %>
+                            <option value="<%= i._id %>" <%=song.instruments.includes(i._id) ? "selected" : ""
+                                ? "selected" : "" %>>
+                                <%= i.name %>
+                            </option>
+                            <% } %>
+                </select>
+                <div>
+                    <p></p>
+                    <p>Don't see the Instrument you're looking for? Add it and then navigate back to this page.</p>
+                    <a href="/instrument/create%>" class="btn btn-secondary">Create new instrument</a>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
         <div class="mb-3">
             <label for="soundClipUri">Sound Clip URL:</label>
             <input type="text" class="form-control" id="soundClipUri" name="soundClipUri"
@@ -24,3 +73,5 @@
             </button>
         </div>
     </form>
+
+    <%- include("super-common-footer.ejs")%>

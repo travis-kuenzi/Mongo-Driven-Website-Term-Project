@@ -21,7 +21,6 @@
         }
 
         .img-zoom-container {
-            border: 1px solid #000000;
             position: relative;
             flex: 1;
             margin-right: 10px;
@@ -33,7 +32,7 @@
             border: 1px solid #000000;
             /* set the size of the lens: */
             width: 30px;
-            height: 30px;
+            height: 35px;
         }
 
         .img-zoom-result {
@@ -101,9 +100,10 @@
             }
         }
     </script>
+
 </head>
 
-<body>
+<body class="bg-light text-dark">
     <nav>
         <a href="/" class="btn btn-primary">Home</a>
     </nav>
@@ -111,9 +111,28 @@
     <main>
 
         <h1>Genres:</h1>
-        <p>Mouse over the image:</p>
+        <p>
+            The number of genres in Western music is extensive and continually evolving, as music is a dynamic and
+            ever-changing art form. Broadly speaking, Western music genres can be categorized into several primary
+            types, each containing numerous subgenres. Some of the primary genres include:
+            <b>Classical</b> (Baroque, Classical, Romantic, Modern/Contemporary), <b>Jazz</b> (Bebop, Swing, Fusion,
+            Smooth Jazz),
+            <b>Blues</b> (Delta Blues, Chicago Blues, Electric Blues), <b>Rock</b> (Classic Rock, Hard Rock, Punk Rock,
+            Alternative
+            Rock, Progressive Rock), <b>Pop</b> (Dance-Pop, Teen Pop, Electropop), <b>Hip Hop/Rap</b> (Old School Hip
+            Hop, Trap,
+            Gangsta Rap), <b>Electronic</b> (House, Techno, Drum and Bass, Dubstep), <b>Country</b> (Bluegrass, Honky
+            Tonk,
+            Contemporary Country), <b>Folk</b> (Traditional Folk, Indie Folk, Folk Rock), <b>R&B/Soul</b> (Motown,
+            Neo-Soul,
+            Contemporary R&B) and <b>Reggae</b> (Roots Reggae, Dub, Dancehall).
+            Of course, genres do not come out of nowhere.
+        </p>
+        <p>The following image shows one group's (somewhat hopeless) efforts to show the evolution of
+            music genres with a "Music Tree". (Mouse over the image with the magnifying lens.)
+        </p>
 
-        <div class="wrapper">
+        <div class="wrapper" class="mb-3">
             <div class="img-zoom-container">
                 <img id="myimage" src="/images/MusicTree.png" width="512" height="220">
             </div>
@@ -124,6 +143,10 @@
             // Initiate zoom effect:
             imageZoom("myimage", "myresult");
         </script>
+
+        <div class="mt-3 mb-3">
+            In this database we will concentrate on the following genres:
+        </div>
 
 
         <% for (let i=0; i < genres.length; i++) { %>

@@ -1,50 +1,64 @@
 <%- include("super-common-header.ejs", {title:instrument.name}) %>
 
-<p></p>
-<a href="/instrument" class="btn btn-primary">Back to Instruments</a>
-<p></p>
+    <p></p>
+    <a href="/instrument" class="btn btn-primary">Back to Instruments</a>
+    <p></p>
 
-<h1><%- instrument.name %></h1>
+    <h1><%- instrument.name %></h1>
 
-<% if (instrument.imageUri) { %>
-    <img src="<%= instrument.imageUri %>" alt="<%= instrument.name %>" height="400 em">
-<% } %>
+    <% if (instrument.imageUri) { %>
+        <img src="<%= instrument.imageUri %>" alt="<%= instrument.name %>" height="400 em">
+    <% } %>
 
-<% if (instrument.history) { %>
-    <p><b>History: </b><%- instrument.history %></p>
-<% } %>
+    <% if (instrument.history) { %>
+        <p><b>History: </b><%- instrument.history %></p>
+    <% } %>
 
-<% if (instrument.family) { %>
-    <p><b>Family : </b><%- instrument.family %></p>
-<% } %>
+    <% if (instrument.family) { %>
+        <p><b>Family : </b><%- instrument.family %></p>
+    <% } %>
 
 
-<% try { %>
-    <% if (instrument.soundSampleUri) { %>
-        <iframe width="420" height="315"
-        src="<%= instrument.soundSampleUri %>">
-        </iframe>
+    <% try { %>
+        <% if (instrument.soundSampleUri) { %>
+            <iframe width="420" height="315" src="<%= instrument.soundSampleUri %>"></iframe>
         <% } else { %>
             <p>No sound sample provided.</p>
         <% } %>
-<% } catch (error) { %>
-    <p>Sorry, invalid sound sample.</p>
-<% } %>
+    <% } catch (error) { %>
+        <p>Sorry, invalid sound sample.</p>
+    <% } %>
 
 
 
-<!--Instrument needs to store an array of genres in database!!-->
-<% if(instrument.genres) { %>
+    <!--Instrument needs to store an array of genres in database!!-->
+
     <p><b>Genres: </b></p>
-    <ul>
-        <% for (let g of instrument.genres) { %>
-          <li><a href="<%= g.url %>"><%= g.name %></a></li>
-        <% } %>
-    </ul>
-<% } %>
+        <ul>
+            <% for (let g of genres) { %>
+                <li><a href="<%= g.url %>">
+                        <%= g.name %>
+                    </a></li>
+                <% } %>
+        </ul>
 
-<a href="/instrument/update/<%= instrument._id %>" class="btn btn-primary">Update this instrument</a>
+    <p><b>Songs: </b></p>
+        <ul>
+            <% for (let s of songs) { %>
+                <li><a href="<%= s.url %>">
+                        <%= s.name %>
+                    </a></li>
+                <% } %>
+        </ul>
 
-<form action="/instrument/verifyDelete/<%= instrument._id %>" method="GET" style="display:inline;">
-    <button type="submit" class="btn btn-danger">Delete this instrument</button>
-</form>
+    <a href="/instrument/update/<%= instrument._id %>"
+        class="btn btn-primary">Update this instrument</a>
+
+    <form
+        action="/instrument/verifyDelete/<%= instrument._id %>"
+        method="GET" style="display:inline;">
+        <button type="submit" class="btn btn-danger">Delete this
+            instrument</button>
+    </form>
+
+    <%- include("super-common-footer.ejs")%>

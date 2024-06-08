@@ -1,13 +1,20 @@
 <%- include("super-common-header.ejs", {title:title }) %>
 
-<h1>Musicians:</h1>
-<p> </p>
+    <h1>Musicians:</h1>
+    <p> </p>
 
-    
-<% for (let i = 0; i < musicians.length; i++) { %>
-    <h2><%- musicians[i].name %></h2>
-    <a href="<%= musicians[i].url %>">Click here for <%= musicians[i].name %></a>
-<% } %>
 
+<<<<<<< HEAD
 <p></p>
 <a href="/musician/create" class="btn btn-primary">Create A New Musician</a>
+=======
+    <% for (let i=0; i < musicians.length; i++) { %>
+        <h2><%- musicians[i].name %></h2>
+        <a href="<%= musicians[i].url %>">Click here for <%= musicians[i].name %></a>
+        <% } %>
+
+            <p></p>
+            <a href="/musician/create" class="btn btn-primary">Create a new Musician (broken)</a>
+
+            <%- include("super-common-footer.ejs")%>
+>>>>>>> f35f95cf35b7d13a78c78226649bf8db5d052e2a

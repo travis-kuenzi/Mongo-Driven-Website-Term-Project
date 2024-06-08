@@ -1,54 +1,56 @@
 <%- include("super-common-header.ejs", {title: instrument.name }) %>
-<p></p>
+    <p></p>
 
-<a href="/instrument/<%= creatingNew.new ? '' : instrument._id %>" class="btn btn-danger">Cancel</a>
+    <a href="/instrument/<%= creatingNew.new ? '' : instrument._id %>" class="btn btn-danger">Cancel</a>
 
 
-<p></p>
-<h1><%= instrument.name %></h1>
+    <p></p>
+    <h1>
+        <%= instrument.name %>
+    </h1>
 
-<form action="<%= instrument._id ? '/instrument/update/' + instrument._id : '/instrument/create' %>" method="POST">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= instrument.name %>" required>
-    </div>
-    <div>
-        <label for="history">History:</label>
-        <textarea id="history" class="form-control" name="history"><%= instrument.history %></textarea>
-    </div>
-    <div>
-        <label for="family">Family:</label>
-        <input type="text" id="family" class="form-control" name="family" value="<%= instrument.family %>">
-    </div>
-    <div>
-        <label for="imageUri">Image URL: </label>
-        <input type="text" id="imageUri" class="form-control" name="imageUri" value="<%= instrument.imageUri %>">
-    </div>
-    <div>
-        <label for="soundSampleUri">Sound Sample URL (Youtube embed link):</label>
-        <input type="text" id="soundSampleUri" class="form-control" name="soundSampleUri" value="<%= instrument.soundSampleUri %>">
-    </div>
-    <div class="alert alert-warning">
-        <div class="mb-3 ">
-          <label for="genres">Select from available genres (use Control-Click to MultiSelect)</label>
-          <select class="form-select" id="genres" name="genres" multiple>
-            <% for(let g of genres) { %>
-                <%# Have to use .equals to compare _ids!!! %>
-                <option value="<%= g._id %>" <%= instrument.genre && instrument.genre._id.equals(g._id) ? "selected" : "" %>> 
-                  <%= g.name %>
-                </option>
-            <% } %>
-          </select>
-            <div>
-                <p></p>
-                <p>Don't see the Genre you're looking for? Add it and then navigate back to this page.</p>
-                <a href="/genre/create%>" class="btn btn-secondary">Create new genre</a>
-                <p></p>
-            </div>
+    <form action="<%= instrument._id ? '/instrument/update/' + instrument._id : '/instrument/create' %>" method="POST">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= instrument.name %>" required>
         </div>
-      </div>
-    <div>
-    <div>
-        <button type="submit" class="btn btn-primary"><%= creatingNew.new ? 'Create' : 'Update' %> Instrument</button>
-    </div>
-</form>
+        <div>
+            <label for="history">History:</label>
+            <textarea id="history" class="form-control" name="history"><%= instrument.history %></textarea>
+        </div>
+        <div>
+            <label for="family">Family:</label>
+            <input type="text" id="family" class="form-control" name="family" value="<%= instrument.family %>">
+        </div>
+        <div>
+            <label for="imageUri">Image URL: </label>
+            <input type="text" id="imageUri" class="form-control" name="imageUri" value="<%= instrument.imageUri %>">
+        </div>
+        <div>
+            <label for="soundSampleUri">Sound Sample URL (Youtube embed link):</label>
+            <input type="text" id="soundSampleUri" class="form-control" name="soundSampleUri"
+                value="<%= instrument.soundSampleUri %>">
+        </div>
+
+
+        <div class="mb-3 ">
+            <label for="genres">Genres:</label>
+            <select class="form-select" id="genres" name="genres" multiple>
+                <% for(let g of allGenres) { %>
+                    <option value="<%= g._id %>" <%= g.instruments.includes(instrument._id) ? "selected" : "" %>> 
+                      <%= g.name %>
+                    </option>
+                <% } %>
+            </select>
+        </div>
+
+
+        <div>
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    <%= creatingNew.new ? 'Create' : 'Update' %> Instrument
+                </button>
+            </div>
+    </form>
+
+    <%- include("super-common-footer.ejs")%>

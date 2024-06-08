@@ -50,8 +50,15 @@ async function createSong(req, res, next) {
         //console.log('createsong called with data:', req.body);
         let song = new Song({});
 
+        const instruments = await Instrument.find();
+        const musicians = await Musician.find();
+        const genres = await Genre.find();
+
         res.render("songForm.ejs", {
             song: song,
+            instruments: instruments,
+            musicians: musicians,
+            genres: genres,
             creatingNew: {new: true}
         });
     } catch (err) {
@@ -62,10 +69,17 @@ async function createSong(req, res, next) {
 async function update_get(req, res, next) {
     try {
       let song = await Song.findById(req.params.id).exec();
-  
+    
+      const instruments = await Instrument.find();
+      const musicians = await Musician.find();
+      const genres = await Genre.find();
+
       res.render("songForm.ejs", {
         title: `Update ${song.name}`,
         song: song,
+        instruments: instruments,
+        musicians: musicians,
+        genres: genres,
         creatingNew: {new: false}
       });
     } catch (err) {
@@ -88,6 +102,9 @@ async function update_post(req, res, next) {
         song.name = req.body.name;
         song.soundClipUri= req.body.soundClipUri;
         song.videoUri= req.body.videoUri;
+        song.genre = req.body.genre;
+        song.musician = req.body.musician;
+        song.instruments = req.body.instruments;
 
         song
             .save()
@@ -110,7 +127,7 @@ async function update_post(req, res, next) {
 
 async function deleteSong(req, res, next) {
     try {
-        console.log('deletesong called with id:', req.params.id);
+        //console.log('deletesong called with id:', req.params.id);
         
         const songId = req.params.id;
         await Song.updateMany({ song: songId }, { $unset: { song: 1 } }).exec();

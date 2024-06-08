@@ -17,6 +17,25 @@
             <label for="history">History:</label>
             <textarea id="history" name="history"><%= genre.history %></textarea>
         </div>
+        <div class="alert alert-warning">
+            <div class="mb-3 ">
+                <label for="instruments">Select from available instruments (use Control-Click to MultiSelect)</label>
+                <select class="form-select" id="instruments" name="instruments" multiple>
+                    <% for(let i of instruments) { %>
+                            <option value="<%= i._id %>" <%=genre.instruments.includes(i._id) ? "selected" : ""
+                                ? "selected" : "" %>>
+                                <%= i.name %>
+                            </option>
+                            <% } %>
+                </select>
+                <div>
+                    <p></p>
+                    <p>Don't see the Instrument you're looking for? Add it and then navigate back to this page.</p>
+                    <a href="/instrument/create%>" class="btn btn-secondary">Create new instrument</a>
+                    <p></p>
+                </div>
+            </div>
+        </div>
         <div class="mb-3">
             <label for="imageUri">Image URL:</label>
             <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= genre.imageUri %>">

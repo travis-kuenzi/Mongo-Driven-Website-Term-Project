@@ -13,10 +13,6 @@ let InstrumentSchema = new Schema({
     family: {
       type: String
     },
-    genres: [{ 
-      type: Schema.Types.ObjectId, 
-      ref: "Genre"
-    }],
     imageUri: {type: String},
     soundSampleUri: {type: String}
   });
@@ -31,8 +27,15 @@ InstrumentSchema.virtual("url").get(function () {
 import { default as Song } from "./song.mjs";
 
 InstrumentSchema.virtual("songs").get(async function () {
-    let songArray = await Song.find().where("instrument").equals(this._id).exec();
+    let songArray = await Song.find({ instruments: { $in: [this._id] } }).exec();
     return songArray;
+});
+
+import { default as Genre } from "./genre.mjs";
+
+InstrumentSchema.virtual("genres").get(async function () {
+  let genreArray = await Genre.find({ instruments: { $in: [this._id] } }).exec();
+  return genreArray;
 });
 
 InstrumentSchema.set('toJSON', { virtuals: true });

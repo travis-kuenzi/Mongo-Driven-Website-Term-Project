@@ -1,80 +1,37 @@
-<%- include("super-common-header.ejs", {title: musician.name }) %>
+<%- include("super-common-header.ejs", {title:musician.name}) %>
 
-<a href="/musician" class="btn btn-primary mb-3">Back to Musicians</a>
+<p></p>
 
-<h1><%= musician.name %></h1>
+<a href="/musician" class="btn btn-primary">Back to Musicians</a>
 
-<style>
-    .content-container {
-        max-width: 50%;
-    }
+<p></p>
 
-    .embed-responsive {
-        position: relative;
-        display: block;
-        width: 100%;
-        padding: 0;
-        overflow: hidden;
-        padding-top: 56.25%;
-    }
+<h1><%- musician.name %></h1>
 
-    .embed-responsive .embed-responsive-item {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        height: 100%;
-        width: 100%;
-        border: 0;
-    }
+<% if (musician.imageUri) { %>
+    <img src="<%= musician.imageUri %>" alt="<%= musician.name %>">
+<% } %>
 
-    .img-fluid {
-        max-width: 100%;
-        height: auto;
-    }
-</style>
+<% if (musician.anecdote) { %>
+    <p><b>Anecdote : </b><%- musician.anecdote %></p>
+<% } %>
 
-<div class="mt-3 content-container">
-    <% if (musician.imageUri && musician.imageUri.trim().length > 0) { %>
-        <img src="<%= musician.imageUri %>" alt="<%= musician.name %>" class="img-fluid mt-2">
-    <% } else { %>
-        <p>No image available.</p>
+<% if (musician.process) { %>
+    <p><b>Process : </b><%- musician.process %></p>
+<% } %>
+
+<p>Songs:
+<ul>
+    <% for (let s of songs) { %>
+        <li><a href="<%= s.url %>"><%= s.name %></a></li>
     <% } %>
-</div>
+</ul>
+</p>
 
-<div class="mt-3 content-container">
-    <strong>Anecdote:</strong>
-    <p><%= musician.anecdote %></p>
-</div>
+<p></p>
 
-<div class="mt-3 content-container">
-    <strong>Process:</strong>
-    <% if (musician.processVideoUri && musician.processVideoUri.trim().length > 0) { %>
-        <div class="embed-responsive embed-responsive-16by9 mt-2">
-            <iframe class="embed-responsive-item" src="<%= musician.processVideoUri.replace('watch?v=', 'embed/') %>" allowfullscreen></iframe>
-        </div>
-    <% } else { %>
-        <p>No video available.</p>
-    <% } %>
-</div>
+<a href="/musician/update/<%= musician._id %>" class="btn btn-primary">Update this musician</a>
 
-<div class="mt-3 content-container">
-    <strong>Songs:</strong>
-    <% if (musician.songs && musician.songs.length > 0) { %>
-        <ul>
-            <% for(let songId of musician.songs) { %>
-                <% let selectedSong = songs.find(s => s._id.toString() === songId.toString()); %>
-                <% if (selectedSong) { %>
-                    <li><a href="/song/<%= selectedSong._id %>"><%= selectedSong.name %></a></li>
-                <% } %>
-            <% } %>
-        </ul>
-    <% } else { %>
-        <p>No songs associated with this musician.</p>
-    <% } %>
-</div>
-
-<div class="mt-3">
-    <a href="/musician/update/<%= musician._id %>" class="btn btn-primary">Update This Musician</a>
-    <a href="/musician/delete/<%= musician._id %>" class="btn btn-danger ml-2">Delete This Musician</a>
-</div>
+<form action="/musician/verifyDelete/<%= musician._id %>" method="GET" style="display:inline;">
+    <button type="submit" class="btn btn-danger">Delete this musician</button>
+</form>
