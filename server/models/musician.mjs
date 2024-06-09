@@ -8,6 +8,7 @@ let MusicianSchema = new Schema({
     imageUri: { type: String }, 
     anecdote: { type: String },
     processVideoUri: { type: String },
+    // Each musician has many songs
     songs: [{ type: Schema.Types.ObjectId, ref: 'Song' }]
 });
 
