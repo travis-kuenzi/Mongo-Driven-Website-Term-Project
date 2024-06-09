@@ -89,7 +89,6 @@
         },
         animation: 150,
         onAdd: function (evt) {
-            // Ensure there are no duplicates in the available songs list
             var itemEl = evt.item;
             var itemId = itemEl.getAttribute('data-id');
             var items = availableSongs.querySelectorAll('.draggable-song');
@@ -115,7 +114,6 @@
         },
         animation: 150,
         onAdd: function (evt) {
-            // Ensure there are no duplicates in the selected songs list
             var itemEl = evt.item;
             var itemId = itemEl.getAttribute('data-id');
             var items = selectedSongs.querySelectorAll('.draggable-song');

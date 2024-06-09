@@ -3,9 +3,8 @@ import { default as Instrument } from '../models/instrument.mjs';
 import { default as Genre } from '../models/genre.mjs';
 import { default as Musician } from '../models/musician.mjs';
 import { default as Song } from '../models/song.mjs';
-import { errorParser } from '../routes/routeHelpers.mjs';  // Correct import
+import { errorParser } from '../routes/routeHelpers.mjs';
 
-// Function to ensure the URL starts with http or https
 function ensureHttp(url) {
     if (url && !url.startsWith('http://') && !url.startsWith('https://')) {
         return 'http://' + url;
@@ -40,7 +39,7 @@ async function musicianById(req, res, next) {
 async function createMusician(req, res, next) {
     try {
         let musician = new Musician({});
-        let songs = await Song.find().exec(); // Fetch all songs
+        let songs = await Song.find().exec(); 
         res.render("musicianForm.ejs", { title: "Create Musician", musician: musician, songs: songs, creatingNew: { new: true }, errors: [] });
     } catch (err) {
         next(err);
@@ -50,7 +49,7 @@ async function createMusician(req, res, next) {
 async function update_get(req, res, next) {
     try {
         let musician = await Musician.findById(req.params.id).exec();
-        let songs = await Song.find().exec(); // Fetch all songs
+        let songs = await Song.find().exec();
         res.render("musicianForm.ejs", { title: `Update ${musician.name}`, musician: musician, songs: songs, creatingNew: { new: false }, errors: [] });
     } catch (err) {
         next(err);
@@ -66,12 +65,12 @@ async function update_post(req, res, next) {
         musician.name = req.body.name;
         musician.imageUri = ensureHttp(req.body.imageUri);
         musician.anecdote = req.body.anecdote;
-        musician.processVideoUri = ensureHttp(req.body.processVideoUri); // Update processVideoUri
-        musician.songs = req.body.songs.split(','); // Update the selected songs
+        musician.processVideoUri = ensureHttp(req.body.processVideoUri); 
+        musician.songs = req.body.songs.split(','); 
         musician.save()
             .then(() => res.redirect(musician.url))
             .catch(async (err) => {
-                let songs = await Song.find().exec(); // Fetch all songs again
+                let songs = await Song.find().exec(); 
                 res.render("musicianForm.ejs", { title: `Update ${musician.name}`, musician: musician, songs: songs, creatingNew: { new: false }, errors: errorParser(err.message) });
             });
     } catch (err) {
