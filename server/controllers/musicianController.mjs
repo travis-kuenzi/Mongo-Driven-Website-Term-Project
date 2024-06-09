@@ -26,7 +26,7 @@ async function musicianById(req, res, next) {
         const musicianId = req.params.id;
         let musician = await Musician.findById(musicianId).exec();
         if (musician) {
-            let songs = await Song.find().exec(); // Fetch all songs
+            let songs = await Song.find().exec();
             res.render('singleMusician.ejs', { musician: musician, songs: songs });
         } else {
             next();
@@ -39,16 +39,34 @@ async function musicianById(req, res, next) {
 async function createMusician(req, res, next) {
     try {
         let musician = new Musician({});
-        let songs = await Song.find().exec(); 
+        let songs = await Song.find().exec();
         res.render("musicianForm.ejs", { title: "Create Musician", musician: musician, songs: songs, creatingNew: { new: true }, errors: [] });
     } catch (err) {
         next(err);
     }
 }
 
+async function create_post(req, res, next) {
+    let musician = new Musician({
+        name: req.body.name,
+        imageUri: ensureHttp(req.body.imageUri) || (req.file ? `/uploads/${req.file.filename}` : ''),
+        anecdote: req.body.anecdote,
+        processVideoUri: ensureHttp(req.body.processVideoUri),
+        songs: req.body.songs ? req.body.songs.split(',') : []
+    });
+    try {
+        await musician.save();
+        res.redirect('/musician');
+    } catch (err) {
+        let songs = await Song.find().exec();
+        res.render("musicianForm.ejs", { title: 'Create Musician', musician: { ...req.body, imageUri: musician.imageUri, songs: req.body.songs ? req.body.songs.split(',') : [] }, songs: songs, creatingNew: { new: true }, errors: errorParser(err.message) });
+    }
+}
+
 async function update_get(req, res, next) {
     try {
-        let musician = await Musician.findById(req.params.id).exec();
+        const musicianId = req.params.id;
+        let musician = await Musician.findById(musicianId).exec();
         let songs = await Song.find().exec();
         res.render("musicianForm.ejs", { title: `Update ${musician.name}`, musician: musician, songs: songs, creatingNew: { new: false }, errors: [] });
     } catch (err) {
@@ -58,23 +76,25 @@ async function update_get(req, res, next) {
 
 async function update_post(req, res, next) {
     try {
-        let musician = await Musician.findById(req.params.id).exec();
-        if (musician === null) {
-            musician = new Musician({ _id: req.body.id });
+        const musicianId = req.params.id;
+        let musician = await Musician.findById(musicianId).exec();
+
+        if (!musician) {
+            return res.status(404).send("Musician not found");
         }
+
         musician.name = req.body.name;
-        musician.imageUri = ensureHttp(req.body.imageUri);
+        musician.imageUri = ensureHttp(req.body.imageUri) || (req.file ? `/uploads/${req.file.filename}` : musician.imageUri);
         musician.anecdote = req.body.anecdote;
-        musician.processVideoUri = ensureHttp(req.body.processVideoUri); 
-        musician.songs = req.body.songs.split(','); 
-        musician.save()
-            .then(() => res.redirect(musician.url))
-            .catch(async (err) => {
-                let songs = await Song.find().exec(); 
-                res.render("musicianForm.ejs", { title: `Update ${musician.name}`, musician: musician, songs: songs, creatingNew: { new: false }, errors: errorParser(err.message) });
-            });
+        musician.processVideoUri = ensureHttp(req.body.processVideoUri);
+        musician.songs = req.body.songs ? req.body.songs.split(',') : [];
+
+        await musician.save();
+        res.redirect('/musician');
     } catch (err) {
-        next(err);
+        const musicianId = req.params.id;
+        let songs = await Song.find().exec();
+        res.render("musicianForm.ejs", { title: `Update ${req.body.name}`, musician: { ...req.body, imageUri: musician.imageUri, songs: req.body.songs ? req.body.songs.split(',') : [] }, songs: songs, creatingNew: { new: false }, errors: errorParser(err.message) });
     }
 }
 
@@ -100,4 +120,4 @@ async function verifyDelete(req, res, next) {
     }
 }
 
-export { musicianList, musicianById, createMusician, deleteMusician, update_get, update_post, verifyDelete };
+export { musicianList, musicianById, createMusician, create_post, deleteMusician, update_get, update_post, verifyDelete };

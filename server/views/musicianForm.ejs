@@ -1,31 +1,34 @@
-<%- include("super-common-header.ejs", {title: musician.name }) %>
+<%- include("super-common-header.ejs", {title: creatingNew.new ? 'Create Musician' : musician.name }) %>
 
 <a href="/musician/<%= creatingNew.new ? '' : musician._id %>" class="btn btn-danger mb-3">Cancel</a>
 
-<h1><%= musician.name %></h1>
-
-<form action="<%= musician._id ? '/musician/update/' + musician._id : '/musician/create' %>" method="POST" id="musicianForm">
+<form action="/musician/<%= creatingNew.new ? 'create' : 'update/' + musician._id %>" method="POST" enctype="multipart/form-data" id="musicianForm">
     <div class="mb-3">
         <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= musician.name %>" required>
+        <input type="text" class="form-control" id="name" name="name" value="<%= musician.name || '' %>" required>
     </div>
 
     <div class="mb-3">
         <label for="imageUri">Image URL:</label>
-        <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= musician.imageUri %>">
+        <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= musician.imageUri || '' %>">
         <% if (musician.imageUri && musician.imageUri.trim().length > 0) { %>
             <img src="<%= musician.imageUri %>" alt="<%= musician.name %>" class="img-fluid mt-2">
         <% } %>
     </div>
 
     <div class="mb-3">
+        <label for="imageUpload">Upload Image:</label>
+        <input type="file" class="form-control" id="imageUpload" name="imageUpload">
+    </div>
+
+    <div class="mb-3">
         <label for="anecdote"><strong>Anecdote:</strong></label>
-        <textarea id="anecdote" class="form-control" name="anecdote"><%= musician.anecdote %></textarea>
+        <textarea id="anecdote" class="form-control" name="anecdote"><%= musician.anecdote || '' %></textarea>
     </div>
 
     <div class="mb-3">
         <label for="processVideoUri"><strong>Process:</strong></label>
-        <input type="text" id="processVideoUri" class="form-control" name="processVideoUri" placeholder="Please embed a video link (e.g., https://www.youtube.com/watch?v=example)" value="<%= musician.processVideoUri %>">
+        <input type="text" id="processVideoUri" class="form-control" name="processVideoUri" placeholder="Please embed a video link (e.g., https://www.youtube.com/watch?v=example)" value="<%= musician.processVideoUri || '' %>">
         <% if (musician.processVideoUri && musician.processVideoUri.trim().length > 0) { %>
             <div class="embed-responsive embed-responsive-16by9 mt-2" style="height: 560px;">
                 <iframe class="embed-responsive-item" src="<%= musician.processVideoUri.replace('watch?v=', 'embed/') %>" allowfullscreen></iframe>
@@ -70,7 +73,7 @@
 
     <div>
         <input type="hidden" id="selectedSongIds" name="songs" value="<%= musician.songs.join(',') %>">
-        <button type="submit" class="btn btn-primary my-3">Update Musician</button>
+        <button type="submit" class="btn btn-primary my-3"><%= creatingNew.new ? 'Create Musician' : 'Update Musician' %></button>
     </div>
 </form>
 

@@ -87,41 +87,25 @@ async function update_get(req, res, next) {
     }
 };
 
-
 async function update_post(req, res, next) {
     try {
-        //console.log('updatesong called with id:', req.params.id, 'and data:', req.body);
-        let song = await Song.findById(req.params.id).exec();
-        if (song === null) {
-            //console.log('song not found');
-            song = new Song({
-                _id: req.body.id
-            });
+        // Use findByIdAndUpdate to update the existing musician
+        let musician = await Musician.findByIdAndUpdate(req.params.id, {
+            name: req.body.name,
+            imageUri: ensureHttp(req.body.imageUri),
+            anecdote: req.body.anecdote,
+            processVideoUri: ensureHttp(req.body.processVideoUri),
+            songs: req.body.songs ? req.body.songs.split(',') : []
+        }, { new: true, runValidators: true });
+
+        if (!musician) {
+            return res.status(404).send("Musician not found");
         }
 
-        song.name = req.body.name;
-        song.soundClipUri= req.body.soundClipUri;
-        song.videoUri= req.body.videoUri;
-        song.genre = req.body.genre;
-        song.musician = req.body.musician;
-        song.instruments = req.body.instruments;
-
-        song
-            .save()
-            .then((song) => {
-                res.redirect(song.url);
-            })
-            .catch((err) => {
-                console.log(err.message);
-                res.render("songForm.ejs", {
-                    title: `Update ${song.name}`,
-                    song: song,
-                    errors: routeHelper.errorParser(err.message),
-                });
-            });
+        res.redirect('/musician');
     } catch (err) {
-        console.error('Error in updatesong:', err);
-        next(err);
+        let songs = await Song.find().exec();
+        res.render("musicianForm.ejs", { title: `Update ${req.body.name}`, musician: req.body, songs: songs, creatingNew: { new: false }, errors: errorParser(err.message) });
     }
 }
 

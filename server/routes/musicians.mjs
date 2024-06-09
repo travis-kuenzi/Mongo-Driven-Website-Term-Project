@@ -1,15 +1,17 @@
-import { default as express } from "express";
-import * as musicianController from "../controllers/musicianController.mjs";
+import express from 'express';
+import multer from 'multer';
+import { createMusician, create_post, deleteMusician, musicianById, musicianList, update_get, update_post, verifyDelete } from '../controllers/musicianController.mjs';
 
+const upload = multer({ dest: 'public/uploads/' });
 const router = express.Router();
 
-
-router.get("/", musicianController.musicianList);
-router.get("/create", musicianController.createMusician);
-router.get("/update/:id", musicianController.update_get);
-router.post("/update/:id", musicianController.update_post);
-router.get('/:id', musicianController.musicianById);
-router.post('/delete/:id', musicianController.deleteMusician);
-router.get('/verifyDelete/:id', musicianController.verifyDelete);
+router.get('/', musicianList);
+router.get('/create', createMusician);
+router.post('/create', upload.single('imageUpload'), create_post);
+router.get('/update/:id', update_get);
+router.post('/update/:id', upload.single('imageUpload'), update_post);
+router.get('/verifyDelete/:id', verifyDelete);
+router.post('/:id/delete', deleteMusician);
+router.get('/:id', musicianById);
 
 export default router;
