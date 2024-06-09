@@ -1,228 +1,201 @@
 <%- include("super-common-header.ejs", {title: creatingNew.new ? 'Create Musician' : musician.name }) %>
 
-    <a href="/musician/<%= creatingNew.new ? '' : musician._id %>" class="btn btn-danger mb-3">Cancel</a>
+<a href="/musician/<%= creatingNew.new ? '' : musician._id %>" class="btn btn-danger mb-3">Cancel</a>
 
-    <form action="/musician/<%= creatingNew.new ? 'create' : 'update/' + musician._id %>" method="POST"
-        enctype="multipart/form-data" id="musicianForm">
-        <div class="mb-3">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" value="<%= musician.name || '' %>" required>
-        </div>
+<form action="/musician/<%= creatingNew.new ? 'create' : 'update/' + musician._id %>" method="POST"
+    enctype="multipart/form-data" id="musicianForm">
+    <div class="mb-3">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= musician.name || '' %>" required>
+    </div>
 
-        <div class="mb-3">
-            <label for="imageUri">Image URL:</label>
-            <input type="text" class="form-control" id="imageUri" name="imageUri"
-                value="<%= musician.imageUri || '' %>">
-            <% if (musician.imageUri && musician.imageUri.trim().length> 0) { %>
-                <img src="<%= musician.imageUri %>" alt="<%= musician.name %>" class="img-fluid mt-2">
-                <% } %>
-        </div>
+    <div class="mb-3">
+        <label for="imageUri">Image URL:</label>
+        <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= musician.imageUri || '' %>">
+        <% if (musician.imageUri && musician.imageUri.trim().length > 0) { %>
+            <img src="<%= musician.imageUri %>" alt="<%= musician.name %>" class="img-fluid mt-2">
+        <% } %>
+    </div>
 
-        <div class="mb-3">
-            <label for="imageUpload">Upload Image:</label>
-            <input type="file" class="form-control" id="imageUpload" name="imageUpload">
-        </div>
+    <div class="mb-3">
+        <label for="imageUpload">Upload Image:</label>
+        <input type="file" class="form-control" id="imageUpload" name="imageUpload">
+    </div>
 
-        <div class="mb-3">
-            <label for="anecdote"><strong>Anecdote:</strong></label>
-            <textarea id="anecdote" class="form-control" name="anecdote"><%= musician.anecdote || '' %></textarea>
-        </div>
+    <div class="mb-3">
+        <label for="anecdote"><strong>Anecdote:</strong></label>
+        <textarea id="anecdote" class="form-control" name="anecdote"><%= musician.anecdote || '' %></textarea>
+    </div>
 
-        <div class="mb-3">
-            <label for="processVideoUri"><strong>Process:</strong></label>
-            <input type="text" id="processVideoUri" class="form-control" name="processVideoUri"
-                placeholder="Please embed a video link (e.g., https://www.youtube.com/watch?v=example)"
-                value="<%= musician.processVideoUri || '' %>">
-            <% if (musician.processVideoUri && musician.processVideoUri.trim().length > 0) { %>
-                <div class="embed-responsive embed-responsive-16by9 mt-2" style="height: 560px;">
-                    <iframe class="embed-responsive-item"
-                        src="<%= musician.processVideoUri.replace('watch?v=', 'embed/') %>" allowfullscreen></iframe>
+    <div class="mb-3">
+        <label for="processVideoUri"><strong>Process:</strong></label>
+        <input type="text" id="processVideoUri" class="form-control" name="processVideoUri"
+            placeholder="Please embed a video link (e.g., https://www.youtube.com/watch?v=example)"
+            value="<%= musician.processVideoUri || '' %>">
+        <% if (musician.processVideoUri && musician.processVideoUri.trim().length > 0) { %>
+            <div class="embed-responsive embed-responsive-16by9 mt-2" style="height: 560px;">
+                <iframe class="embed-responsive-item"
+                    src="<%= musician.processVideoUri.replace('watch?v=', 'embed/') %>" allowfullscreen></iframe>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="alert alert-info">
+        <label for="songs"><strong>Songs:</strong></label>
+        <p>Drag and drop songs to associate them with this musician.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="song-list">
+                    <h5>Available Songs</h5>
+                    <div id="availableSongs" class="list-group mb-3 song-container">
+                        <% for(let song of songs) { %>
+                            <% if (!musician.songs || !musician.songs.includes(song._id.toString())) { %>
+                                <div class="list-group-item draggable-song" data-id="<%= song._id %>"><%= song.name %></div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                    <a href="/song/create" class="btn btn-secondary">Create New Song</a>
                 </div>
-            <% } %>
-        </div>
-        
-        <div class="alert alert-info">
-            <label for="songs"><strong>Songs:</strong></label>
-            <p>Drag and drop songs to associate them with this musician.</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="song-list">
-                        <h5>Available Songs</h5>
-                        <div id="availableSongs" class="list-group mb-3 song-container">
-                            <% for(let song of songs) { %>
-                                <% if (!musician.songs || !musician.songs.includes(song._id.toString())) { %>
-                                    <div class="list-group-item draggable-song" data-id="<%= song._id %>"><%= song.name %></div>
+            </div>
+            <div class="col-md-6">
+                <div class="song-list">
+                    <h5>Selected Songs</h5>
+                    <div id="selectedSongs" class="list-group mb-3 song-container">
+                        <% if (musician.songs && musician.songs.length > 0) { %>
+                            <% for(let songId of musician.songs) { %>
+                                <% let selectedSong = songs.find(s => s._id.toString() === songId.toString()); %>
+                                <% if (selectedSong) { %>
+                                    <div class="list-group-item draggable-song" data-id="<%= selectedSong._id %>">
+                                        <%= selectedSong.name %>
+                                    </div>
                                 <% } %>
                             <% } %>
-                        </div>
-                        <a href="/song/create" class="btn btn-secondary">Create New Song</a>
-                    </div>
-                </div>
-            </div>
-        </div>        
-                </div>
-                <% } %>
-        </div>
-
-        <div class="alert alert-info">
-            <label for="songs"><strong>Songs:</strong></label>
-            <p>Drag and drop songs to associate them with this musician.</p>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="song-list">
-                        <h5>Available Songs</h5>
-                        <div id="availableSongs" class="list-group mb-3 song-container">
-                            <% for(let song of songs) { %>
-                                <% if (!musician.songs.includes(song._id.toString())) { %>
-                                    <div class="list-group-item draggable-song" data-id="<%= song._id %>">
-                                        <%= song.name %>
-                                    </div>
-                                    <% } %>
-                                        <% } %>
-                        </div>
-                        <a href="/song/create" class="btn btn-secondary">Create New Song</a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="song-list">
-                        <h5>Selected Songs</h5>
-                        <div id="selectedSongs" class="list-group mb-3 song-container">
-                            <% if (musician.songs && musician.songs.length> 0) { %>
-                                <% for(let songId of musician.songs) { %>
-                                    <% let selectedSong=songs.find(s=> s._id.toString() === songId.toString()); %>
-                                        <% if (selectedSong) { %>
-                                            <div class="list-group-item draggable-song"
-                                                data-id="<%= selectedSong._id %>">
-                                                <%= selectedSong.name %>
-                                            </div>
-                                            <% } %>
-                                                <% } %>
-                                                    <% } %>
-                        </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div>
-            <input type="hidden" id="selectedSongIds" name="songs" value="<%= musician.songs ? musician.songs.join(',') : '' %>">
-            <button type="submit" class="btn btn-primary my-3">
-                <%= creatingNew.new ? 'Create Musician' : 'Update Musician' %>
-            </button>
-        </div>
-        </form>        
+    <div>
+        <input type="hidden" id="selectedSongIds" name="songs" value="<%= musician.songs ? musician.songs.join(',') : '' %>">
+        <button type="submit" class="btn btn-primary my-3">
+            <%= creatingNew.new ? 'Create Musician' : 'Update Musician' %>
+        </button>
+    </div>
+</form>
 
-    <!-- Include SortableJS from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-    <script>
-        var availableSongs = document.getElementById('availableSongs');
-        var selectedSongs = document.getElementById('selectedSongs');
-        var selectedSongIds = document.getElementById('selectedSongIds');
+<!-- Include SortableJS from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script>
+    var availableSongs = document.getElementById('availableSongs');
+    var selectedSongs = document.getElementById('selectedSongs');
+    var selectedSongIds = document.getElementById('selectedSongIds');
 
-        new Sortable(availableSongs, {
-            group: {
-                name: 'songs',
-                pull: true,
-                put: true
-            },
-            animation: 150,
-            onAdd: function (evt) {
-                var itemEl = evt.item;
-                var itemId = itemEl.getAttribute('data-id');
-                var items = availableSongs.querySelectorAll('.draggable-song');
-                var count = 0;
-                items.forEach(function (song) {
-                    if (song.getAttribute('data-id') === itemId) {
-                        count++;
-                        if (count > 1) {
-                            song.remove();
-                        }
+    new Sortable(availableSongs, {
+        group: {
+            name: 'songs',
+            pull: true,
+            put: true
+        },
+        animation: 150,
+        onAdd: function (evt) {
+            var itemEl = evt.item;
+            var itemId = itemEl.getAttribute('data-id');
+            var items = availableSongs.querySelectorAll('.draggable-song');
+            var count = 0;
+            items.forEach(function (song) {
+                if (song.getAttribute('data-id') === itemId) {
+                    count++;
+                    if (count > 1) {
+                        song.remove();
                     }
-                });
-                updateSelectedSongs();
-            },
-            onEnd: updateSelectedSongs
-        });
-
-        new Sortable(selectedSongs, {
-            group: {
-                name: 'songs',
-                pull: true,
-                put: true
-            },
-            animation: 150,
-            onAdd: function (evt) {
-                var itemEl = evt.item;
-                var itemId = itemEl.getAttribute('data-id');
-                var items = selectedSongs.querySelectorAll('.draggable-song');
-                var count = 0;
-                items.forEach(function (song) {
-                    if (song.getAttribute('data-id') === itemId) {
-                        count++;
-                        if (count > 1) {
-                            song.remove();
-                        }
-                    }
-                });
-                updateSelectedSongs();
-            },
-            onEnd: updateSelectedSongs
-        });
-
-        function updateSelectedSongs() {
-            var selected = [];
-            selectedSongs.querySelectorAll('.draggable-song').forEach(function (song) {
-                selected.push(song.getAttribute('data-id'));
+                }
             });
-            selectedSongIds.value = selected.join(',');
-        }
-    </script>
+            updateSelectedSongs();
+        },
+        onEnd: updateSelectedSongs
+    });
 
-    <style>
-        .song-container {
-            border: 1px solid #ddd;
-            min-height: 200px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
+    new Sortable(selectedSongs, {
+        group: {
+            name: 'songs',
+            pull: true,
+            put: true
+        },
+        animation: 150,
+        onAdd: function (evt) {
+            var itemEl = evt.item;
+            var itemId = itemEl.getAttribute('data-id');
+            var items = selectedSongs.querySelectorAll('.draggable-song');
+            var count = 0;
+            items.forEach(function (song) {
+                if (song.getAttribute('data-id') === itemId) {
+                    count++;
+                    if (count > 1) {
+                        song.remove();
+                    }
+                }
+            });
+            updateSelectedSongs();
+        },
+        onEnd: updateSelectedSongs
+    });
 
-        .song-list h5 {
-            margin-bottom: 15px;
-        }
+    function updateSelectedSongs() {
+        var selected = [];
+        selectedSongs.querySelectorAll('.draggable-song').forEach(function (song) {
+            selected.push(song.getAttribute('data-id'));
+        });
+        selectedSongIds.value = selected.join(',');
+    }
+</script>
 
-        .draggable-song {
-            cursor: move;
-            margin-bottom: 5px;
-        }
+<style>
+    .song-container {
+        border: 1px solid #ddd;
+        min-height: 200px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+    }
 
-        .draggable-song:hover {
-            background-color: #f1f1f1;
-        }
+    .song-list h5 {
+        margin-bottom: 15px;
+    }
 
-        .embed-responsive {
-            position: relative;
-            display: block;
-            width: 100%;
-            padding: 0;
-            overflow: hidden;
-            padding-top: 56.25%;
-        }
+    .draggable-song {
+        cursor: move;
+        margin-bottom: 5px;
+    }
 
-        .embed-responsive .embed-responsive-item {
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            height: 100%;
-            width: 100%;
-            border: 0;
-        }
+    .draggable-song:hover {
+        background-color: #f1f1f1;
+    }
 
-        .img-fluid {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    .embed-responsive {
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 0;
+        overflow: hidden;
+        padding-top: 56.25%;
+    }
 
-    <%- include("super-common-footer.ejs")%>
+    .embed-responsive .embed-responsive-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        border: 0;
+    }
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<%- include("super-common-footer.ejs")%>
