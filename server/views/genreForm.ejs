@@ -22,11 +22,11 @@
                 <label for="instruments">Select from available instruments (use Control-Click to MultiSelect)</label>
                 <select class="form-select" id="instruments" name="instruments" multiple>
                     <% for(let i of instruments) { %>
-                            <option value="<%= i._id %>" <%=genre.instruments.includes(i._id) ? "selected" : ""
-                                ? "selected" : "" %>>
-                                <%= i.name %>
-                            </option>
-                            <% } %>
+                        <option value="<%= i._id %>" <%=genre.instruments.includes(i._id) ? "selected" : "" ? "selected"
+                            : "" %>>
+                            <%= i.name %>
+                        </option>
+                        <% } %>
                 </select>
                 <div>
                     <p></p>

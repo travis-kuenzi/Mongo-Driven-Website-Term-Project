@@ -20,11 +20,14 @@
         </div>
         <div>
             <label for="family">Family:</label><br>
-            <% const families = ['Strings', 'Woodwinds', 'Brass', 'Percussion', 'Keyboards', 'Electronic']; %>
-            <% families.forEach(function(family) { %>
-                <input type="radio" id="<%= family.toLowerCase() %>" name="family" value="<%= family %>" <% if (instrument.family === family) { %> checked <% } %>>
-                <label for="<%= family.toLowerCase() %>"><%= family %></label><br>
-            <% }); %>
+            <% const families=['Strings', 'Woodwinds' , 'Brass' , 'Percussion' , 'Keyboards' , 'Electronic' ]; %>
+                <% families.forEach(function(family) { %>
+                    <input type="radio" id="<%= family.toLowerCase() %>" name="family" value="<%= family %>" <% if
+                        (instrument.family===family) { %> checked <% } %>>
+                        <label for="<%= family.toLowerCase() %>">
+                            <%= family %>
+                        </label><br>
+                        <% }); %>
         </div>
         <div>
             <label for="imageUri">Image URL: </label>
@@ -41,10 +44,10 @@
             <label for="genres">Genres:</label>
             <select class="form-select" id="genres" name="genres" multiple>
                 <% for(let g of allGenres) { %>
-                    <option value="<%= g._id %>" <%= g.instruments.includes(instrument._id) ? "selected" : "" %>> 
-                      <%= g.name %>
+                    <option value="<%= g._id %>" <%=g.instruments.includes(instrument._id) ? "selected" : "" %>>
+                        <%= g.name %>
                     </option>
-                <% } %>
+                    <% } %>
             </select>
         </div>
 
