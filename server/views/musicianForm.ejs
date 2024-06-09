@@ -33,10 +33,33 @@
             <input type="text" id="processVideoUri" class="form-control" name="processVideoUri"
                 placeholder="Please embed a video link (e.g., https://www.youtube.com/watch?v=example)"
                 value="<%= musician.processVideoUri || '' %>">
-            <% if (musician.processVideoUri && musician.processVideoUri.trim().length> 0) { %>
+            <% if (musician.processVideoUri && musician.processVideoUri.trim().length > 0) { %>
                 <div class="embed-responsive embed-responsive-16by9 mt-2" style="height: 560px;">
                     <iframe class="embed-responsive-item"
                         src="<%= musician.processVideoUri.replace('watch?v=', 'embed/') %>" allowfullscreen></iframe>
+                </div>
+            <% } %>
+        </div>
+        
+        <div class="alert alert-info">
+            <label for="songs"><strong>Songs:</strong></label>
+            <p>Drag and drop songs to associate them with this musician.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="song-list">
+                        <h5>Available Songs</h5>
+                        <div id="availableSongs" class="list-group mb-3 song-container">
+                            <% for(let song of songs) { %>
+                                <% if (!musician.songs || !musician.songs.includes(song._id.toString())) { %>
+                                    <div class="list-group-item draggable-song" data-id="<%= song._id %>"><%= song.name %></div>
+                                <% } %>
+                            <% } %>
+                        </div>
+                        <a href="/song/create" class="btn btn-secondary">Create New Song</a>
+                    </div>
+                </div>
+            </div>
+        </div>        
                 </div>
                 <% } %>
         </div>
@@ -82,12 +105,12 @@
         </div>
 
         <div>
-            <input type="hidden" id="selectedSongIds" name="songs" value="<%= musician.songs.join(',') %>">
+            <input type="hidden" id="selectedSongIds" name="songs" value="<%= musician.songs ? musician.songs.join(',') : '' %>">
             <button type="submit" class="btn btn-primary my-3">
                 <%= creatingNew.new ? 'Create Musician' : 'Update Musician' %>
             </button>
         </div>
-    </form>
+        </form>        
 
     <!-- Include SortableJS from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
