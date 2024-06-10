@@ -1,5 +1,30 @@
 <%- include("super-common-header.ejs", {title:song.name}) %>
 
+    <style>
+        .content-container {
+            max-width: 50%;
+        }
+
+        .embed-responsive {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 0;
+            overflow: hidden;
+            padding-top: 56.25%;
+        }
+
+        .embed-responsive .embed-responsive-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            height: 100%;
+            width: 100%;
+            border: 0;
+        }
+    </style>
+
     <p></p>
 
     <a href="/song" class="btn btn-primary">Back to Songs</a>
@@ -14,47 +39,53 @@
             <source src="<%= song.soundClipUri %>" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
-    <% } %>
-
-    <% if (song.videoUri) { %>
-        <video width="640" height="360" controls>
-            <source src="<%= song.videoUri %>" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    <% } %>
+        <% } %>
 
 
-    <% if(song.genre) { %>
-        <p>Genre: <a href="<%= song.genre.url %>">
-                <%= song.genre.name %>
-        </a></p>
-    <% } %>
+            <div class="mt-3 content-container">
+                <strong>Process:</strong>
+                <% if (song.videoUri && song.videoUri.trim().length> 0) { %>
+                    <div class="embed-responsive embed-responsive-16by9 mt-2">
+                        <iframe class="embed-responsive-item" src="<%= song.videoUri.replace('watch?v=', 'embed/') %>"
+                            allowfullscreen></iframe>
+                    </div>
+                    <% } else { %>
+                        <p>No video available.</p>
+                        <% } %>
+            </div>
 
-    <% if(song.musician) { %>
-        <p>Musician: <a href="<%= song.musician.url %>">
-                <%= song.musician.name %>
-            </a></p>
-    <% } %>
 
-    <% if(song.instruments) { %>
-        <p>Instruments:
-        <ul>
-            <% for (let i of song.instruments) { %>
-                <li><a href="<%= i.url %>">
-                        <%= i.name %>
-                    </a></li>
+            <% if(song.genre) { %>
+                <p>Genre: <a href="<%= song.genre.url %>">
+                        <%= song.genre.name %>
+                    </a></p>
                 <% } %>
-        </ul>
-        </p>
-    <% } %>
+
+                    <% if(song.musician) { %>
+                        <p>Musician: <a href="<%= song.musician.url %>">
+                                <%= song.musician.name %>
+                            </a></p>
+                        <% } %>
+
+                            <% if(song.instruments) { %>
+                                <p>Instruments:
+                                <ul>
+                                    <% for (let i of song.instruments) { %>
+                                        <li><a href="<%= i.url %>">
+                                                <%= i.name %>
+                                            </a></li>
+                                        <% } %>
+                                </ul>
+                                </p>
+                                <% } %>
 
 
-    <p></p>
-    <a href="/song/update/<%= song._id %>" class="btn btn-primary">Update this Song</a>
+                                    <p></p>
+                                    <a href="/song/update/<%= song._id %>" class="btn btn-primary">Update this Song</a>
 
-    <form action="/song/verifyDelete/<%= song._id %>" method="GET"
-        style="display:inline;">
-        <button type="submit" class="btn btn-danger">Delete this song</button>
-    </form>
+                                    <form action="/song/verifyDelete/<%= song._id %>" method="GET"
+                                        style="display:inline;">
+                                        <button type="submit" class="btn btn-danger">Delete this song</button>
+                                    </form>
 
-    <%- include("super-common-footer.ejs")%>
+                                    <%- include("super-common-footer.ejs")%>
