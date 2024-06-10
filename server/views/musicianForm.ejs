@@ -13,7 +13,7 @@
         <label for="imageUri">Image URL:</label>
         <input type="text" class="form-control" id="imageUri" name="imageUri" value="<%= musician.imageUri || '' %>">
         <% if (musician.imageUri && musician.imageUri.trim().length > 0) { %>
-            <img src="<%= musician.imageUri %>" alt="<%= musician.name %>" class="img-fluid mt-2">
+            <img src="<%= musician.imageUri %>" alt="<%= musician.name %>" class="img-fluid mt-2" id="imagePreview">
         <% } %>
     </div>
 
@@ -30,17 +30,14 @@
     <div class="mb-3">
         <label for="processVideoUri"><strong>Process:</strong></label>
         <input type="text" id="processVideoUri" class="form-control" name="processVideoUri"
-            placeholder="Please embed a video link (e.g., https://www.youtube.com/watch?v=example)"
+            placeholder="Please embed a YouTube video link (e.g., https://www.youtube.com/watch?v=example)"
             value="<%= musician.processVideoUri || '' %>">
-        <% if (musician.processVideoUri && musician.processVideoUri.trim().length > 0) { %>
-            <div class="embed-responsive embed-responsive-16by9 mt-2" style="height: 560px;">
-                <iframe class="embed-responsive-item"
-                    src="<%= musician.processVideoUri.replace('watch?v=', 'embed/') %>" allowfullscreen></iframe>
-            </div>
-        <% } %>
+        <div class="embed-responsive embed-responsive-16by9 mt-2" style="height: 560px;">
+            <iframe id="processVideoIframe" class="embed-responsive-item" allowfullscreen></iframe>
+        </div>
     </div>
 
-    <div class="alert alert-info">
+    <div class="alert alert-info mb-3 custom-margin">
         <label for="songs"><strong>Songs:</strong></label>
         <p>Drag and drop songs to associate them with this musician.</p>
         <div class="row">
@@ -54,7 +51,7 @@
                             <% } %>
                         <% } %>
                     </div>
-                    <a href="/song/create" class="btn btn-secondary">Create New Song</a>
+                    <a href="/song/create" class="btn btn-secondary" target="_blank">Create New Song</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -151,10 +148,33 @@
     }
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var processVideoUri = '<%= musician.processVideoUri %>';
+        var iframe = document.getElementById('processVideoIframe');
+        if (processVideoUri) {
+            if (processVideoUri.includes('youtube.com') || processVideoUri.includes('youtu.be')) {
+                iframe.src = processVideoUri.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/');
+            } else {
+                iframe.style.display = 'none';
+            }
+        } else {
+            iframe.style.display = 'none';
+        }
+
+        var imageUri = '<%= musician.imageUri %>';
+        if (imageUri && imageUri.trim().length > 0) {
+            document.getElementById('imagePreview').src = imageUri;
+        }
+    });
+</script>
+
 <style>
     .song-container {
         border: 1px solid #ddd;
         min-height: 200px;
+        max-height: 400px; /* Set the maximum height */
+        overflow-y: auto; /* Make the container scrollable */
         padding: 10px;
         background-color: #f9f9f9;
         border-radius: 5px;
@@ -195,6 +215,14 @@
     .img-fluid {
         max-width: 100%;
         height: auto;
+    }
+
+    .custom-margin {
+        margin-top: 20px !important;
+    }
+
+    .mb-3 {
+        margin-bottom: 1rem !important;
     }
 </style>
 

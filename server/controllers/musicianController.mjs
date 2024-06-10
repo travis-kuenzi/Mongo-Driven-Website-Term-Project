@@ -56,7 +56,7 @@ async function create_post(req, res, next) {
     });
     try {
         await musician.save();
-        res.redirect('/musician');
+        res.redirect(`/musician/${musician._id}`);
     } catch (err) {
         let songs = await Song.find().exec();
         res.render("musicianForm.ejs", { title: 'Create Musician', musician: { ...req.body, imageUri: musician.imageUri, songs: req.body.songs ? req.body.songs.split(',') : [] }, songs: songs, creatingNew: { new: true }, errors: errorParser(err.message) });
@@ -90,7 +90,7 @@ async function update_post(req, res, next) {
         musician.songs = req.body.songs ? req.body.songs.split(',') : [];
 
         await musician.save();
-        res.redirect('/musician');
+        res.redirect(`/musician/${musician._id}`);
     } catch (err) {
         const musicianId = req.params.id;
         let songs = await Song.find().exec();
