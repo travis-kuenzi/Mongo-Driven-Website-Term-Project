@@ -84,7 +84,13 @@ async function update_post(req, res, next) {
         }
 
         musician.name = req.body.name;
-        musician.imageUri = ensureHttp(req.body.imageUri) || (req.file ? `/uploads/${req.file.filename}` : musician.imageUri);
+        if (req.file) {
+            musician.imageUri = `/uploads/${req.file.filename}`;
+        } else if (req.body.imageUri && req.body.imageUri.trim() !== '') {
+            musician.imageUri = ensureHttp(req.body.imageUri);
+        } else {
+            musician.imageUri = musician.imageUri || ''; // Ensure imageUri is blank if no new URL or file is provided
+        }
         musician.anecdote = req.body.anecdote;
         musician.processVideoUri = ensureHttp(req.body.processVideoUri);
         musician.songs = req.body.songs ? req.body.songs.split(',') : [];

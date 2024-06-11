@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 let MusicianSchema = new Schema({
     name: { type: String, required: true },
-    imageUri: { type: String }, 
+    imageUri: { type: String },
     anecdote: { type: String },
     processVideoUri: { type: String },
     // Each musician has many songs
