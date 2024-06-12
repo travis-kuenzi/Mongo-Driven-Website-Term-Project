@@ -92,19 +92,18 @@ async function loadAllrecords(){
   }
 
 
-  //commented jun11 5pm for further fix
-  // for (let relation of dataFile.genreInstrumentRelation) {
-  //   GenreRecords[relation.GenreIndex].instruments = InstrumentRecords[relation.InstrumentIndex]._id;
-  // }
-
-  // // Wire genre-instrument relations (many-to-many)
-  // for (let relation of dataFile.genreInstrumentRelation) {
-  //   // load that index from there, push its value in according genre.
-  //   for (let instrumentIndex of relation.InstrumentIndex) {
-  //      GenreRecords[relation.GenreIndex].instruments.push(InstrumentRecords[instrumentIndex]._id);
-  //   }
-  // }
-
+  
+  // Wire genre-instrument relations (many-to-many)
+  for (let relation of dataFile.genreInstrumentRelation) {
+    // load that index from there, push its value in according genre.
+    for (let instrumentIndex of relation.InstrumentIndex) {
+      GenreRecords[relation.GenreIndex].instruments.push(InstrumentRecords[instrumentIndex]._id);
+      }
+  }
+      
+      // for (let relation of dataFile.genreInstrumentRelation) {
+      //   GenreRecords[relation.GenreIndex].instruments = InstrumentRecords[relation.InstrumentIndex]._id;
+      // }
  
 
 
