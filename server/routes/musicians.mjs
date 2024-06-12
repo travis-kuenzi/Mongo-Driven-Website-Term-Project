@@ -11,7 +11,7 @@ router.post('/create', upload.single('imageUpload'), create_post);
 router.get('/update/:id', update_get);
 router.post('/update/:id', upload.single('imageUpload'), update_post);
 router.get('/verifyDelete/:id', verifyDelete);
-router.post('/:id/delete', deleteMusician);
+router.post('/delete/:id', deleteMusician);
 router.get('/:id', musicianById);
 
 export default router;
