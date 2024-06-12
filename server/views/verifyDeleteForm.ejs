@@ -24,10 +24,10 @@
 <body>
     <main class="center-content">
         <p><b>Are you sure you want to delete <%= object.name %>?</b></p>
-        <form action="/musician/<%= object._id %>/delete" method="POST" style="display:inline;">
+        <form action="/<%= objectType.type %>/delete/<%= object._id %>" method="POST" style="display:inline;">
             <button type="submit" class="btn btn-danger">Yes</button>
         </form>
-        <form action="/musician/<%= object._id %>" method="GET" style="display:inline;">
+        <form action="/<%= objectType.type %>/<%= object._id %>" method="GET" style="display:inline;">
             <button type="submit" class="btn btn-primary">No</button>
         </form>
     </main>
