@@ -3,13 +3,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import multer from 'multer';
+import { default as credentials } from "./dbCredentials.mjs";
 import { createMusician, create_post, deleteMusician, musicianById, musicianList, update_get, update_post, verifyDelete } from './controllers/musicianController.mjs';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const connection_string = "mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024";
+const connection_string = credentials.connection_string;
 mongoose.connect(connection_string, {
 }).catch(err => console.error('Error connecting to MongoDB:', err));
 
