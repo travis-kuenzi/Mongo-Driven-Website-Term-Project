@@ -138,8 +138,7 @@ const InstrumentList = ([{
   family: "Percussion Instruments",
   imageUri: "https://www.bhphotovideo.com/images/images2500x2500/tama_ip52nchbk_imperialstar_5_piece_complete_kit_1366236.jpg",
   soundSampleUri: "https://www.youtube.com/embed/2fqzbwsy4nA?si=yyzOSWXa3RA5I4wW"
-},
-
+}
 
 ]);
 
@@ -174,11 +173,9 @@ const songMusicianRelation = [
 //One to many relationships
 // Song-Instrument Relation
 const songInstrumentRelation = [
-  { SongIndex: 0, InstrumentIndex: 0 }, // Layla features Guitar
-  { SongIndex: 1, InstrumentIndex: 3 },  // Hotel California features Drum
-  //TODO: song could save more than 1 instrument. How does that work?
-  // { SongIndex: 2, InstrumentIndex: [1,2] }  // Give Life Back to Music features Keyboard and Drum
-  { SongIndex: 2, InstrumentIndex: 1 }  // Give Life Back to Music features Keyboard and Drum
+  { SongIndex: 0, InstrumentIndex: [0] }, // Layla features Guitar
+  { SongIndex: 1, InstrumentIndex: [3] },  // Hotel California features Drum
+  { SongIndex: 2, InstrumentIndex: [1,2] }  // Give Life Back to Music features Keyboard and Drum
 ];
 
 // Song-Genre Relation
@@ -188,11 +185,18 @@ const songGenreRelation = [
   { SongIndex: 2, GenreIndex: 1 }   // Give Life Back to Music belongs to House Music
 ];
 
-const genreInstrumentRelation = [
-  { InstrumentIndex: 0, GenreIndex:  0}, // 
-  { InstrumentIndex: 5, GenreIndex: 1 },  // 
-  { InstrumentIndex: 2, GenreIndex: 2 },
-  { InstrumentIndex: 3, GenreIndex: 3 }  //
+ const genreInstrumentRelation = [
+  { GenreIndex: 0, InstrumentIndex: [0] }, // 
+  { GenreIndex: 1, InstrumentIndex: [5] },  // 
+  { GenreIndex: 2, InstrumentIndex: [2] },
+  { GenreIndex: 3, InstrumentIndex: [3] }  //
 ];
 
-export default { GenreList, MusicianList, InstrumentList, SongList, songGenreRelation, songMusicianRelation, songInstrumentRelation, genreInstrumentRelation};
+// const genreInstrumentRelation = [
+//   { InstrumentIndex: 0, GenreIndex: 0}, // 
+//   { InstrumentIndex: 5, GenreIndex: 1 },  // 
+//   { InstrumentIndex: 2, GenreIndex: 2 },
+//   { InstrumentIndex: 3, GenreIndex: 3 }  //
+// ];
+
+export default { GenreList, MusicianList, InstrumentList, SongList, songGenreRelation, songMusicianRelation, songInstrumentRelation};

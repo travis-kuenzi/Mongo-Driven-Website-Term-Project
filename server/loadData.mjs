@@ -4,7 +4,6 @@ import { default as mongoose } from "mongoose";
 //await mongoose.connect(credentials.connection_string);
 
 //load our 4 models
-//this works fine? (5/29 WZ)
 import { default as Song} from './models/song.mjs';
 import { default as Genre} from './models/genre.mjs';
 import { default as Instrument} from './models/instrument.mjs';
@@ -14,10 +13,10 @@ import { default as Musician} from './models/musician.mjs';
 import { default as dataFile} from './data.mjs';
 
 // MongoDB connection string
-const mongoDB = 'mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024';
 
 //Async functions so we can use await to synchronize steps
 async function loadAllrecords(){
+  const mongoDB = credentials.connection_string;
   await mongoose.connect(mongoDB);
   
   //delete all existing records
@@ -78,18 +77,34 @@ async function loadAllrecords(){
     for (let relation of dataFile.songGenreRelation) {
       SongRecords[relation.SongIndex].genre = GenreRecords[relation.GenreIndex]._id;
     }
-  
+
+    // 1 song to one musician.
     for (let relation of dataFile.songMusicianRelation) {
       SongRecords[relation.SongIndex].musician = MusicianRecords[relation.MusicianIndex]._id;
     }
   
-    for (let relation of dataFile.songInstrumentRelation) {
-      SongRecords[relation.SongIndex].instrument = InstrumentRecords[relation.InstrumentIndex]._id;
+  // Wire song-instrument relations (one-to-many)
+  for (let relation of dataFile.songInstrumentRelation) {
+    // a song accept array of instruments
+    for (let instrumentIndex of relation.InstrumentIndex) {
+      SongRecords[relation.SongIndex].instruments.push(InstrumentRecords[instrumentIndex]._id);
     }
+  }
 
-    for (let relation of dataFile.genreInstrumentRelation) {
-      GenreRecords[relation.GenreIndex].instrument = InstrumentRecords[relation.InstrumentIndex]._id;
-    }
+
+  //commented jun11 5pm for further fix
+  // for (let relation of dataFile.genreInstrumentRelation) {
+  //   GenreRecords[relation.GenreIndex].instruments = InstrumentRecords[relation.InstrumentIndex]._id;
+  // }
+
+  // // Wire genre-instrument relations (many-to-many)
+  // for (let relation of dataFile.genreInstrumentRelation) {
+  //   // load that index from there, push its value in according genre.
+  //   for (let instrumentIndex of relation.InstrumentIndex) {
+  //      GenreRecords[relation.GenreIndex].instruments.push(InstrumentRecords[instrumentIndex]._id);
+  //   }
+  // }
+
  
 
 
@@ -106,4 +121,7 @@ async function loadAllrecords(){
 }
 
 //Make it happen
-loadAllrecords();
+loadAllrecords().catch(err => {
+  console.error('Error loading records:', err);
+  mongoose.disconnect();
+});

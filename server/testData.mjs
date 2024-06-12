@@ -3,9 +3,10 @@ import Genre from './genre.js';
 import Musician from './musician.js';
 import Instrument from './instrument.js';
 import Song from './song.js';
+import { default as credentials } from "./dbCredentials.mjs";
 
 // Replace with our MongoDB connection string
-const mongoDB = 'mongodb+srv://team2:team2password@chemeketa2024.q5phttf.mongodb.net/?retryWrites=true&w=majority&appName=Chemeketa2024';
+const mongoDB = credentials.connection_string;
 async function main() {
     await mongoose.connect(mongoDB);
 
