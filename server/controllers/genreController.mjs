@@ -38,7 +38,7 @@ async function genreById(req, res, next) {
             res.render('singleGenre.ejs', { genre: genre, songs: songs, instruments: instruments });
         }
         else
-            next();
+            res.status(404).send('404 file not found');
     } catch (err) {
         //console.error('Error in genreById:', err);
         next(err);

@@ -30,7 +30,7 @@ async function songById(req, res, next) {
         if (song) {
             res.render('singleSong.ejs', { song: song });
         } else {
-            next();
+            res.status(404).send('404 file not found');
         }
     } catch (err) {
         next(err);

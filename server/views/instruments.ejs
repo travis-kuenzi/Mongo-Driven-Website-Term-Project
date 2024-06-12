@@ -1,19 +1,23 @@
 <%- include("super-common-header.ejs", {title:title }) %>
 
     <h1>Instruments:</h1>
-    <p> </p>
+    <br>
+
+    <img src="/images/instruments.jpg" alt="Instruments" height="500 em">
+    <br>
+    <br>
 
     <form action="/instrument/searchByName" method="GET">
         <div>
-            <label for="search">Search for an instrument by name</label>
+            <label for="search">Search for an instrument by name:</label><br>
             <input type="text" id="search" name="search" placeholder="Enter instrument name">
             <button type="submit">Search</button>
         </div>
     </form>
-    
+    <br>
     <form action="/instrument/searchByFamily" method="GET">
         <div>
-            <p>Or search for instruments by family:</p>
+            <p>Search for instruments by family:</p>
             <input type="radio" id="string" name="family" value="string">
             <label for="string">String</label><br>
             <input type="radio" id="woodwind" name="family" value="woodwind">
@@ -30,17 +34,18 @@
 
 
 
-    <p></p>
-
+    <br>
+    
+    <h1>Browse Instruments Below:</h1>
+    <br>
+    <a href="/instrument/create" class="btn btn-primary">Create a new instrument</a>
+    <br><br>
     <% for (let i=0; i < instruments.length; i++) { %>
         <h2><%- instruments[i].name %></h2>
         <a href="<%= instruments[i].url %>">Click here to view <%= instruments[i].name %></a>
         <% } %>
 
-            <p></p>
-            <a href="/instrument/create" class="btn btn-primary">Create a new instrument</a>
+    <%- include("super-common-footer.ejs")%>
+        </body>
 
-            <%- include("super-common-footer.ejs")%>
-                </body>
-
-                </html>
+        </html>
