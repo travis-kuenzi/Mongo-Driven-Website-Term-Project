@@ -3,7 +3,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import multer from 'multer';
-import { createMusician, create_post, deleteMusician, musicianById, musicianList, update_get, update_post, verifyDelete } from './controllers/musicianController.mjs';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -14,6 +13,8 @@ mongoose.connect(connection_string, {
 }).catch(err => console.error('Error connecting to MongoDB:', err));
 
 app.use(express.static(path.join(__dirname, '..', 'Public')));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,11 +35,11 @@ app.use('/instrument', instrumentRouter);
 import { default as songRouter } from './routes/songs.mjs';
 app.use('/song', songRouter);
 
-app.use((req, res, next) => {
+app.use((err, req, res, next) => {
     res.status(404).sendFile(path.join(__dirname, '..', 'Public', '404.html'));
 });
 
-app.use(function (err, req, res, next) {
+/* app.use(function (err, req, res, next) {
     let message = err.message;
     console.log(req.app);
 
@@ -48,7 +49,7 @@ app.use(function (err, req, res, next) {
     body += `<h2>${err.status}</h2>`;
     body += `<pre>${err.stack}</pre>`;
     res.send(body);
-});
+}); */
 
 const port = 3000;
 app.listen(port);

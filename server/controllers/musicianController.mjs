@@ -29,7 +29,7 @@ async function musicianById(req, res, next) {
             let songs = await Song.find().exec();
             res.render('singleMusician.ejs', { musician: musician, songs: songs });
         } else {
-            next();
+            res.status(404).send('404 file not found');
         }
     } catch (err) {
         next(err);
