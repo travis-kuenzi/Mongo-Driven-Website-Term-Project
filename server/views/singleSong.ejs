@@ -30,7 +30,18 @@
     <a href="/song" class="btn btn-primary">Back to Songs</a>
 
     <p></p>
-
+    <h2>Viewed History</h2>
+    <% if (viewedSongs && viewedSongs.length > 0) { %>
+    <ul>
+        <% viewedSongs.forEach(viewedSong => { %>
+        <li>
+            <a href="<%= viewedSong.url %>"><%= viewedSong.name %> (Viewed <%= viewedSong.views %> times)</a>
+        </li>
+        <% }); %>
+    </ul>
+    <% } else { %>
+    <p>No songs viewed yet.</p>
+    <% } %>
     <h1><%- song.name %></h1>
 
 
@@ -40,7 +51,7 @@
             Your browser does not support the audio element.
         </audio>
         <% } %>
-
+        
 
             <div class="mt-3 mb-3 content-container">
                 <% if (song.videoUri && song.videoUri.trim().length> 0) { %>

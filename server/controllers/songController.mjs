@@ -27,9 +27,29 @@ async function songById(req, res, next) {
             .populate("instruments")
             .exec();
 
-        if (song) {
-            res.render('singleSong.ejs', { song: song });
+        if (song){
+        // Update the viewed history in cookies
+        let viewedSongs = req.cookies.viewedSongs ? JSON.parse(req.cookies.viewedSongs) : [];
+
+        // Check if the song is already in the viewed history
+        const existingSong = viewedSongs.find(v => v.id === songId);
+        if (existingSong) {
+            existingSong.views += 1;
         } else {
+            viewedSongs.push({ id: songId, name: song.name, views: 1, url: `/song/${songId}` });
+        }
+
+        // Sort by most viewed and limit to 3 songs
+        viewedSongs.sort((a, b) => b.views - a.views);
+        if (viewedSongs.length > 3) {
+            viewedSongs = viewedSongs.slice(0, 3);
+        }
+
+        // Set the updated viewed history in cookies
+        res.cookie('viewedSongs', JSON.stringify(viewedSongs), { maxAge: 900000, httpOnly: true });
+
+        res.render('singleSong.ejs', { song: song, viewedSongs: viewedSongs });
+    }  else {
             res.status(404).send('404 file not found');
         }
     } catch (err) {
