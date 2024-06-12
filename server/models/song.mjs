@@ -6,7 +6,7 @@ let SongSchema = new Schema({
   soundClipUri: { type: String },
   //Each song has one musician
   musician: { type: Schema.Types.ObjectId, ref: "Musician" },
-  //Each song has a few genres
+  //Each song has a genre
   genre: { type: Schema.Types.ObjectId, ref: "Genre" },
   //Each song has a few instruments
   instruments: [{ type: Schema.Types.ObjectId, ref: "Instrument" }],
