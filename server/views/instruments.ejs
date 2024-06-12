@@ -3,10 +3,27 @@
     <h1>Instruments:</h1>
     <p> </p>
 
-    <form action="/instrument/search" method="GET">
+    <form action="/instrument/searchByName" method="GET">
         <div>
             <label for="search">Search for an instrument by name</label>
             <input type="text" id="search" name="search" placeholder="Enter instrument name">
+            <button type="submit">Search</button>
+        </div>
+    </form>
+    
+    <form action="/instrument/searchByFamily" method="GET">
+        <div>
+            <p>Or search for instruments by family:</p>
+            <input type="radio" id="string" name="family" value="string">
+            <label for="string">String</label><br>
+            <input type="radio" id="woodwind" name="family" value="woodwind">
+            <label for="woodwind">Woodwind</label><br>
+            <input type="radio" id="brass" name="family" value="brass">
+            <label for="brass">Brass</label><br>
+            <input type="radio" id="percussion" name="family" value="percussion">
+            <label for="percussion">Percussion</label><br>
+            <input type="radio" id="keyboard" name="family" value="keyboard">
+            <label for="keyboard">Keyboard</label><br>
             <button type="submit">Search</button>
         </div>
     </form>

@@ -138,7 +138,8 @@ const InstrumentList = ([{
   family: "Percussion Instruments",
   imageUri: "https://www.bhphotovideo.com/images/images2500x2500/tama_ip52nchbk_imperialstar_5_piece_complete_kit_1366236.jpg",
   soundSampleUri: "https://www.youtube.com/embed/2fqzbwsy4nA?si=yyzOSWXa3RA5I4wW"
-}
+},
+
 
 ]);
 
@@ -178,7 +179,6 @@ const songInstrumentRelation = [
   //TODO: song could save more than 1 instrument. How does that work?
   // { SongIndex: 2, InstrumentIndex: [1,2] }  // Give Life Back to Music features Keyboard and Drum
   { SongIndex: 2, InstrumentIndex: 1 }  // Give Life Back to Music features Keyboard and Drum
-
 ];
 
 // Song-Genre Relation
