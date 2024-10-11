@@ -1,12 +1,11 @@
-This is CS290 Group 2's main repo 😸
-It will contain our basic information and code
-We have another google doc📄 for discussing and Github project page💻 for project tracking
+This is my term project from CS290 Web Development. I completed this project with three other students (Nina Turney, Yifei Zhao, and Sophia Liu).
+We used Github for both source control and project management. I also used a google doc to keep track of meeting notes and brainstorming. I've linked the document below:
 
-Wk4 Update: Made an temporary gitignore
-    Will be working on our Mermaid Diagram
+https://docs.google.com/document/d/1HSGYUsgJcubvtRpu8RelQNlYKIowSoGIGLC2T2jS1LA/edit?pli=1
+
 
 # Project Documentation
-Here are our proposed data types:
+Object UML Diagram:
 ```mermaid
 classDiagram 
     class Genre {
@@ -86,19 +85,7 @@ Song:
     * Relationship stored on Song side
     * When a song is deleted, update Instrument with Nothing
 
-Teammates Contact:
-(william) Yifei Zhao
-yzhao7@my.chemeketa.edu
-Nina
-nturney@chemeketa.edu
-Sophia Liu
-sophiayfliu@gmail.com
-Travis
-tkuenz20@my.chemeketa.edu
 
-Google doc link:
-https://docs.google.com/document/d/1HSGYUsgJcubvtRpu8RelQNlYKIowSoGIGLC2T2jS1LA/edit?pli=1
+
 Github project track link (also can be seen top bar as 'projects')
 https://github.com/orgs/ChemeketaCS/projects/22/views/1
-Sophia's Final project ideas page:
-https://docs.google.com/document/d/1RaGtYDZ_dPJ0JbQ883z3_zTJDKY0bGpSdCKCP5NRS_A/edit
