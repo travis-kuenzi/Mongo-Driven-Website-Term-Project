@@ -38,15 +38,15 @@ classDiagram
       + string name
       + string soundClipUri
       + Musician musician
-      + Genre genres
-      + Instrument instrument
+      + Genre genre
+      + Instrument instrument[]
       + string videoUri
     }
 
 
     %%Links between entities - don't worry too much about details
 
-    Song "1" -- "0..*" Genre
+    Song "1" -- "1" Genre
     Song "1" -- "1..*" Musician
     Song "1" -- "0..*" Instrument
 
@@ -79,7 +79,7 @@ Song:
 * Each song has one musician
     * Relationship is stored on the Song side
     * When a song is deleted, update Musician with Nothing
-* Each song has a few genres
+* Each song has a one genres
     * Relationship stored on Song side
     * When a song is deleted, update Genre with Nothing
 * Each song has a few instruments

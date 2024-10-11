@@ -187,7 +187,7 @@ const songGenreRelation = [
 
  const genreInstrumentRelation = [
   { GenreIndex: 0, InstrumentIndex: [0] }, // 
-  { GenreIndex: 1, InstrumentIndex: [5] },  // 
+  { GenreIndex: 1, InstrumentIndex: [1] },  // 
   { GenreIndex: 2, InstrumentIndex: [2] },
   { GenreIndex: 3, InstrumentIndex: [3] }  //
 ];
@@ -199,4 +199,4 @@ const songGenreRelation = [
 //   { InstrumentIndex: 3, GenreIndex: 3 }  //
 // ];
 
-export default { GenreList, MusicianList, InstrumentList, SongList, songGenreRelation, songMusicianRelation, songInstrumentRelation};
+export default { GenreList, MusicianList, InstrumentList, SongList, songGenreRelation, songMusicianRelation, songInstrumentRelation,genreInstrumentRelation};

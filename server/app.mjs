@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import multer from 'multer';
+import cookieParser from 'cookie-parser';
 import { default as credentials } from "./dbCredentials.mjs";
 import { createMusician, create_post, deleteMusician, musicianById, musicianList, update_get, update_post, verifyDelete } from './controllers/musicianController.mjs';
 
@@ -19,6 +20,8 @@ app.use(express.static(path.join(__dirname, '..', 'Public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
